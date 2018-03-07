@@ -10,24 +10,24 @@
 % 2/3 parágrafos com a solução (método proposto e resultados parciais)
 % 1 parágrafo com organização do trabalho
 
-Uma grande quantidade de conteúdo digital em vídeo está disponível em plataformas como YouTube e Vimeo. Em razão disso, há uma crescente demanda por meios de proteger a propriedade intelectual dessas produções \citeauthorhua2004robust}. De acordo com \citeauthorkim2005spatiotemporal} uma maneira de identificar cópias de vídeo é gerar uma assinatura digital para cada produção, através de um algoritmo, que poderá ser comparada com a base de dados de assinaturas de outros vídeos.
+Uma grande quantidade de conteúdo digital em vídeo está disponível em plataformas como YouTube e Vimeo. Em razão disso, há uma crescente demanda por meios de proteger a propriedade intelectual dessas produções \citeauthor{hua2004robust}. De acordo com \citeauthor{kim2005spatiotemporal} uma maneira de identificar cópias de vídeo é gerar uma assinatura digital para cada produção, através de um algoritmo, que poderá ser comparada com a base de dados de assinaturas de outros vídeos.
 
-	Conforme a definição de \citeauthorkim2005spatiotemporal}, a detecção de cópias baseada no conteúdo é uma abordagem que utiliza as informações de elementos presentes nas próprias mídias, como bordas, objetos e cores, para gerar uma assinatura discriminante e robusta. Essa técnica também é útil para monitorar e rastrear quando um vídeo é utilizado, como por exemplo, contar a quantidade de exibições de uma propanda na televisão. 
+	Conforme a definição de \citeauthor{kim2005spatiotemporal}, a detecção de cópias baseada no conteúdo é uma abordagem que utiliza as informações de elementos presentes nas próprias mídias, como bordas, objetos e cores, para gerar uma assinatura discriminante e robusta. Essa técnica também é útil para monitorar e rastrear quando um vídeo é utilizado, como por exemplo, contar a quantidade de exibições de uma propanda na televisão. 
     
-    Outra possibilidade de aplicação dessa técnica, de acordo com \citeauthorchen2008video}, é encontrar pequenos trechos recortados de um vídeo e utilizados em outro, normalmente sem autorização do produtor original do conteúdo.
+    Outra possibilidade de aplicação dessa técnica, de acordo com \citeauthor{chen2008video}, é encontrar pequenos trechos recortados de um vídeo e utilizados em outro, normalmente sem autorização do produtor original do conteúdo.
 
     Ainda segundo os autores, para que uma assinatura seja efetiva é necessário um descritor robusto, ou seja, capaz de gerar uma assinatura suficientemente semelhante para uma cópia que sofra distorções de enquadramento, variações de brilho, saturação, redimensionamento. O algoritmo também deve ser capaz de gerar assinaturas diferentes para vídeos com conteúdos diferentes. 
     
-    teste \citeauthor{mao2015sceneframe}
+    teste \citeauthor{{mao2015sceneframe}
 
-    // TODO: ARRUMAR ESSE PARAGRAFO DEPOIS DE ARRUMAR A DEFINIÇÃO Pode-se separar os algoritmos de extração e descrição de vídeos em duas classes, sendo elas local e global. Descritores globais se baseiam em informações como histogramas, bordas e texturas presentes no vídeo e para \citeauthorsantos2004segmentaccao}, são considerados mais rudimentares.  Descritores locais são baseados em regiões e pontos de interesse como a utilização do SIFT (\textit{Scale-Invariant Feature Transform}) ou SURF (\textit{Speeded-Up Robust Features}). Nessa abordagem local, uma característica obtida é a repetibilidade, ou seja, mesmo que elementos no vídeo sejam alterados, transformados ou distorcidos, eles ainda representam as mesmas informações.
+    // TODO: ARRUMAR ESSE PARAGRAFO DEPOIS DE ARRUMAR A DEFINIÇÃO Pode-se separar os algoritmos de extração e descrição de vídeos em duas classes, sendo elas local e global. Descritores globais se baseiam em informações como histogramas, bordas e texturas presentes no vídeo e para \citeauthor{santos2004segmentaccao}, são considerados mais rudimentares.  Descritores locais são baseados em regiões e pontos de interesse como a utilização do SIFT (\textit{Scale-Invariant Feature Transform}) ou SURF (\textit{Speeded-Up Robust Features}). Nessa abordagem local, uma característica obtida é a repetibilidade, ou seja, mesmo que elementos no vídeo sejam alterados, transformados ou distorcidos, eles ainda representam as mesmas informações.
     
     Neste trabalho, foram implementados e comparados os seguintes algoritmos geradores de assinatura digital: 
     \begin{enumerate}
     \item Assinatura de vídeo baseada na medida ordinal.
     \end{enumerate}
     
-    dando continuidade à monografia de \citeauthorsylvio2015}, que estuda descritores globais. Por fim, foi projetada e implementada uma solução utilizando abordagens temporais e espaciais simultaneamente.
+    dando continuidade à monografia de \citeauthor{sylvio2015}, que estuda descritores globais. Por fim, foi projetada e implementada uma solução utilizando abordagens temporais e espaciais simultaneamente.
     
 
 Nas Seções \ref{chap:definicoes}, \ref{chap:estadodaarte} e \ref{chap:relacionados} são apresentados conceitos importantes para o trabalho e é feita uma revisão do estado da arte com base em projetos da mesma área.
