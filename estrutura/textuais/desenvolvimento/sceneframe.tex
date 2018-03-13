@@ -1,10 +1,12 @@
-\section{Assinatura baseada em Scene Frames}
+\section{Assinatura baseada em quadros de cena}
 
-% Traduzir scene frame?
-
-Outra abordagem, proposta por \citeauthor{mao2015sceneframe}, é baseada na assinatura de \textit{scene frames}, ou quadros de cena. O algoritmo fundamenta-se na ideia de que as chances de existirem cinco quadros de cena seguidos é extremamente baixa. De acordo com os autores, um quadro de cena pode ser representado tanto por quadros de referência (chamados \textit{intraframes}), quanto pelos quadros que são codificados pelo mesmo (\textit{interframes}), contanto que siga duas características: o quadro deve ser uma imagem no formato espacial; e os mesmos objetos, além de um \textit{background} altamente similar, devem pertencem a uma mesma cena.
+	Outra abordagem, proposta por \citeauthor{mao2015sceneframe}, é baseada na assinatura de quadros de cena. De acordo com os autores, os quadros de cena podem ser \textit{intraframes}, ou seja, quadros que iniciam tomadas, quanto \textit{interframes}, contanto que sigam as características descritas em \ref{sec:quadrocena}.
+    
+    O algoritmo fundamenta-se na ideia de que as chances de existirem cinco quadros de cena seguidos é extremamente baixa, por isso são selecionados apenas os cinco primeiros quadros de cena de um vídeo. A forma como estes são determinados é descrita no Algoritmo \ref{alg:sceneframe}.
 
 \subsection{A extração de assinatura}
+
+\input{dados/algoritmos/scene_frame.tex}
 
 Primeiramente, todo quadro é pré-processado, seguindo uma série de passos que serão descritos a seguir:
 

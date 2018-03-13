@@ -16,22 +16,13 @@
   	\section{Definição de Vídeo}
     \label{sec:video}
     
-    \subsection*{Quadro}
+    \subsection{Quadro}
     \label{subsec:quadro}
-    Um quadro (ou \textit{frame}) $I$ é uma matriz de altura $h$ e largura $w$. Cada ponto $I[x,y]$ representa uma intensidade de pixel.
+    Um quadro (ou \textit{frame}) $I$ é uma matriz de altura $h$ e largura $w$. Cada ponto $I[x,y]$ representa uma intensidade de pixel [\citeauthor{simoes2004detecccao}]. Além disso, um quadro possuí um determinado tempo, que representa o instante em que aparece em um vídeo. Portanto, seguindo a definição de \citeauthor{simoes2004detecccao}, um vídeo é representado por uma sequência de quadros, todos dispostos através da amostra temporal.
+      
+    Um vídeo pode ser segmentado em cenas, que por sua vez possuem diferentes tomadas, compostas por diferentes quadros em sequência, conforme Figura \ref{fig:video}. As tomadas de um vídeo, como pode ser observado na Figura \ref{fig:video}, são definidas por um ou mais quadros capturados continuamente, representando uma ação ininterrupta no tempo e no espaço \citeauthor{davenport1991cinematic}. Um conjunto de tomadas semelhantes, por sua vez, é intitulado de \textit{cena}.
     
-    , pode ser definido como uma imagem $I$ que possui uma altura e uma largura, cuja intensidade dos \textit{pixels} pode ser representada pela função $f(x,y)$, na qual $x$ representa a posição relativa à largura e $y$ à altura \citeauthor{simoes2004detecccao}. Além disso, um quadro possuí um determinado tempo, que representa o instante em que aparece em um vídeo. Portanto, seguindo a definição de \citeauthor{simoes2004detecccao}, um vídeo é representado por uma sequência de quadros, todos dispostos através da amostra temporal.
-    
-    
-    Um vídeo pode ser segmentado em cenas, que por sua vez possuem diferentes tomadas, compostas por diferentes quadros em sequência, conforme Figura \ref{fig:video}. 
-    
-    
-%     \section{Definição de Tomadas}
-%     \label{sec:shot}
- 
-% 	As tomadas de um vídeo (\textit{shot}), como pode ser observado na Figura \ref{fig:video}, são definidas por um ou mais quadros capturados continuamente, representando uma ação ininterrupta no tempo e no espaço \citeauthor{davenport1991cinematic}. Um conjunto de tomadas semelhantes, por sua vez, é intitulado de \textit{cena}. 
-    
-    \begin{figure}[h]
+	\begin{figure}[H]
         \centering
         \includegraphics[width=0.96\textwidth]{dados/figuras/video.png}
         \caption{Estrutura de um vídeo. Referência: \citeauthor{santos2004segmentaccao}}
@@ -44,8 +35,15 @@
     	Uma assinatura de vídeo é definida como um vetor de características que representa um vídeo e o diferencia de outros \citeauthor{lee2008robust}. Outro termo utilizado para fazer essa referência é o de descritor, uma vez que a assinatura irá descrever um determinado vídeo. As características do vídeo podem ser obtidas de diferentes formas, as quais serão apresentadas na seção \ref{sec:desenv}.
         
        Para um algoritmo de geração de assinatura ser considerado eficiente, é importante que três características sejam consideradas: robustez, singularidade e eficiência de busca. De acordo com \citeauthor{lee2008robust}, uma assinatura é considerada robusta caso o descritor gerado para um vídeo modificado seja similar ao descritor do vídeo original. A singularidade é a capacidade do algoritmo de gerar assinaturas diferentes para vídeos perceptivelmente diferentes. Por fim, eficiência de busca é a capacidade da assinatura  ser utilizada por uma aplicação para buscas em banco de dados de larga escala. Nesta monografia, são avaliados apenas a robustez e a singularidade das assinaturas.
+       
+       \section{Definição de Quadro de Cena}
+       \label{sec:quadrocena}
+       De acordo com \citeauthor{mao2015sceneframe}, um quadro de cena pode ser representado por quadros que sigam duas características: deve ser uma imagem, como definido em \ref{subsec:quadro}; e os mesmos objetos, juntamente com um \textit{background} altamente similar, devem pertencer a uma mesma cena.
+       
+       [ARRUMAR: Procurar outras definições de quadros de cena]
         
-        \subsection{Tipos de descritores de vídeo}
+        \section{Tipos de descritores de vídeo}
+        \label{sec:tiposdescritores}
         
         [Procurar um artigo que defina os descritores +- dentro do que implementamos, e escrever um parágrafo explicando que vamos seguir as definições daquele artigo, já que não existe uma convenção sobre o que são descritores globais e locais.]
 
