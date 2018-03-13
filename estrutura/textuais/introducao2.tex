@@ -1,0 +1,24 @@
+% 1 Parágrafo de contextualização
+A Detecção de Cópias Baseada em Conteúdo é um método utilizado para a proteção de propriedade intelectual de mídias digitais. Ele consiste em extrair uma assinatura da mídia original e de uma mídia de teste, e então compará-las para identificar que se trata do mesmo conteúdo ou não. Esta abordagem assume que a mídia contenha alguma informação única que possa ser utilizada para identificar uma cópia \citeauthor{kim2005spatiotemporal}. 
+
+% 2 Parágrafos com o problema (justificativa)
+Suponha que uma plataforma online de publicação de vídeos (como YouTube ou Vimeo) receba vários pedidos vindos de criadores de conteúdo digital (como estúdios de cinema, cineastas independentes ou ``vloggers'') solicitando a retirada de vídeos da plataforma alegando o infringimento de direitos autorais. Segundo estes criadores, seus filmes estão sendo reproduzidos parcial ou integralmente na plataforma. 
+
+Enquanto o número de pedidos é baixo, não há grandes problemas em definir se realmente se trata de uma cópia: Basta assistir ao vídeo original e à suposta cópia, e então comparar os conteúdos. A medida que o número de pedidos cresce ou que os a extensão dos vídeos seja cada vez mais longa (filmes tendem a ter pelo menos duas horas de duração), torna-se claramente inviável a realizaçao desse processo de forma manual.
+
+% Devemos incluir outros problemas?
+% - identificação de conteúdo sendo reproduzido na TV/ontar quantidade de exibições de uma propaganda
+% - identificar e parar a disseminação de conteúdo proibido/impróprio
+
+Para realizar esta tarefa de forma automática, podem ser utilizados métodos de Detectação de Cópias Baseada em Conteúdo para a criação uma base de dados de assinaturas, para então ser realizada a busca e verificação de cópias.
+
+% 1 parágrafo mencionando estado da arte
+Um dos serviços comerciais mais utilizados para este fim é o \textit{Content ID} da Audible Magic. O método utilizado cria uma assinatura baseando-se no aúdio de uma mídia digital (podendo então ser utilizado tanto para vídeos, quanto para músicas), e disponibiliza um banco de dados global de assinaturas de conteúdos protegidos por propriedade intelectual. Este serviço é usado por grandes corporações como Facebook, SoundCloud e Vimeo \citeauthor{audiblemagic}.
+
+No entanto, o uso do áudio para a criação de assinaturas pode não ser o melhor atributo utilizado na criação de uma assinatura, pois vídeos (principalmente longas-metragens) tendem a ter versões dubladas na língua de cada país onde são distribuídos. 
+
+Para combater este problema, foram propostos inúmeros métodos que utilizam informações contidas nos quadros dos vídeos para a geração das assinaturas. Este trabalho propõe-se a fazer uma revisão da literatura de métodos para Detecção de Cópias Baseada em Conteúdo, selecionar seis candidatos que possuam abordagens distintas, compará-los e avaliar quais atributos do conteúdo digital devem ser escolhidos a fim de otimizar a acurácia na detecção de cópias, e porque. 
+
+% Mencionar que é a continuação do TCC do Sílvio
+% Explicar critérios de escolha - Local, global, espacial, temporal
+% Falar da organização do trabalho 
