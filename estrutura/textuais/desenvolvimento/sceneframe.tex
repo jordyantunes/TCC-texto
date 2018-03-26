@@ -2,21 +2,16 @@
 
 	Outra abordagem, proposta por \citeauthor{mao2015sceneframe}, é baseada na assinatura de quadros de cena. De acordo com os autores, os quadros de cena podem ser \textit{intraframes}, ou seja, quadros que iniciam tomadas, quanto \textit{interframes}, contanto que sigam as características descritas em \ref{sec:quadrocena}.
     
-    O algoritmo fundamenta-se na ideia de que as chances de existirem cinco quadros de cena seguidos é extremamente baixa, por isso são selecionados apenas os cinco primeiros quadros de cena de um vídeo. A forma como estes são determinados é descrita no Algoritmo \ref{alg:sceneframe}.
+    O algoritmo fundamenta-se na ideia de que as chances de existirem cinco quadros de cena seguidos é extremamente baixa, por isso são selecionados apenas os cinco primeiros quadros de cena de um vídeo. A forma como estes são determinados é descrita na Seção \ref{subsec:fptsceneframe}.
 
 \subsection{A extração de assinatura}
+\label{subsec:fptsceneframe}
 
-\input{dados/algoritmos/scene_frame.tex}
+% \input{dados/algoritmos/scene_frame.tex}
 
-Primeiramente, todo quadro é pré-processado, seguindo uma série de passos que serão descritos a seguir:
+A obtenção da assinatura, para \citeauthor{mao2015sceneframe}, é realizada para todos os quadros, para então serem comparadas e selecionadas. Como pode ser observado no Diagrama \ref{dig:sceneframe}, os quadros passam por um pre-processamento, onde o componente de luminância é obtido. O quadro então é recortando, mantendo-se apenas sua região central e, por fim, redimensionado para o tamanho definido de $3/4$QCIF, ou seja, $(108\times132)$.
 
-\begin{enumerate}
-	\item O componente de luminância é obtido
-   	\item O quadro é recortado, utilizando-se apenas sua área central
-    \item O quadro é redimensionado para o tamanho de $3/4$QCIF, ou seja, $(108\times132)$
-\end{enumerate}
-
-Após o processamento inicial, o quadro é então dividido em $144$ pedaços menores, de tamanho $(9\times11)$, cuja média de intensidade irá compor parte da assinatura deste quadro. Além dos $144$ valores, o descritor é composto também por $576$ elementos diferenciais, totalizando $720$ valores. Para obter esses elementos, cada fragmento é dividido em oito elementos menores, como mostra a Figura \ref{fig:divsceneframe}, e então é realizada a subtração de $a - b$, $c - d$, $e - f$ e $g - h$.
+% Após o processamento inicial, o quadro é então dividido em $144$ pedaços menores, de tamanho $(9\times11)$, cuja média de intensidade irá compor parte da assinatura deste quadro. Além dos $144$ valores, o descritor é composto também por $576$ elementos diferenciais, totalizando $720$ valores. Para obter esses elementos, cada fragmento é dividido em oito elementos menores, como mostra a Figura \ref{fig:divsceneframe}, e então é realizada a subtração de $a - b$, $c - d$, $e - f$ e $g - h$.
 
 \begin{figure}[h]
 	\centering
