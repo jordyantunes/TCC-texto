@@ -45,14 +45,32 @@
         \section{Tipos de descritores de vídeo}
         \label{sec:tiposdescritores}
         
-        [Procurar um artigo que defina os descritores +- dentro do que implementamos, e escrever um parágrafo explicando que vamos seguir as definições daquele artigo, já que não existe uma convenção sobre o que são descritores globais e locais.]
+        %[Procurar um artigo que defina os descritores +- dentro do que implementamos, e escrever um parágrafo explicando que vamos seguir as definições daquele artigo, já que não existe uma convenção sobre o que são descritores globais e locais.]
+	%Os descritores de vídeo podem ser classificados em dois tipos: globais e locais. De acordo com \citeauthor{de2012combinaccao}, o primeiro busca informações pertinentes ao quadro como um todo, como por exemplo um histograma de cores de toda a imagem. Outros exemplos de características globais são texturas, bordas e formas  \citeauthor{law2007video}.  
+    %Características locais, por sua vez, procuram por pontos de interesse ou regiões específicas no quadro, utilizando, por exemplo, algoritmos como SIFT, SURF ou LBP (\textit{Local Binary Pattern}), entre outros.      
+%COLOCAR IMAGEM DO SIFT OU SEI LA
+
+[fonte livro]
+Em visão computacional pode-se descrever imagens utilizando algoritmos de identificação de pontos de interesse, sendo conhecidos como descritores locais. Há também descritores globais, que consideram características da imagem como um todo, e não apenas pontos de interesse.
+
+Cada abordagem tem vantagens e desvantagens distintas frente a cada tipo de variação ou ataque às imagens, porém, têm o mesmo objetivo, gerar uma descrição do imagem, normalmente tendo por saída um vetor, que pode ser considerado a assinatura da imagem. 
+
+Idealmente, um descritor de imagens, seja global ou local, deve gerar assinaturas com robustez mediante os principais tipos de variação fotométricas, como borrados, iluminação, ruído e compressão JPEG e também em relação a variações geométricas, como rotação, escala (zoom), translação e ponto de referência (viewpoint).
+
+\subsection{Descritores Locais}
+\label{subsec:descritores locais}
+
+Descritores locais utilizam características locais de cada imagem, comumente denominadas pontos e regiões de interesse, para gerar sua saída. Uma imagem pode ter vários pontos ou regiões de interesse. Os pontos de interesse podem ser determinados a partir de regiões que possuem uma acentuada variação na orientação do gradiente dos objetos presentes em uma imagem, como por exemplo o enquadramento de uma porta ou o pico de uma montanha. As regiões de interesse são determinadas pelos pixels ao redor de um ponto de interesse e ajudam a determinar os limites de cada ponto de interesse. Aproveitando o exemplo anterior, uma região de interesse seria a região ao redor da intersecção do enquadramento de uma porta ou passagem.
+
+[\textit{inserir imagem demonstrando ponto e região de interesse}]
+
+Existem algoritmos de descrição local que são baseados em pontos de interesse, algoritmos que são baseados em regiões de interesse e algoritmos que são baseados tanto em pontos quanto em regiões de interesse. O que determina a escolha do algoritmo é o tipo de ataque ou distorção que se deseja combater, detectar ou evitar com o descritor ( Krystian Mikolajczyk and Cordelia Schmid ). 
+
+Descritores locais normalmente são mais robustos contra variações fotométricas (borrados, iluminação, cores, ruído e compressão JPEG) e na maioria dos casos mais custosos computacionalmente que os descritores globais [por que?]. Um descritor local consiste normalmente de três etapas: detecção das características, descrição das características e combinação das características, de acordo com (Zen Chen and Shu-Kuo Sun 2010).
+
+Na primeira etapa do processo são determinados os pontos e regiões de interesse, como por exemplo o detector de pontos de interesse SIFT, que utiliza uma janela circular na imagem. Esta abordagem com o SIFT, entretanto, não é robusta contra variações geométricas. Na sequência, é definida uma janela de tamanho fixo e é utilizado um descritor das características de região para essa janela. Com todas as regiões de interesse descritas, a última etapa é definir uma função para combinar as diferentes regiões de interesse e assim gerar o vetor de descrição da imagem. (Zen Chen and Shu-Kuo Sun 2010)
 
 
-	Os descritores de vídeo podem ser classificados em dois tipos: globais e locais. De acordo com \citeauthor{de2012combinaccao}, o primeiro busca informações pertinentes ao quadro como um todo, como por exemplo um histograma de cores de toda a imagem. Outros exemplos de características globais são texturas, bordas e formas  \citeauthor{law2007video}.
-       
-    Características locais, por sua vez, procuram por pontos de interesse ou regiões específicas no quadro, utilizando, por exemplo, algoritmos como SIFT, SURF ou LBP (\textit{Local Binary Pattern}), entre outros.      
-    
-    COLOCAR IMAGEM DO SIFT OU SEI LA
 
 \chapter{Estado da Arte}
 \label{chap:estadodaarte}
