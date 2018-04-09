@@ -50,25 +50,44 @@
     %Características locais, por sua vez, procuram por pontos de interesse ou regiões específicas no quadro, utilizando, por exemplo, algoritmos como SIFT, SURF ou LBP (\textit{Local Binary Pattern}), entre outros.      
 %COLOCAR IMAGEM DO SIFT OU SEI LA
 
-[fonte livro]
-Em visão computacional pode-se descrever imagens utilizando algoritmos de identificação de pontos de interesse, sendo conhecidos como descritores locais. Há também descritores globais, que consideram características da imagem como um todo, e não apenas pontos de interesse.
+\section{Descritores de imagem}
+\label{descritores de imagem}
 
-Cada abordagem tem vantagens e desvantagens distintas frente a cada tipo de variação ou ataque às imagens, porém, têm o mesmo objetivo, gerar uma descrição do imagem, normalmente tendo por saída um vetor, que pode ser considerado a assinatura da imagem. 
-
-Idealmente, um descritor de imagens, seja global ou local, deve gerar assinaturas com robustez mediante os principais tipos de variação fotométricas, como borrados, iluminação, ruído e compressão JPEG e também em relação a variações geométricas, como rotação, escala (zoom), translação e ponto de referência (viewpoint).
+Em visão computacional pode-se descrever imagens utilizando algoritmos de identificação de pontos de interesse, sendo conhecidos como descritores locais. Há também descritores globais, que consideram características da imagem como um todo, e não apenas pontos de interesse. Cada abordagem tem vantagens e desvantagens distintas frente a cada tipo de variação ou ataque às imagens, porém, têm o mesmo objetivo, gerar uma descrição do imagem, normalmente tendo por saída um vetor, que pode ser considerado a assinatura da imagem. Idealmente, um descritor de imagens, seja global ou local, deve gerar assinaturas com robustez mediante os principais tipos de variação fotométricas, como borrados, iluminação, ruído e compressão JPEG e também em relação a variações geométricas, como rotação, escala (zoom), translação e ponto de referência (viewpoint).
 
 \subsection{Descritores Locais}
-\label{subsec:descritores locais}
+\label{descritores locais}
 
-Descritores locais utilizam características locais de cada imagem, comumente denominadas pontos e regiões de interesse, para gerar sua saída. Uma imagem pode ter vários pontos ou regiões de interesse. Os pontos de interesse podem ser determinados a partir de regiões que possuem uma acentuada variação na orientação do gradiente dos objetos presentes em uma imagem, como por exemplo o enquadramento de uma porta ou o pico de uma montanha. As regiões de interesse são determinadas pelos pixels ao redor de um ponto de interesse e ajudam a determinar os limites de cada ponto de interesse. Aproveitando o exemplo anterior, uma região de interesse seria a região ao redor da intersecção do enquadramento de uma porta ou passagem.
+Descritores locais utilizam características locais de cada imagem, comumente denominadas pontos e regiões de interesse para gerar sua saída. Uma imagem pode ter vários pontos ou regiões de interesse. Os pontos de interesse podem ser determinados a partir de regiões que possuem uma acentuada variação na orientação do gradiente dos objetos presentes em uma imagem, como por exemplo o enquadramento de uma porta ou o pico de uma montanha. As regiões de interesse são determinadas pelos pixels ao redor de um ponto de interesse e ajudam a determinar os limites de cada ponto de interesse. Aproveitando o exemplo anterior, uma região se interesse seria a região ao redor da intersecção do enquadramento de uma porta ou passagem.
 
-[\textit{inserir imagem demonstrando ponto e região de interesse}]
+Existem algoritmos de descrição local que são baseados em pontos de interesse, algoritmos que são baseados em regiões de interesse e algoritmos que são baseados tanto em pontos de interesse quanto em regiões de interesse. O que determina a escolha do algoritmo é o tipo de ataque ou distorção que se deseja combater, detectar ou evitar com o descritor ( Krystian Mikolajczyk and Cordelia Schmid ). 
 
-Existem algoritmos de descrição local que são baseados em pontos de interesse, algoritmos que são baseados em regiões de interesse e algoritmos que são baseados tanto em pontos quanto em regiões de interesse. O que determina a escolha do algoritmo é o tipo de ataque ou distorção que se deseja combater, detectar ou evitar com o descritor ( Krystian Mikolajczyk and Cordelia Schmid ). 
+Descritores locais são robustos contra variações fotométricas (borrados, iluminação, cores, ruído e compressão JPEG) e normalmente mais custosos computacionalmente que os descritores globais (A VANISHING POINT-BASED GLOBAL DESCRIPTOR FOR MANHATTAN SCENES). Um descritor local consiste normalmente de três etapas: detecção das características, descrição das características e combinação das características, de acordo com (Zen Chen and Shu-Kuo Sun 2010).
 
-Descritores locais normalmente são mais robustos contra variações fotométricas (borrados, iluminação, cores, ruído e compressão JPEG) e na maioria dos casos mais custosos computacionalmente que os descritores globais [por que?]. Um descritor local consiste normalmente de três etapas: detecção das características, descrição das características e combinação das características, de acordo com (Zen Chen and Shu-Kuo Sun 2010).
+Na primeira etapa do processo são determinados os pontos e regiões de interesse, como por exemplo o detector de pontos de interesse SIFT, que utiliza uma janela circular na imagem. Esta abordagem com o SIFT, entretanto, não é robusta contra variações geométricas. Na sequência, é definida uma janela de tamanho fixo e é utilizado um descritor das características de região para essa janela. Com todas as regiões de interesse descritas, a última etapa é definir uma função para combinar as diferentes regiões de interesse e assim gerar o vetor de descrição da imagem. (Zen Chen and Shu-Kuo Sun 2010) 
 
-Na primeira etapa do processo são determinados os pontos e regiões de interesse, como por exemplo o detector de pontos de interesse SIFT, que utiliza uma janela circular na imagem. Esta abordagem com o SIFT, entretanto, não é robusta contra variações geométricas. Na sequência, é definida uma janela de tamanho fixo e é utilizado um descritor das características de região para essa janela. Com todas as regiões de interesse descritas, a última etapa é definir uma função para combinar as diferentes regiões de interesse e assim gerar o vetor de descrição da imagem. (Zen Chen and Shu-Kuo Sun 2010)
+
+\subsection{Descritores Globais}
+\label{descritores globais}
+
+Ao contrário dos descritores locais, descritores globais trabalham com a imagem como um todo, dessa forma, não são priorizados os pontos de interesse. Entretanto, existem trabalhos [citar quais] que utilizam regiões de interesse na implementação dos seus algoritmos, como é o caso do FrameDiff, que será apresentado na seção [indicar seção]. 
+
+As regiões de interesse para descritores globais são determinadas de maneira diferente dos descritores locais. Para os globais, essas regiões normalmente são divisões da imagem, sem considerar de maneira discriminativa o conteúdo de cada região. Cada algoritmo de descrição global implementa a divisão da imagem de maneira diferente, como por exemplo o [algoritmo xxxxx] que divide a imagem em nove retângulos de igual tamanho, e também o [algoritmo yyyyy] que cria um círculo no centro da imagem e o divide em forma de fatias de pizza. Uma variação do [algoritmo yyyyy], por exemplo, determina uma elipse a partir do centro da imagem e também realiza a divisão em forma de pizza, resultando nas regiões de interesse. Todavia, existem algoritmos que não utilizam nenhum tipo de divisão ou regiões de interesse, trabalhando apenas com as características da imagem.
+
+Uma das principais vantagens dos descritores globais é ter menor custo computacional do que a maioria dos descritores locais, segundo [fonte], devido à quantidade inferior de cálculos e passos necessários para a extração da assinatura. Além disso, há uma tendência dos descritores globais gerarem assinaturas mais robustas quando considerados os ataques geométricos às imagens, de acordo com [citar fonte], devido à natureza dos algoritmos. Pode-se utilizar, por exemplo, o caso de ataques do tipo rotação e translação, conforme demonstra a imagem [imagem tal]. Descritores locais usualmente não conseguem gerar assinaturas robustas para esses casos, pois os pontos e regiões de interesse ocupariam uma posição diferente na imagem alterada em relação à imagem original, entretanto, um descritor global leva vantagem justamente por não considerar onde está a região de interesse, mas sim as suas características. O exemplo também vale para os algoritmos que não utilizam a divisão da imagem em regiões.
+
+\section{Descritores de vídeo}
+\label{descritores de vídeo}
+
+As duas classes de descritores apresentadas são descritores de imagens, e de acordo com a definição de vídeo, segundo [citar fonte], um vídeo é uma sequência de imagens. Os descritores locais e globais, entretanto, não podem garantir a singularidade, umas das principais características de um descritor,  quando a entrada do algoritmo é um vetor de imagens ao invés de uma imagem isolada. É evidente que os algoritmos vão gerar as assinaturas para as suas entradas, baseadas em cada frame que compõe o vídeo, porém, não há garantias que o descritor consiga produzir uma assinatura que seja suficientemente semelhante para determinar se um vídeo que sofreu ataques geométricos e/ou fotométricos é a cópia de outro vídeo original.
+
+O trabalho de [fonte] introduz duas abordagens para contornar o problema da singularidade da assinatura. De acordo com os autores, é possível verificar os elementos que estão presentes em uma ou mais cenas para auxiliar os algoritmos a produzir uma assinatura mais precisa dos vídeos.
+
+\subsection{Descritores espaciais}
+\label{descritores espaciais}
+
+\subsection{Descritores temporais}
+\label{Descritores espaciais}
 
 
 
