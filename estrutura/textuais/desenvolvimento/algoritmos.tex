@@ -148,7 +148,7 @@ Para realizar a comparação entre duas assinaturas, \citeauthor{cook2011efficie
 
 \section{Assinatura de vídeo baseada em wavelets}
 
-Esta abordagem foi escolhida por ter sido projetada especialmente para ser robusta a uma variedade de ataques fotométricos e de pós-produção, como modificações em contraste, brilho, contaminação por ruído e desfoque, inserção de logos, bordas e mudança de formato do quadro. Para se tornar ainda mais robustas a estes ataques, \citeauthor{Dutta2013} também descreve um fluxo de pré-processamento, abordado na Seção \ref{sec:preprocessamento}.
+Esta abordagem foi escolhida por ter sido projetada especialmente para ser robusta a uma variedade de ataques fotométricos e de pós-produção, como modificações em contraste, brilho, contaminação por ruído e desfoque, inserção de logos, bordas e mudança de formato do quadro. Para se tornar ainda mais robustas a estes ataques, \citeauthor{Dutta2013} também descreve um fluxo de pré-processamento. % abordado na Seção \ref{sec:preprocessamento}.
 
 Após a etapa de pré-processamento e para ser usado como entrada para este algoritmo, os vídeos devem ser transformados para escala de cinza e ter suas intensidades normalizadas para o intervalo $[0,1]$. A assinatura proposta por \citeauthor{Dutta2013} é composta de uma parte baseada na transformada de Haar e em  outra baseda na distribuição espacial de gradientes.
 
@@ -237,9 +237,9 @@ A obtenção da assinatura, para \citeauthor{mao2015sceneframe}, é realizada pa
 
 \begin{figure}[h]
   \centering
-    \label{fig:divsceneframe}
-  \includegraphics[width=\textwidth]{dados/figuras/sf_division.png}
+    \includegraphics[width=\textwidth]{dados/figuras/sf_division.png}
     \caption{Divisão da imagem para cálculo dos elementos diferenciais. Referência: \citeauthor{mao2015sceneframe}}
+    \label{fig:divsceneframe}
 \end{figure}
 
 \subsection{Diminuição do espaço de memória utilizado}
