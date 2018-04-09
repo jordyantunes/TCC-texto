@@ -78,16 +78,58 @@ Após esse pré-processamento, para cada quadro é realizada a divisão em $M \t
 
 \section{Assinatura de vídeo baseada na diferença entre quadros}
 \label{sec:framediff}
-	Dados dois quadros $\mathbb{I}$ e $\mathbb{J}$, a assinatura temporal desenvolvida por \cite{cook2011efficient} utiliza dois componentes principais para sua construção. O primeiro é a luminância total $Y$, ou seja, a soma dos \textit{pixels} do \textit{frame}, representando o brilho total da imagem. O outro parâmetro é $dY$, ou diferencial de luminância, sendo a diferença do quadro atual com o quadro anterior. $dY$ é uma métrica para saber o quanto a luminância varia com a mudança dos quadros no vídeo.  Essa variação pode acontecer, segundo o autor, a partir do movimento da câmera, corte entre cenas e objetos e pessoas que entram ou saem de cena. 
-    
-   O  valor de $dY$ pode ser obtido através da Equação \ref{eq:framediff} \cite{sylvio2015}: 
+
+  O algoritmo proposto por \cite{cook2011efficient} utiliza características globais, como luminância e diferença de luminância intra-quadros, para uma assinatura robusta (ao utilizar medidas que refletem a estrutura temporal do conteúdo) e eficiente (ao utilizar medidas simples de serem calculadas e comparadas). Para cada quadro de um vídeo são coletadas as seguintes características: 
+
+  \begin{itemize}
+    \item \textit{timestamp}, o tempo do quadro relativo ao início do vídeo
+    \item Luminância Total ($Y$), soma da luminância de todos os pixels de um frame
+    \item Luminância Máxima ($Y_{max}$), o valor do pixel mais brilhante do quadro
+    \item Área do Frame ($A$), largura $\times$ altura do vídeo, útil para normalização
+    \item Luminância diferencial ($dY$), a diferença absoluta de luminância pixel a pixel do quadro atual como quadro que estava visível há 100 milisegundos, a diferença resultante é somada (como mostra a equação \ref{eq:framediff}). 
+  \end{itemize}
 
 \begin{equation}
 	\label{eq:framediff}
 	dY = \sum_{x,y \in  \mathbb{I,J}} |\mathbb{I}(x,y) - \mathbb{J}(x,y)|
 \end{equation} 
-  
-   Portanto cada \textit{frame} será representando por uma tupla $(Y, dY)$.
+
+  Após a obtenção das características primárias, estas passam por um processo de refinamento no qual os vetores $Y$ e $dY$ são passados por filtros passa-baixa (figura X). Além disso, duas outras características são derivadas das características principais e visam medir o quão imóvel uma sequência de frames é. Para isso, são definidas as medidas "Quietude" (equação \ref{eq:framediff-credits}) e "Créditos" (equação \ref{eq:framediff-stillness}).
+
+  \begin{equation}
+    \label{eq:framediff-stillness}
+    Quietude = 100 \times \left(\sqrt{\frac{\ln\frac{dY}{A}}{\ln256}}\right) \\
+  \end{equation}
+
+  \begin{equation}
+    \label{eq:framediff-credits}
+    Creditos = 100 \times \frac{\frac{Y_{max}}{256} + \left( 1 - \left( \frac{\ln\frac{Y}{A}}{\ln256} \right)^2\right)}{2}
+  \end{equation}
+
+
+\begin{figure}[h]
+  \label{fig:framediff-passa-baixa}
+  \includegraphics[width=0.5\textwidth]{dados/figuras/filtro_passa_baixa}
+\end{figure}
+
+
+A figura \ref{fig:framediff-comparacao} mostra a característica $dY$ plotada para um vídeo original e sua versão distorcida com efeitos de desfoque (\textit{blur}) e adição de legenda, além de mostrar os valores de $dY$ para outro vídeo não relacionado.
+
+\begin{figure}[h]
+  \label{fig:framediff-comparacao}
+  \includegraphics[width=0.5\textwidth]{dados/figuras/dy}
+\end{figure}
+
+
+%% --------------
+%% TODO: explicar comparação
+%% --------------
+
+%   Dados dois quadros $\mathbb{I}$ e $\mathbb{J}$, a assinatura temporal desenvolvida por \cite{cook2011efficient} utiliza dois componentes principais para sua construção. O primeiro é a luminância total $Y$, ou seja, a soma dos \textit{pixels} do \textit{frame}, representando o brilho total da imagem. O outro parâmetro é $dY$, ou diferencial de luminância, sendo a diferença do quadro atual com o quadro anterior. $dY$ é uma métrica para saber o quanto a luminância varia com a mudança dos quadros no vídeo.  Essa variação pode acontecer, segundo o autor, a partir do movimento da câmera, corte entre cenas e objetos e pessoas que entram ou saem de cena. 
+    
+%    O  valor de $dY$ pode ser obtido através da Equação \ref{eq:framediff} \cite{sylvio2015}: 
+
+% Portanto cada \textit{frame} será representando por uma tupla $(Y, dY)$.
     
 % --------------------------------------------------------------------------------------------------
 %
