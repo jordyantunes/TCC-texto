@@ -94,7 +94,7 @@ Após esse pré-processamento, para cada quadro é realizada a divisão em $M \t
 	dY = \sum_{x,y \in  \mathbb{I,J}} |\mathbb{I}(x,y) - \mathbb{J}(x,y)|
 \end{equation} 
 
-  Após a obtenção das características primárias, estas passam por um processo de refinamento no qual os vetores $Y$ e $dY$ são passados por filtros passa-baixa (figura X). Além disso, duas outras características são derivadas das características principais e visam medir o quão imóvel uma sequência de frames é. Para isso, são definidas as medidas "Quietude" (equação \ref{eq:framediff-credits}) e "Créditos" (equação \ref{eq:framediff-stillness}).
+  Após a obtenção das características primárias, estas passam por um processo de refinamento no qual os vetores $Y$ e $dY$ são passados por filtros passa-baixa (figura ~\ref{fig:framediff-passa-baixa}). Além disso, duas outras características são derivadas das características principais e visam medir o quão imóvel uma sequência de frames é. Para isso, são definidas as medidas "Quietude" (equação \ref{eq:framediff-credits}) e "Créditos" (equação \ref{eq:framediff-stillness}).
 
   \begin{equation}
     \label{eq:framediff-stillness}
@@ -108,18 +108,27 @@ Após esse pré-processamento, para cada quadro é realizada a divisão em $M \t
 
 
 \begin{figure}[h]
+  \includegraphics[width=0.7\textwidth]{dados/figuras/filtro_passa_baixa}
+  \caption{Linha azul mostra os valores originais do vetor $dY$ e a linha alaranjada mostra os valores pós filtro passa-baixa}
   \label{fig:framediff-passa-baixa}
-  \includegraphics[width=0.5\textwidth]{dados/figuras/filtro_passa_baixa}
 \end{figure}
 
 
 A figura \ref{fig:framediff-comparacao} mostra a característica $dY$ plotada para um vídeo original e sua versão distorcida com efeitos de desfoque (\textit{blur}) e adição de legenda, além de mostrar os valores de $dY$ para outro vídeo não relacionado.
 
 \begin{figure}[h]
+  \includegraphics[width=0.7\textwidth]{dados/figuras/dy}
+  \caption{Comparação entre os vetores de característica $dY$ gerados para um vídeo, uma cópia com o efeito de desfoque, uma cópia com uma legenda inserida, e um outro vídeo qualquer}
   \label{fig:framediff-comparacao}
-  \includegraphics[width=0.5\textwidth]{dados/figuras/dy}
 \end{figure}
 
+
+Para realizar a comparação entre duas assinaturas, \citeauthor{cook2011efficient} propõe o uso da distância de Manhattan normalizada, como descrito na fórmula \ref{eq:dist-manhattan}. Além disso, é proposto o uso de uma combinação das características $Y$ e $dY$ na comparação, pois separadas elas obteram $0.579\%$ e $0.157\%$ de falsos positivos, respectivamente, enquanto que a combinação das duas características obteve apenas $0.018\%$. 
+
+\begin{equation}
+  Distancia(a,b) = \frac{\sum_i|a_i - b_i|}{|a|}
+  \label{eq:dist-manhattan}
+\end{equation}
 
 %% --------------
 %% TODO: explicar comparação
