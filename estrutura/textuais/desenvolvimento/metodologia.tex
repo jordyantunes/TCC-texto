@@ -3,107 +3,6 @@
 \chapter{Metodologia}
 \label{chap:metodologia}
 
-A metodologia do projeto consiste das seguintes etapas:
-
-\begin{enumerate}
-\item Revisão da literatura;
-\item Definição e obtenção da base de vídeos
-\item Definição dos algoritmos;
-\item Implementação dos algoritmos; 
-\item Definição do método de comparação;
-\item Implementação do método de comparação;
-\item Validação das implementações;
-\item Definição dos experimentos;
-\item Experimentos;
-	\begin{enumerate}
-		\item Compilação de uma nova base de vídeos;
-        \item Geração dos vídeos com distorções;
-        \item Geração da assinatura para todos os vídeos;
-        \item Aplicação do método de comparação;
-			% Especificações dos vídeos que serão utilizados
-			% Dimensão, duração, taxa de frames, conteúdo dos videos, extensão (compressão), vídeos problemáticos
-	\end{enumerate}
-\item Análise dos resultados;
-% \item Conclusão
-\end{enumerate}
-
-\section{Revisão da Literatura}
-
-Foi realizada uma revisão da literatura pertinente à pesquisa. Este método de revisão da literatura foi escolhido pois define formas de identificar, interpretar e avaliar pesquisas disponíveis coerentes com o tema. 
-
-Além de artigos recentes relacionados à área, as referências de \citeauthor{sylvio2015} também foram utilizadas na revisão e passaram pelo processo de filtragem, uma vez que este trabalho baseia-se no de \citeauthor{sylvio2015}.
-
-\subsection{Definições}
-
-O primeiro passo da revisão é a definição das perguntas que devem ser respondidas, das palavras-chave a serem utilizadas e dos critérios de exclusão de artigos. O intuito da revisão é definido a seguir:
-
-\begin{itemize}
-\item encontrar algoritmos para tratar diferentes problemas relacionados à descrição de vídeos e compreender seu funcionamento;
-\item encontrar métodos de \textit{matching} de descritores;
-\item encontrar e compilar uma base de vídeos para realização dos testes;
-\end{itemize}
-
-Além das referências de \citeauthor{sylvio2015}, foram escolhidos repositórios em português e em inglês para a busca das palavras-chave. Os repositórios estão definidos na tabela~\ref{tabela:listarepositorios} enquanto as palavras-chave na tabela \ref{tabela:palavraschave}.
-
-\begin{table}[h]
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|l|l|l|}
-	\hline
-    Língua & Repositórios & Endereço \\
-    \hline
-    \multirow{4}{*}{Inglês} & IEEE & \url{http://ieeexplore.ieee.org/Xplore/home.jsp} \\
-    & ScienceDirect & \url{http://www.sciencedirect.com/} \\
-    & ACM & \url{http://dl.acm.org/} \\
-    & Google Scholar & \url{https://scholar.google.com.br/} \\
-    \hline
-    \multirow{2}{*}{Português} & Periódico CAPES & \url{http://www-periodicos-capes-gov-br.ez48.periodicos.capes.gov.br} \\
-    & SciELO & \url{http://www.scielo.org} \\
-    \hline
-\end{tabular}
-}
-\caption[Lista de repositórios utilizados]{Lista de repositórios utilizados.}
-\label{tabela:listarepositorios}
-\end{table}
-
-\begin{table}[h]
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|l|l|}
-\hline
-Português & Inglês \\
-\hline
-Detecção de cópia baseada em conteúdo & Content-Based Video Copy Detection\\
-\hline
-Descritor de vídeo & Video fingerprint \\
-\hline
-Detecção de cópia de video & video copy detection \\
-\hline
-\end{tabular}
-}
-\caption{Palavras-chave utilizadas na revisão sistemática.}
-\label{tabela:palavraschave}
-\end{table}
-
-
-Para auxiliar na indexação dos artigos achados e na sua utilização como base para este trabalho, os artigos foram divididos em categorias, como mostra a tabela \ref{tabela:categoriaartigos}.
-
-\begin{table}[h]
-\resizebox{\textwidth}{!}{
-	\begin{tabular}{|l|l|l|}
-    \hline
-	& Categoria & Descrição \\
-    \hline
-    1 & Descritores Globais & Algoritmos que produzem descritores baseados em características globais de um vídeo \\
-    \hline
-    2 & Descritores Locais & Algoritmos que produzem descritores baseados em características locais de um vídeo \\
-    \hline
-    3 & Comparação de Descritores & Métodos para comparação de descritores \\
-    \hline
-	\end{tabular}
-}
-    \caption{Categorização dos artigos.}
-    \label{tabela:categoriaartigos}
-\end{table}
-
 \section{Definição e Obtenção da Base de Vídeos}
 
 Foi escolhida a base UCF50 - Action Recognition Data Set \citeauthor{reddy2013recognizing} e embora seja utilizada para reconhecimento de movimento humano baseado em ações, como por exemplo ciclismo, natação, caminhada com o cachorro, TaiChi, etc., os motivos para sua escolha foram a quantidade de vídeos e sua licença de livre utilização. 
@@ -152,3 +51,5 @@ A validação ocorrerá em duas etapas:
 \item comparação das saídas dos algoritmos implementados para o trabalho e as implementações originais, dada a mesma entrada.
 \end{enumerate}
 
+\section{Definição dos Experimentos}
+\label{sec:definicaoexperimentos}

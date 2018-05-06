@@ -8,41 +8,47 @@
 
 %------------------------------------------------------------------------
 
-\chapter{Definições}
-\label{chap:definicoes}
+\chapter{Revisão da Literatura}
+\label{chap:revisao}
 
-	Nas próximas seções estão definidos conceitos utilizados neste trabalho, como quadro (\textit{frame}), vídeo e tomada, além da definição de assinatura de vídeo e algumas características consideradas importantes na geração destas. 
+	Nas próximas seções estão definidos conceitos utilizados neste trabalho, como quadro (\textit{frame}), vídeo e tomada, além da definição de assinatura de vídeo e algumas características consideradas importantes para a geração destas. Na seção \ref{sec:estadodaarte} são abordados os avanços no campo de detecção de cópias baseada em conteúdo.
     
-  	\section{Definição de Vídeo}
+    \subsection{Definição de Vídeo}
     \label{sec:video}
     
-    \subsection{Quadro}
-    \label{subsec:quadro}
-    Um quadro (ou \textit{frame}) $I$ é uma matriz de altura $h$ e largura $w$. Cada ponto $I[x,y]$ representa uma intensidade de pixel [\citeauthor{simoes2004detecccao}]. Além disso, um quadro possuí um determinado tempo, que representa o instante em que aparece em um vídeo. Portanto, seguindo a definição de \citeauthor{simoes2004detecccao}, um vídeo é representado por uma sequência de quadros, todos dispostos através da amostra temporal.
-      
-    Um vídeo pode ser segmentado em cenas, que por sua vez possuem diferentes tomadas, compostas por diferentes quadros em sequência, conforme Figura \ref{fig:video}. As tomadas de um vídeo, como pode ser observado na Figura \ref{fig:video}, são definidas por um ou mais quadros capturados continuamente, representando uma ação ininterrupta no tempo e no espaço, de acordo com \citeauthor{davenport1991cinematic}. Um conjunto de tomadas semelhantes, por sua vez, é intitulado de \textit{cena}.
-    
-	\begin{figure}[H]
-        \centering
-        \includegraphics[width=0.96\textwidth]{dados/figuras/video.png}
-        \caption{Estrutura de um vídeo. Referência: \citeauthor{santos2004segmentaccao}}
+    Segundo \citeauthor{lienhart1997video} um vídeo pode ser descrito quanto ao seu conteúdo em quatro níveis de detalhe. O nível mais baixo consiste em um conjunto de quadros (descrito em \ref{subsec:quadro}), logo acima na hierarquia há as tomadas; Termo que se refere à um ou mais quadros capturados continuamente, representando uma ação ininterrupta no tempo e no espaço. Tomadas contínuas são agrupadas em cenas para uma coerência de história. Todas as cenas juntas compõe um vídeo. A hierarquia que descreve um vídeo quanto o seu conteúdo pode ser observada na figura \ref{fig:video}.
+
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.96\textwidth]{dados/figuras/video.png}
+      \caption{Descrição de um vídeo quanto ao seu conteúdo.}
     	\label{fig:video}
     \end{figure}
 
-  	\section{Definição de Assinatura}
+    Os conceitos de tomada e cena descrevem um vídeo quanto ao seu conteúdo e serão úteis para a seção de \ref{sec:definicaoexperimentos}. Para a geração das assinaturas, no entanto, podemos definimos um vídeo quanto à estrutura de dados com a qual ele é composto. Segundo \citeauthor{simoes2004detecccao}, um vídeo é representado por uma sequência de quadros dispostos através de uma amostra temporal. Logo, faz-se necessária a definição formal de quadro, apresentada na seção seguinte.
+  
+
+    \subsubsection{Quadro}
+    \label{subsec:quadro}
+    Um quadro (ou \textit{frame}) $I$ é uma matriz de altura $h$ e largura $w$. Cada ponto $I[x,y]$ representa uma intensidade de pixel. Além disso, um quadro possuí um determinado tempo, que representa o instante em que aparece em um vídeo.
+      
+    % Um vídeo pode ser segmentado em cenas, que por sua vez possuem diferentes tomadas, compostas por diferentes quadros em sequência, conforme Figura \ref{fig:video}. As tomadas de um vídeo, como pode ser observado na Figura \ref{fig:video}, são definidas por um ou mais quadros capturados continuamente, representando uma ação ininterrupta no tempo e no espaço, de acordo com \citeauthor{davenport1991cinematic}. Um conjunto de tomadas semelhantes, por sua vez, é intitulado de \textit{cena}.
+    
+
+  	\subsection{Definição de Assinatura}
     \label{sec:signature}
     
     	Uma assinatura de vídeo é definida como um vetor de características que representa um vídeo e o diferencia de outros \citeauthor{lee2008robust}. Outro termo utilizado para fazer essa referência é o de descritor, uma vez que a assinatura irá descrever um determinado vídeo. As características do vídeo podem ser obtidas de diferentes formas, as quais serão apresentadas na seção \ref{sec:desenv}.
         
        Para um algoritmo de geração de assinatura ser considerado eficiente, é importante que três características sejam consideradas: robustez, singularidade e eficiência de busca. De acordo com \citeauthor{lee2008robust}, uma assinatura é considerada robusta caso o descritor gerado para um vídeo modificado seja similar ao descritor do vídeo original. A singularidade é a capacidade do algoritmo de gerar assinaturas diferentes para vídeos perceptivelmente diferentes. Por fim, eficiência de busca é a capacidade da assinatura  ser utilizada por uma aplicação para buscas em banco de dados de larga escala. Nesta monografia, são avaliados apenas a robustez e a singularidade das assinaturas.
        
-       \section{Definição de Quadro de Cena}
+       \subsection{Definição de Quadro de Cena}
        \label{sec:quadrocena}
        De acordo com \citeauthor{mao2015sceneframe}, um quadro de cena pode ser representado por quadros que sigam duas características: deve ser uma imagem, como definido em \ref{subsec:quadro}; e os mesmos objetos, juntamente com um \textit{background} altamente similar, devem pertencer a uma mesma cena.
        
        [ARRUMAR: Procurar outras definições de quadros de cena]
         
-        \section{Tipos de descritores de vídeo}
+        \subsection{Tipos de descritores de vídeo}
         \label{sec:tiposdescritores}
         
         %[Procurar um artigo que defina os descritores +- dentro do que implementamos, e escrever um parágrafo explicando que vamos seguir as definições daquele artigo, já que não existe uma convenção sobre o que são descritores globais e locais.]
@@ -50,12 +56,12 @@
     %Características locais, por sua vez, procuram por pontos de interesse ou regiões específicas no quadro, utilizando, por exemplo, algoritmos como SIFT, SURF ou LBP (\textit{Local Binary Pattern}), entre outros.      
 %COLOCAR IMAGEM DO SIFT OU SEI LA
 
-\section{Descritores de imagem}
+\subsection{Descritores de imagem}
 \label{descritores de imagem}
 
 Em visão computacional pode-se descrever imagens utilizando algoritmos de identificação de pontos de interesse, sendo conhecidos como descritores locais. Há também descritores globais, que consideram características da imagem como um todo, e não apenas pontos de interesse. Cada abordagem tem vantagens e desvantagens distintas frente a cada tipo de variação ou ataque às imagens, porém, têm o mesmo objetivo, gerar uma descrição do imagem, normalmente tendo por saída um vetor, que pode ser considerado a assinatura da imagem. Idealmente, um descritor de imagens, seja global ou local, deve gerar assinaturas com robustez mediante os principais tipos de variação fotométricas, como borrados, iluminação, ruído e compressão JPEG e também em relação a variações geométricas, como rotação, escala (zoom), translação e ponto de referência (viewpoint).
 
-\subsection{Descritores Locais}
+\subsubsection{Descritores Locais}
 \label{descritores locais}
 
 Descritores locais utilizam características locais de cada imagem, comumente denominadas pontos e regiões de interesse para gerar sua saída. Uma imagem pode ter vários pontos ou regiões de interesse. Os pontos de interesse podem ser determinados a partir de regiões que possuem uma acentuada variação na orientação do gradiente dos objetos presentes em uma imagem, como por exemplo o enquadramento de uma porta ou o pico de uma montanha. As regiões de interesse são determinadas pelos pixels ao redor de um ponto de interesse e ajudam a determinar os limites de cada ponto de interesse. Aproveitando o exemplo anterior, uma região se interesse seria a região ao redor da intersecção do enquadramento de uma porta ou passagem.
@@ -67,7 +73,7 @@ Descritores locais são robustos contra variações fotométricas (borrados, ilu
 Na primeira etapa do processo são determinados os pontos e regiões de interesse, como por exemplo o detector de pontos de interesse SIFT, que utiliza uma janela circular na imagem. Esta abordagem com o SIFT, entretanto, não é robusta contra variações geométricas. Na sequência, é definida uma janela de tamanho fixo e é utilizado um descritor das características de região para essa janela. Com todas as regiões de interesse descritas, a última etapa é definir uma função para combinar as diferentes regiões de interesse e assim gerar o vetor de descrição da imagem. (Zen Chen and Shu-Kuo Sun 2010) 
 
 
-\subsection{Descritores Globais}
+\subsubsection{Descritores Globais}
 \label{descritores globais}
 
 Ao contrário dos descritores locais, descritores globais trabalham com a imagem como um todo, dessa forma, não são priorizados os pontos de interesse. Entretanto, existem trabalhos [citar quais] que utilizam regiões de interesse na implementação dos seus algoritmos, como é o caso do FrameDiff, que será apresentado na seção [indicar seção]. 
@@ -76,29 +82,29 @@ As regiões de interesse para descritores globais são determinadas de maneira d
 
 Uma das principais vantagens dos descritores globais é ter menor custo computacional do que a maioria dos descritores locais, segundo [fonte], devido à quantidade inferior de cálculos e passos necessários para a extração da assinatura. Além disso, há uma tendência dos descritores globais gerarem assinaturas mais robustas quando considerados os ataques geométricos às imagens, de acordo com [citar fonte], devido à natureza dos algoritmos. Pode-se utilizar, por exemplo, o caso de ataques do tipo rotação e translação, conforme demonstra a imagem [imagem tal]. Descritores locais usualmente não conseguem gerar assinaturas robustas para esses casos, pois os pontos e regiões de interesse ocupariam uma posição diferente na imagem alterada em relação à imagem original, entretanto, um descritor global leva vantagem justamente por não considerar onde está a região de interesse, mas sim as suas características. O exemplo também vale para os algoritmos que não utilizam a divisão da imagem em regiões.
 
-\section{Descritores de vídeo}
+\subsection{Descritores de vídeo}
 \label{descritores de vídeo}
 
 As duas classes de descritores apresentadas são descritores de imagens, e de acordo com a definição de vídeo, segundo [citar fonte], um vídeo é uma sequência de imagens. Os descritores locais e globais, entretanto, não podem garantir a singularidade, umas das principais características de um descritor,  quando a entrada do algoritmo é um vetor de imagens ao invés de uma imagem isolada. É evidente que os algoritmos vão gerar as assinaturas para as suas entradas, baseadas em cada frame que compõe o vídeo, porém, não há garantias que o descritor consiga produzir uma assinatura que seja suficientemente semelhante para determinar se um vídeo que sofreu ataques geométricos e/ou fotométricos é a cópia de outro vídeo original.
 
 O trabalho de [fonte] introduz duas abordagens para contornar o problema da singularidade da assinatura. De acordo com os autores, é possível verificar os elementos que estão presentes em uma ou mais cenas para auxiliar os algoritmos a produzir uma assinatura mais precisa dos vídeos.
 
-\subsection{Descritores espaciais}
+\subsubsection{Descritores espaciais}
 \label{descritores espaciais}
 
-\subsection{Descritores temporais}
+\subsubsection{Descritores temporais}
 \label{Descritores espaciais}
 
 
 
-\chapter{Estado da Arte}
-\label{chap:estadodaarte}
+\section{Estado da Arte}
+\label{sec:estadodaarte}
 
   	% Problemas
   	  % cbvr
       % cbcd
       % cbir
-     \section{Detecção de Cópias Baseada em Conteúdo} 
+     \subsection{Detecção de Cópias Baseada em Conteúdo} 
 	Segundo \citeauthor{jiang2011pku}, o método de detecção de cópias baseada em conteúdo, do inglês \textit{Content Based Copy Detection} (CBCD), tem se tornado uma alternativa à marca d'água, conforme ilustra a Figura \ref{fig:marcadagua}, para identificar e proteger vídeos e seus direitos autorais através da criação de uma assinatura digital para o conteúdo. Apesar de o método CBCD vir sendo largamente utilizado em diversas aplicações, a detecção de cópias é um grande desafio e o trabalho de \citeauthor{jiang2011pku} expõe determinadas limitações do método.
     
     O conteúdo a ser procurado pode sofrer uma intensa redução em sua qualidade entre o vídeo original e a cópia, podendo até mesmo sofrer alterações, como por exemplo, distorções e transformações. É uma tarefa difícil buscar cópias através de mecanismos baseados em pesquisa por quadros sem uma ferramenta que consiga unir corretamente a duração de cada trecho a ser pesquisado com o vídeo original. Por último, é necessária uma representação compacta e eficiente das assinaturas para que se construa uma ferramenta de busca e detecção de cópias para grandes sistemas.
@@ -110,13 +116,13 @@ O trabalho de [fonte] introduz duas abordagens para contornar o problema da sing
     	\label{fig:marcadagua}
     \end{figure}
 
-\section{Recuperação de Vídeo Baseada em Conteúdo}
+\subsection{Recuperação de Vídeo Baseada em Conteúdo}
 De acordo com \citeauthor{law2007video}, recuperação de vídeo baseado em conteúdo, do inglês \textit{Content Based Video Retrieval} (CBVR) é o procedimento para gerar, pesquisar e analisar assinaturas digitais. Essa área de estudo produz os algoritmos que geram os identificadores digitais, estuda a similaridade entre assinaturas e também busca trechos em vídeos. Ainda segundo \citeauthor{law2007video}, CBVR tem foco em procurar e encontrar vídeos em uma mesma categoria, como por exemplo, jogos de futebol ou vídeos sobre balões.
 
-\section{Recuperação de Imagens Baseada em Conteúdo}
+\subsection{Recuperação de Imagens Baseada em Conteúdo}
 Conforme \citeauthor{gudivada1995content}, recuperação de imagens baseada em conteúdo, em inglês \textit{Content Based Image Retrieval} (CBIR), é um sistema que auxilia na recuperação e extração de imagens de acordo com o conteúdo da imagem. Para representar uma imagem, o sistema CBIR se baseia em elementos visuais como cores, texturas e formas \citeauthor{vikhar2016improved}. Há diversas aplicações que se beneficiam desta tecnologia, como: previsão do tempo, serviços de informações geográficas, design de interiores, galerias de arte, etc \citeauthor{gudivada1995content}.
 
-\chapter{Trabalhos relacionados}
+\section{Trabalhos relacionados}
 \label{chap:relacionados}
 
   % Artigo 9 - 372: Ele fala de técnicas na história - comparar cenas (final/inicio): comparar descritores; - transformação pós-produção: utilização de pontos de interesse;
