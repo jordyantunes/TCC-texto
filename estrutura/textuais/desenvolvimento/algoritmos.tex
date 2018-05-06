@@ -176,16 +176,6 @@ Ela pode ser aplicada de forma recursiva $n$ vezes, usando o quadro $I$ como ent
     \item Computar energia de $LH$, $HL$, $HH$ \footnote{$  \frac{1}{MN}\sum_{x=1}^M \sum_{y=1}^N |\mathbb{I}(x,y)|$}
   \end{enumerate}
 \item Computar a energia da subimagem $I$, do último valor de $LL$ e concatenar estes valores em um vetor,
-
-% \item Aplicar a transformada de Haar sobre a imagem $F$ com $n_w$ níveis de decomposição, o que irá resultar em quatro sub-bandas por decomposição. Estão são:
-%   \begin{enumerate}
-%   \item LL, versão reduzida da imagem $F_i$, tal que $i$ é a i-ésima decomposição
-%     \item LH, detalhes da imagem resultados da aplicação de derivada discreta na horizontal
-%     \item HL, detalhes da imagem resultados da aplicação de derivada discreta na vertical
-%     \item HH, detalhes da imagem resultados da aplicação de derivada discreta na diagonal
-%   \end{enumerate}
-% \item A cada nível, computar a energia de $LH$, $HL$, $HH$
-% \item Computar a energia da subimagem $LL$ final
 \item Concatenar os valores de energia obtidos nos passos anteriores para obter o descritor
 \end{enumerate}
 
