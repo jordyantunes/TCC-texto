@@ -1,19 +1,23 @@
 \chapter{Introdução}
 \label{chap:introducao}
 
-% 1 Parágrafo de contextualização
-A Detecção de Cópias Baseada em Conteúdo é um método utilizado para a proteção de propriedade intelectual de mídias digitais. Ele consiste em extrair uma assinatura da mídia original e de uma mídia de teste, e então compará-las para identificar que se trata do mesmo conteúdo ou não. Esta abordagem assume que a mídia contenha alguma informação única que possa ser utilizada para identificar uma cópia \citeauthor{kim2005spatiotemporal}. 
+A cada minuto é realizado o upload de 300 horas de vídeo apenas no \textit{youtube.com}, segundo os dados da pesquisa realizada pelo site statisticbrain.com em 2016. O \textit{YouTube} é um dos serviços de hospedagem de vídeos mais conhecidos na internet, mas é importante notar que existem diversas outras empresas que oferecem serviços similares, como por exemplo Vimeo, Twitch, DailyMotion, etc.
 
 % 2 Parágrafos com o problema (justificativa)
-Suponha que uma plataforma online de publicação de vídeos (como YouTube ou Vimeo) receba vários pedidos vindos de criadores de conteúdo digital (como estúdios de cinema, cineastas independentes ou ``vloggers'') solicitando a retirada de vídeos da plataforma alegando o infringimento de direitos autorais. Segundo estes criadores, seus filmes estão sendo reproduzidos parcial ou integralmente na plataforma. 
+Suponha que essas plataformas de compartilhamento de vídeos recebam pedidos vindos de criadores de conteúdo digital (como estúdios de cinema, cineastas independentes ou ``vloggers'') solicitando a retirada de determinados vídeos da plataforma alegando o infringimento de direitos autorais. Segundo estes criadores, seus filmes estão sendo reproduzidos parcial ou integralmente na plataforma sem autorização. Enquanto o número de pedidos de retirada é baixo, não há grandes problemas em definir se o caso realmente se trata de uma cópia, pois um humano pode analisar os dois vídeos e definir se realmente um é cópia do outro. Entretanto, à medida que o número de pedidos cresce e levando em conta a quantidade de vídeos enviados a cada minuto para as plataformas, torna-se  inviável a realização desse processo de forma manual. 
 
-Enquanto o número de pedidos é baixo, não há grandes problemas em definir se realmente se trata de uma cópia: Basta assistir ao vídeo original e à suposta cópia, e então comparar os conteúdos. A medida que o número de pedidos cresce ou que os a extensão dos vídeos seja cada vez mais longa (filmes tendem a ter pelo menos duas horas de duração), torna-se claramente inviável a realização desse processo de forma manual.
+Para realizar essa tarefa de forma automática, podem ser utilizados métodos de Detecção de Cópias Baseada em Conteúdo para a criação uma base de dados de assinaturas, para então ser realizada a busca e verificação de cópias.
+
+Para realizar essa tarefa de forma automática, propomos a utilização de programas que têm a capacidade 
+
+% 1 Parágrafo de contextualização
+A Detecção de Cópias Baseada em Conteúdo é um método utilizado para a proteção de propriedade intelectual de mídias digitais, que consiste em extrair uma assinatura da mídia original e de uma mídia de teste e compará-las para identificar se as duas mídias têm o mesmo conteúdo ou não. Essa abordagem assume que a mídia contenha alguma informação única que possa ser utilizada para identificar uma cópia \citeauthor{kim2005spatiotemporal}. 
 
 % Devemos incluir outros problemas?
 % - identificação de conteúdo sendo reproduzido na TV/contar quantidade de exibições de uma propaganda
 % - identificar e parar a disseminação de conteúdo proibido/impróprio
 
-Para realizar esta tarefa de forma automática, podem ser utilizados métodos de Detecção de Cópias Baseada em Conteúdo para a criação uma base de dados de assinaturas, para então ser realizada a busca e verificação de cópias.
+
 
 % 1 parágrafo mencionando estado da arte
 Um dos serviços comerciais mais utilizados para este fim é o \textit{Content ID} da Audible Magic. O método utilizado cria uma assinatura baseando-se no aúdio de uma mídia digital (podendo então ser utilizado tanto para vídeos, quanto para músicas), e disponibiliza um banco de dados global de assinaturas de conteúdos protegidos por propriedade intelectual. Este serviço é usado por grandes corporações como Facebook, SoundCloud e Vimeo \citeauthor{audiblemagic}.
