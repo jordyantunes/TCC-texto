@@ -3,24 +3,19 @@
 \chapter{Metodologia}
 \label{chap:metodologia}
 
+% LEMBRAR DE NÃO FALAR DO SILVIO AQUI
+
 \section{Definição e Obtenção da Base de Vídeos}
 
 Foi escolhida a base UCF50 - Action Recognition Data Set \citeauthor{reddy2013recognizing} e embora seja utilizada para reconhecimento de movimento humano baseado em ações, como por exemplo ciclismo, natação, caminhada com o cachorro, TaiChi, etc., os motivos para sua escolha foram a quantidade de vídeos e sua licença de livre utilização. 
 
 Do total de 6.681 itens, foram selecionados 1.264, pois os vídeos estavam fragmentados em diversas cenas, ou seja, apenas uma cena de cada vídeo foi utilizada. Cada cena tem uma duração média de 3 a 9 segundos.
 
-Para cada vídeo selecionado foram aplicadas 14 distorções, totalizando 18.960 itens, sendo destes, 17.696 vídeos resultantes das distorções.
-
-[escrever das 14 distorções]
+Para cada vídeo selecionado foram aplicadas as distorções descritas em \ref{sec:distorcoes}, totalizando 18.960 itens, sendo destes, 17.696 vídeos resultantes das distorções.
 
 \section{Definição e implementação dos algoritmos}
 
-Como este trabalho visa continuar a pesquisa em descritores de vídeo baseando-se em \citeauthor{sylvio2015}, os primeiros algoritmos estudados e implementados são os três algoritmos já implementados por ele, descritos nas Seções \ref{sec:med_ordinal}, \ref{sec:gradientes} e \ref{sec:framediff}.
-
-Embora \citeauthor{sylvio2015} tenha optado por comparar apenas algoritmos de descrição global, devido a sua simplicidade de implementação, neste trabalho serão utilizados tanto descritores locais quanto globais.
-
-POR QUE DOS OUTROS TRÊS ALGORITMOS?
-[sao recentes e locais]
+\textbf{[TODO]}
 
 
 Foi escolhida a linguagem Python (versão 2.7.12) para a implementação dos algoritmos por ser multiplataforma e  por sua simplicidade na integração com bibliotecas de alta-performance implementadas em linguagens de baixo nível (C). Isto foi importante pois serão utilizadas as bibliotecas \textit{OpenCV} (versão 3.0.0) e \textit{NumPy} (versão 1.12.1) para manipulação e operação de imagens.
@@ -30,15 +25,15 @@ Para a compilação da base de vídeos foi utilizada a biblioteca MagicImage (ve
 \section{Definição e Implementação do método de comparação}
 
 
+\textbf{[EM DESENVOLVIMENTO]}
 
+% pegar base de assinaturas distrocidas, e para cada distorçao, calcular a distancia para todas as assinaturas originais
 
-pegar base de assinaturas distrocidas, e para cada distorçao, calcular a distancia para todas as assinaturas originais
+% pegar as duas menores distancias para cada distorçao de cada vídeo
 
-pegar as duas menores distancias para cada distorçao de cada vídeo
+% se a dif do primeiro colocado (primera distancia) for diferente o suficiente para o segundo colocado , entao podemos assumir (podemos?) que encontramos a assinatura do vídeo original
 
-se a dif do primeiro colocado (primera distancia) for diferente o suficiente para o segundo colocado , entao podemos assumir (podemos?) que encontramos a assinatura do vídeo original
-
-EMBASAR ESSAS PARADAS LOUCAS
+% EMBASAR ESSAS PARADAS LOUCAS
 
 \section{Validação das implementações}
 

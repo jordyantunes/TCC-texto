@@ -1,17 +1,31 @@
 \chapter{Introdução}
 \label{chap:introducao}
 
-A cada minuto é realizado o upload de 300 horas de vídeo apenas no \textit{youtube.com}, segundo os dados da pesquisa realizada pelo site statisticbrain.com em 2016. O \textit{YouTube} é um dos serviços de hospedagem de vídeos mais conhecidos na internet, mas é importante notar que existem diversas outras empresas que oferecem serviços similares, como por exemplo Vimeo, Twitch, DailyMotion, etc.
+A cada minuto é realizado o \textit{upload} de aproximadamente 300 horas de vídeo apenas na plataforma \textit{youtube.com}, segundo os dados da pesquisa realizada pelo site \textit{statisticbrain.com}, em 2016. É provável que essa estatística seja ainda mais expressiva atualmente, devido à popularização cada vez maior de dispositivos móveis e à democratização do acesso à internet. O \textit{YouTube} é um dos serviços de hospedagem de vídeos mais utilizados na internet, em conjunto com diversas outras empresas que oferecem serviços similares, como por exemplo \textit{Vimeo, Twitch, DailyMotion} e mais recentemente o \textit{Facebook}.
 
 % 2 Parágrafos com o problema (justificativa)
-Suponha que essas plataformas de compartilhamento de vídeos recebam pedidos vindos de criadores de conteúdo digital (como estúdios de cinema, cineastas independentes ou ``vloggers'') solicitando a retirada de determinados vídeos da plataforma alegando o infringimento de direitos autorais. Segundo estes criadores, seus filmes estão sendo reproduzidos parcial ou integralmente na plataforma sem autorização. Enquanto o número de pedidos de retirada é baixo, não há grandes problemas em definir se o caso realmente se trata de uma cópia, pois um humano pode analisar os dois vídeos e definir se realmente um é cópia do outro. Entretanto, à medida que o número de pedidos cresce e levando em conta a quantidade de vídeos enviados a cada minuto para as plataformas, torna-se  inviável a realização desse processo de forma manual. 
+É comum que essas plataformas de compartilhamento de vídeos recebam pedidos vindos de criadores de conteúdo digital (como estúdios de cinema, cineastas independentes ou ``vloggers'') solicitando a retirada de determinados vídeos da plataforma alegando o infringimento de direitos autorais. Segundo estes criadores, seus vídeos estão sendo reproduzidos parcial ou integralmente sem autorização, caracterizando uma situação de pirataria e apropriação indevida do conteúdo. 
 
-Para realizar essa tarefa de forma automática, podem ser utilizados métodos de Detecção de Cópias Baseada em Conteúdo para a criação uma base de dados de assinaturas, para então ser realizada a busca e verificação de cópias.
+Enquanto o número de pedidos de retirada é baixo não há grandes problemas em definir se o caso realmente se trata de uma cópia, pois um humano pode analisar o vídeo e definir se realmente se trata de um caso de plágio. Entretanto, à medida que o número de pedidos cresce, levando em conta a quantidade de \textit{uploads}, torna-se inviável a realização desse processo de forma manual, o que gera um problema para as plataformas, que precisam buscar métodos para detectar automaticamente duplicatas de vídeos.
 
-Para realizar essa tarefa de forma automática, propomos a utilização de algoritmos que têm a capacidade de detectar o conteúdo dos vídeos
+Uma das técnicas já adotadas pelas empresas de compartilhamento de vídeos é a detecção de duplicatas via áudio. Um exemplo disso é um serviço chamado \textit{Content ID} da empresa \textit{Audible Magic}, que disponibiliza comercialmente uma base de dados global para verificação de conteúdos protegidos por direitos autorais \citeauthor{audiblemagic}. Tomando por exemplo o \textit{youtube.com}, o seu sistema de prevenção de cópias analisa o áudio de cada vídeo enviado. O áudio é então comparado com uma base de dados para verificar se aquele conteúdo está de acordo com as políticas anti pirataria da plataforma e caso seja encontrada alguma irregularidade o vídeo é  rejeitado e a pessoa que realizou o \textit{upload} é notificada que está infringindo os termos de uso. Essa abordagem é boa para alguns casos específicos, como por exemplo a reprodução ilegal de um videoclipe ou a utilização ilícita de trilhas sonoras protegidas por lei, porém, não é totalmente satisfatória para reconhecer se o conteúdo do vídeo está sendo utilizado indevidamente. Outra característica negativa dessa técnica é que longas-metragens normalmente têm cópias dubladas para cada país onde são distribuídas, aumentando o problema para detectar duplicatas.
+
+%Existem serviços comerciais destinados a encontrar, de maneira automática, produções que infringem os direitos autorais. Um dos mais utilizados é o \textit{Content ID} da Audible Magic. O método utilizado cria uma assinatura baseanda no aúdio de uma mídia digital (podendo então ser utilizado tanto para vídeos, quanto para músicas), e disponibiliza um banco de dados global de assinaturas de conteúdos protegidos por propriedade intelectual. Este serviço é usado por grandes corporações como Facebook, SoundCloud e Vimeo, de acordo com  \citeauthor{audiblemagic}.
+
+O problema de detecção de duplicatas se torna mais complexo quando os piratas utilizam técnicas de modificação nos vídeos, também conhecidas como \textbf{ataques}, o que exige sistemas mais especializados para identificar esses casos. Essas modificações podem ser sutis, como a remoção de alguns quadros do vídeo ou a alteração do formato de compressão, até técnicas mais agressivas como a modificação das cores, espelhamento, rotação e inserção de bordas nos vídeos. O desafio, entretanto, é que devido à natureza de cada ataque pode se fazer necessária a utilização de diferentes formas de análise, já que um sistema para identificar um ataque de rotação pode ter dificuldade em detectar um ataque de remoção de quadros, por exemplo. 
+
+Como uma possível solução complementar para esse problema, propomos um estudo através da implementação de seis algoritmos \textbf{[citar os papers aqui]} que são capazes de identificar um vídeo em relação ao seu conteúdo. Essa identificação é feita através da extração de uma \textbf{assinatura do vídeo}, que deve ser robusta em relação aos ataques mais comuns que um vídeo pode sofrer. Como parte do estudo será criado um repositório com 1265 vídeos que sofrerão 14 tipos de ataques diferentes para testar a robustez dos algoritmos. As assinaturas dos vídeos e suas respectivas duplicadas serão registradas em  uma base de dados, que possibilitará a análise e extração de informações sobre a eficiência de cada método.
+
+
+%Nas próximas seções estão definidos conceitos utilizados neste trabalho, como quadro (\textit{frame}), vídeo e tomada, além da definição de assinatura de vídeo e algumas características consideradas importantes para a geração destas. Na seção \ref{sec:estadodaarte} são abordados os avanços no campo de detecção de cópias baseada em conteúdo.
+
+Este trabalho está estruturado da seguinte forma: no Capítulo 2 são apresentados conceitos básicos, uma introdução aos métodos de detecção de conteúdo em vídeos, os seis algoritmos selecionados para a geração de assinaturas e trabalhos relacionados. O Capítulo 3 detalha a base de vídeos utilizada, a forma como o experimento foi realizado e as métricas de comparação. No Capítulo 4 são apresentados os resultados do experimento. Finalmente, são apresentadas as conclusões do estudos e sugestões de trabalhos futuros.
+    
+    
+%Para atacar esse problema, propomos a criação de uma base de dados de assinaturas de vídeos, ou \textit{fingerprints}, através da utilização de algoritmos que têm a capacidade de detectar o conteúdo do vídeo e gerar essa assinatura para representá-lo. Com a base de assinaturas, então, será possível comparará-las para identificar se existem assinaturas que são semelhantes o suficiente para afirmar se são cópias de outros vídeos ou não, ou identificar se existe alguma assinatura representando algum vídeo marcado para remoção devido aos direitos autorais.
 
 % 1 Parágrafo de contextualização
-A Detecção de Cópias Baseada em Conteúdo é um método utilizado para a proteção de propriedade intelectual de mídias digitais, que consiste em extrair uma assinatura da mídia original e de uma mídia de teste e compará-las para identificar se as duas mídias têm o mesmo conteúdo ou não. Essa abordagem assume que a mídia contenha alguma informação única que possa ser utilizada para identificar uma cópia \citeauthor{kim2005spatiotemporal}. 
+%A Detecção de Cópias Baseada em Conteúdo é um método utilizado para a proteção de propriedade intelectual de mídias digitais, que consiste em extrair uma assinatura da mídia original e de uma mídia de teste e compará-las para identificar se as duas mídias têm o mesmo conteúdo ou não. Essa abordagem assume que a mídia contenha alguma informação única que possa ser utilizada para identificar uma cópia \citeauthor{kim2005spatiotemporal}. 
 
 % Devemos incluir outros problemas?
 % - identificação de conteúdo sendo reproduzido na TV/contar quantidade de exibições de uma propaganda
@@ -19,14 +33,9 @@ A Detecção de Cópias Baseada em Conteúdo é um método utilizado para a prot
 
 
 
-% 1 parágrafo mencionando estado da arte
-Um dos serviços comerciais mais utilizados para este fim é o \textit{Content ID} da Audible Magic. O método utilizado cria uma assinatura baseando-se no aúdio de uma mídia digital (podendo então ser utilizado tanto para vídeos, quanto para músicas), e disponibiliza um banco de dados global de assinaturas de conteúdos protegidos por propriedade intelectual. Este serviço é usado por grandes corporações como Facebook, SoundCloud e Vimeo \citeauthor{audiblemagic}.
 
-No entanto, o uso do áudio para a criação de assinaturas pode não ser o melhor atributo utilizado na criação de uma assinatura, pois vídeos (principalmente longas-metragens) tendem a ter versões dubladas na língua de cada país onde são distribuídos. 
+% Para combater o problema, foram propostos métodos que utilizam informações contidas nos quadros dos vídeos para a geração das assinaturas. Este trabalho propõe-se a fazer uma revisão da literatura de métodos para Detecção de Cópias Baseada em Conteúdo, selecionar seis candidatos que possuam abordagens distintas, compará-los e avaliar quais atributos do conteúdo digital devem ser escolhidos a fim de otimizar a acurácia na detecção de cópias. 
 
-Para combater este problema, foram propostos inúmeros métodos que utilizam informações contidas nos quadros dos vídeos para a geração das assinaturas. Este trabalho propõe-se a fazer uma revisão da literatura de métodos para Detecção de Cópias Baseada em Conteúdo, selecionar seis candidatos que possuam abordagens distintas, compará-los e avaliar quais atributos do conteúdo digital devem ser escolhidos a fim de otimizar a acurácia na detecção de cópias. 
-
-% Mencionar que é a continuação do TCC do Sílvio
 % Explicar critérios de escolha - Local, global, espacial, temporal
 % Falar da organização do trabalho 
 
@@ -34,9 +43,20 @@ Para combater este problema, foram propostos inúmeros métodos que utilizam inf
 Este trabalho tem como objetivo comparar descritores para assinatura digital de vídeos.
 
 \section{Objetivos Específicos}
-\begin{itemize}
-\item Implementar 6 algoritmos, locais e globais, para assinatura digital de vídeos.
-\item Propor um novo descritor que combine características espaciais e temporais do vídeo.
-\item Compilar uma base de vídeos para a realização dos testes e avaliação dos algoritmos.
-\item Comparar os algoritmos com base na semelhança da assinatura e contrastar os métodos de comparação utilizados.
-\end{itemize}
+
+Implementar 6 algoritmos para gerar assinaturas digitais de vídeos, compor uma base de vídeos e aplicar 14 tipos de ataques diferentes para poder compilar uma base de vídeos para a realização dos testes e avaliação dos algoritmos. Por fim, comparar os algoritmos com base na semelhança das assinaturas e contrastar os métodos de comparação utilizados.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

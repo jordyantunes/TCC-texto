@@ -1,5 +1,4 @@
-% \chapter{Desenvolvimento}
-\label{sec:desenv}
+\subsection{Algoritmos para descrição de vídeos}
 Estudaremos em detalhes os algoritmos das seguintes seções.
 
 
@@ -8,10 +7,10 @@ Estudaremos em detalhes os algoritmos das seguintes seções.
 % MEDIDA ORDINAL
 %
 % --------------------------------------------------------------------------------------------------
-\section{Assinatura de vídeo baseada na medida ordinal}
+\subsubsection{Assinatura de vídeo baseada na medida ordinal}
 \label{sec:med_ordinal}
 
-	O algoritmo proposto por \cite{hua2004robust} baseia-se na intensidade dos \textit{pixels} de cada quadro para compor a assinatura. O que se propõe é que, primeiramente, a taxa de amostragem, ou seja, a taxa de quadros por segundo (FPS, do inglês \textit{frames per second}) do vídeo de entrada seja padronizada, para que a assinatura gerada fique mais compacta e seja tolerante a diferentes formatos de compressão, por exemplo. Além disso, o vídeo é convertido para escala de cinza.
+	O algoritmo proposto por \citeauthor{hua2004robust} baseia-se na intensidade dos \textit{pixels} de cada quadro para compor a assinatura. O que se propõe é que, primeiramente, a taxa de amostragem, ou seja, a taxa de quadros por segundo (FPS, do inglês \textit{frames per second}) do vídeo de entrada seja padronizada, para que a assinatura gerada fique mais compacta e seja tolerante a diferentes formatos de compressão, por exemplo. Além disso, o vídeo é convertido para escala de cinza.
 
 Após esse pré-processamento, para cada quadro é realizada a divisão em $M \times N$ blocos, como pode ser observado na Figura \ref{fig:medidaord}, bem como o cálculo da intensidade média para cada um dos blocos. Esses valores são então colocados em ordem crescente e representam cada elemento que compõe a assinatura.
 
@@ -30,7 +29,7 @@ Após esse pré-processamento, para cada quadro é realizada a divisão em $M \t
 % --------------------------------------------------------------------------------------------------
 
 
-\section{Assinatura de vídeo baseada em gradientes}
+\subsubsection{Assinatura de vídeo baseada em gradientes}
 \label{sec:gradientes}
 
 	Este algoritmo, proposto por \cite{lee2008robust}, utiliza a distribuição dos gradientes para geração de assinaturas. O primeiro passo é definir uma taxa de quadros por segundo (fps) fixa, além da conversão para escala de cinza. Outro procedimento utilizado é o redimensionamento dos quadros, tornando o  método robusto independente da mudança de resolução do vídeo. Em seguida, o gradiente dos \textit{pixels} de cada quadro é calculado da seguinte forma. Encontram-se os gradientes $\mathbb{G}x$ e $\mathbb{G}y$ através da equação \ref{eq:gmatrix}.
@@ -76,7 +75,7 @@ Após esse pré-processamento, para cada quadro é realizada a divisão em $M \t
 %
 % --------------------------------------------------------------------------------------------------
 
-\section{Assinatura de vídeo baseada na diferença entre quadros}
+\subsubsection{Assinatura de vídeo baseada na diferença entre quadros}
 \label{sec:framediff}
 
   O algoritmo proposto por \cite{cook2011efficient} utiliza características globais, como luminância e diferença de luminância intra-quadros, para uma assinatura robusta (ao utilizar medidas que refletem a estrutura temporal do conteúdo) e eficiente (ao utilizar medidas simples de serem calculadas e comparadas). Para cada quadro de um vídeo são coletadas as seguintes características: 
@@ -146,26 +145,13 @@ Para realizar a comparação entre duas assinaturas, \citeauthor{cook2011efficie
 %
 % --------------------------------------------------------------------------------------------------
 
-\section{Assinatura de vídeo baseada em wavelets}
+\subsubsection{Assinatura de vídeo baseada em wavelets}
 
-Esta abordagem foi escolhida por ter sido projetada especialmente para ser robusta a uma variedade de ataques fotométricos e de pós-produção, como modificações em contraste, brilho, contaminação por ruído e desfoque, inserção de logos, bordas e mudança de formato do quadro. Para se tornar ainda mais robustas a estes ataques, \citeauthor{Dutta2013} também descreve um fluxo de pré-processamento. % abordado na Seção \ref{sec:preprocessamento}.
+Esta abordagem foi escolhida por ter sido projetada especialmente para ser robusta a uma variedade de ataques fotométricos e de pós-produção, como modificações em contraste, brilho, contaminação por ruído e desfoque, inserção de logos, bordas e mudança de formato do quadro. Para se tornar ainda mais robustas a estes ataques, \citeauthor{Dutta2013} também descreve um fluxo de pré-processamento.
 
-Após a etapa de pré-processamento e para ser usado como entrada para este algoritmo, os vídeos devem ser transformados para escala de cinza e ter suas intensidades normalizadas para o intervalo $[0,1]$. A assinatura proposta por \citeauthor{Dutta2013} é composta de uma parte baseada na transformada de Haar e em  outra baseda na distribuição espacial de gradientes.
+Após a etapa de pré-processamento, para ser utilizado como entrada para este algoritmo, os vídeos devem ser transformados para escala de cinza e ter suas intensidades normalizadas para o intervalo $[0,1]$. A assinatura proposta por \citeauthor{Dutta2013} é composta de uma parte baseada na transformada de Haar e em  outra baseda na distribuição espacial de gradientes.
 
-\subsection{Transformada de Haar}
-
-A transformada de Haar consiste em separar um sinal (ou quadro, neste caso) em 4 partes: 
-
-\begin{itemize}
-\item $LL$, que contém $1/4$ dos dados originais, removendo os detalhes.
-\item $LH$, que contém a derivada na horizontal do quadro
-\item $HL$, que contém a derivada na vertical do quadro
-\item $HH$, que contém a derivada na diagonal do quadro
-\end{itemize}
-
-Ela pode ser aplicada de forma recursiva $n$ vezes, usando o quadro $I$ como entrada inicial do algoritmo e o $LL$ como entrada das chamadas subsequentes. Um exemplo do resultado da transformada de Haar pode ser visto na Figura \ref{figure:haar}.
-
-\subsection{Assinatura baseada em wavelets}
+\subsection{Obtenção da assinatura}
 
 \begin{enumerate}
 \item Seja $I$ a imagem obtida após conversão para escala de cinza e normalização
@@ -183,18 +169,18 @@ Ela pode ser aplicada de forma recursiva $n$ vezes, usando o quadro $I$ como ent
   \centering
   \begin{tabular}{ccc}
     \centering
-    \includegraphics[width=0.45\textwidth]{dados/figuras/ww.jpg} & \includegraphics[width=0.45\textwidth]{dados/figuras/ww_bw.jpg} \\ 
+    \includegraphics[width=0.45\textwidth]{dados/figuras/original} & \includegraphics[width=0.45\textwidth]{dados/figuras/original_bw} \\ 
      a. Quadro original & b. Quadro em escala de cinza \\
-    \multicolumn{2}{c}{\includegraphics[width=0.94\textwidth]{dados/figuras/ww_haar_.jpg}} \\
+    \multicolumn{2}{c}{\includegraphics[width=0.94\textwidth]{dados/figuras/ww_haar_}} \\
     \multicolumn{2}{c}{c. Após transformada de Haar}
   \end{tabular}
-  \caption{Sequência de transformações feitas pelo algoritmo utilizando um quadro do filme Mulher Maravilha}
+  \caption{Sequência de transformações feitas pelo algoritmo}
 %   \includegraphics[width=0.8\textwidth]{dados/figuras/haar.png}
 %   \caption{Resultado da Transformada de Haar. Os cantos superior direito, inferior esquerdo e inferior direito são, respectivamente, a derivada na horizontal(LH),derivada na vertical(HL) e derivada na diagonal(HH). O canto superior esquerdo é subdividido $N$ vezes em LH,HL e HH até o último nível em que não há mais divisão e que se chama LL}
   \label{figure:haar}
 \end{figure}
 
-\subsection{Assinatura baseada em distribuição espacial de gradientes}
+\subsubsection{Assinatura baseada em distribuição espacial de gradientes}
 
 \begin{enumerate}
 \item Dado um quadro $I$ já pré-processado, aplicar a transformada de Haar com um nível e obter um vetor com $LL,LH,HL,HH$
@@ -210,7 +196,7 @@ Ela pode ser aplicada de forma recursiva $n$ vezes, usando o quadro $I$ como ent
 %
 % --------------------------------------------------------------------------------------------------
 
-\section{Assinatura baseada em quadros de cena}
+\subsubsection{Assinatura baseada em quadros de cena}
 
   Outra abordagem, proposta por \citeauthor{mao2015sceneframe}, é baseada na assinatura de quadros de cena. De acordo com os autores, os quadros de cena podem ser \textit{intraframes}, ou seja, quadros que iniciam tomadas, quanto \textit{interframes}, contanto que sigam as características descritas em \ref{sec:quadrocena}.
     
