@@ -5,9 +5,27 @@
 
 % LEMBRAR DE NÃO FALAR DO SILVIO AQUI
 
-\section{Definição e Obtenção da Base de Vídeos}
+A metodologia empregada neste trabalho está organizada nos seguintes passos principais:
 
-Foi escolhida a base UCF50 - Action Recognition Data Set \citeauthor{reddy2013recognizing} e embora seja utilizada para reconhecimento de movimento humano baseado em ações, como por exemplo ciclismo, natação, caminhada com o cachorro, TaiChi, etc., os motivos para sua escolha foram a quantidade de vídeos e sua licença de livre utilização. 
+\begin{description}
+\item[Etapa 1] Aquisição da base de vídeos UCF50 - Action Recognition Data Set \citeauthor{reddy2013recognizing}.
+\item[Etapa 2] Aplicação das 14 distorções descritar na Seção~/\ref{sec:ataques} sobre a base.
+\item[Etapa 3] Geração das assinaturas utilizando os algoritmos baseados em diferença de quadro, gradientes, medida ordinal, quadros de cena e wavelets, descritos no Capítulo~\ref{chap:revisao}.
+\item[Etapa 4] Realização do procedimento de comparação de um conjunto de treinamento das assinaturas, a fim de definir um limiar para classificação.
+\item[Etapa 5] Realização do procedimento de comparação de um conjunto de testes das assinaturas, a partir dos limiares obtidos na Etapa 4.
+\item[Etapa 5] Análise comparativa dos resultados obtidos a partir da Etapas 4. Os resultados desta etapa serão discutidos em detalhes no próximo capítulo.
+\end{description}
+
+As seções a seguir detalham como esses passos serão realizados.
+
+\section{Definição e Obtenção da Base de Vídeos}
+\label{sec:database}
+
+Foi escolhida a base UCF50 - Action Recognition Data Set \citeauthor{reddy2013recognizing}, que é comumente utilizada para em projetos de reconhecimento de movimento humano e está segmentada em 50 categorias diferentes que representam ações do quotidiano, como por exemplo ciclismo, natação, caminhada com o cachorro, TaiChi, etc. Dentro de cada categoria, os vídeos há pelo menos 4 vídeos pertencentes a uma mesma gravação, apresentando assim o mesmo os mesmos personagens, fundo e ponto de vista. A fim de reduzir o número de vídeos que apresentam o mesmo conteúdo, foram selecionados apenas o primeiro vídeo de cada grupo.
+
+A base original é composta de 6.681 vídeos com duração média entre 3 a 9 segundos e após a seleção descrita no parágrafo anterior, restaram 1.264 vídeos. 
+
+os motivos para sua escolha foram a quantidade de vídeos e sua licença de livre utilização. 
 
 Do total de 6.681 itens, foram selecionados 1.264, pois os vídeos estavam fragmentados em diversas cenas, ou seja, apenas uma cena de cada vídeo foi utilizada. Cada cena tem uma duração média de 3 a 9 segundos.
 
