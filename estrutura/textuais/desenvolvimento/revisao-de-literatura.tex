@@ -7,16 +7,18 @@
 \chapter{Revisão da Literatura}
 \label{chap:revisao}
 
-As Seções \ref{sec:video} à \ref{sec:ataques} apresentam definições úteis para melhor compreensão do trabalho, como vídeo e suas divisões, técnicas de detecção de cópias e conteúdo em vídeo, os principais tipos de ataques que um vídeo pode sofrer assinatura e descritores de vídeos, que são os algoritmos utilizados para gerar assinaturas. No final do Capítulo 2 é apresentada uma discussão sobre trabalhos relacionados.
+As Seções \ref{sec:video} à \ref{sec:ataques} apresentam definições úteis para melhor compreensão do trabalho, como vídeo e suas divisões, técnicas de detecção de cópias e conteúdo em vídeo, os principais tipos de ataques que um vídeo pode sofrer, assinatura e descritores de vídeos, que são os algoritmos utilizados para gerar assinaturas. No final do Capítulo 2 é apresentada uma discussão sobre trabalhos relacionados.
 
 
 
 \section{Vídeo}
 \label{sec:video}  
-                                                                                               Um vídeo pode ser descrito quanto ao seu conteúdo em quatro níveis de detalhe, sendo o nível mais baixo um conjunto de quadros \citeauthor{lienhart1997video}. \textbf{Um quadro} (ou \textit{frame}) $I$ é uma imagem representada por matriz de altura $h$ e largura $w$ em que cada ponto $I[x,y]$ representa a intensidade de um pixel. Além disso, um quadro possuí um determinado tempo, que representa o instante em que é exibido no vídeo. 
-                                                                                               Logo acima na hierarquia existem as \textbf{tomadas}, termo que se refere a um ou mais quadros capturados em sequência, representando uma ação ininterrupta no tempo e no espaço. Tomadas contínuas podem ser agrupadas em \textbf{cenas} para gerar coerência na história do vídeo. Um vídeo pode ser composto por uma ou mais cenas.
 
-       Um conceito importante também relacionado a vídeo é o \textbf{quadro de cena}, que é utilizado pelo algoritmo de \citeauthor{mao2015sceneframe} e é um dos descritores que fazem parte do experimento proposto. \citeauthor{7848130} definem quadro de cena como a imagem que define os pontos de início e fim de qualquer transição suave de imagens. É o quadro que melhor representa a cena no geral. Esse conceito é amplamente utilizado na produção de animações, onde normalmente o objeto ou sujeito da imagem se move em relação ao fundo \textit{(background)}. 
+	Um vídeo pode ser descrito quanto ao seu conteúdo em quatro níveis de detalhe, sendo o nível mais baixo um conjunto de quadros \citeauthor{lienhart1997video}. \textbf{Um quadro} (ou \textit{frame}) $I$ é uma imagem representada por matriz de altura $h$ e largura $w$ em que cada ponto $I[x,y]$ representa a intensidade de um \textit{pixel}. Além disso, um quadro possuí um determinado tempo, que representa o instante em que é exibido no vídeo. 
+
+	Logo acima na hierarquia existem as \textbf{tomadas}, termo que se refere a um ou mais quadros capturados em sequência, representando uma ação ininterrupta no tempo e no espaço. Tomadas contínuas podem ser agrupadas em \textbf{cenas} para gerar coerência na história do vídeo. Um vídeo pode ser composto por uma ou mais cenas.
+
+       Um conceito importante também relacionado a vídeo é o \textbf{quadro de cena}, utilizado pelo algoritmo de \citeauthor{mao2015sceneframe}, um dos descritores que fazem parte do experimento proposto. \citeauthor{7848130} definem quadro de cena como a imagem que define os pontos de início e fim de qualquer transição suave de imagens. É o quadro que melhor representa a cena no geral. Esse conceito é amplamente utilizado na produção de animações, onde normalmente o objeto ou sujeito da imagem se move em relação ao fundo \textit{(background)}. 
 
 	De acordo com \citeauthor{mao2015sceneframe}, o quadro de cena deve possuir todos os mesmos elementos (pessoas, objetos, animais, etc.) exibidos na cena e o background deve ser altamente similar ao restante dos quadros. Aplicando essa definição na Figura \ref{fig:quadro_cena}, qualquer um dos cinco quadros pode ser eleito como o quadro de cena, pois todos têm os mesmos elementos (a mesma pessoa e o mesmo cachorro), além do background ser praticamente o mesmo em todos os quadros.
 
@@ -33,7 +35,7 @@ As Seções \ref{sec:video} à \ref{sec:ataques} apresentam definições úteis 
     
 \section{Transformada de Haar}
 
-Um conceito importante para dois dos algoritmos que serão apresentados (Sub-seções  \ref{wavelets} e \ref{gradientes}) é o da transformada de Haar, que consiste na separação de um sinal (ou quadro, neste caso) em 4 partes: 
+Um conceito importante para dois dos algoritmos que serão apresentados (Sub-seções  \ref{wavelets} e \ref{sec:gradientes}) é o da transformada de Haar, que consiste na separação de um sinal (ou quadro, neste caso) em 4 partes: 
 
 \begin{enumerate}
 \item $LL$, que contém $1/4$ dos dados originais, removendo os detalhes;
@@ -47,7 +49,7 @@ A transformada pode ser aplicada de forma recursiva $n$ vezes, usando o quadro $
  \begin{figure}[h]
       \centering
       \includegraphics[width=0.96\textwidth]{dados/figuras/haar.png}
-      \caption{Sequência com cinco quadros representando uma cena, retirado de um dos vídeos do repositório.}
+      \caption{Sequência de recursões da transformada em uma imagem. Autoria pr}
       \label{fig:transf_haar}
     \end{figure}  
 
@@ -104,7 +106,7 @@ Os ataques podem ainda ser classificados como \textbf{geométricos} e \textbf{fo
 
 \subsection{Descritores de vídeo}
     
-    Existem duas classes principais de algoritmos para descrever vídeos e então gerar assinaturas, são elas: \textbf{descritores locais} e \textbf{descritores globais}. Cada classe tem características que às fazem mais robustas para combater diferentes tipos de ataques, sendo então cada uma indicada para situações diferentes.
+    Existem duas classes principais de algoritmos para descrever vídeos e então gerar assinaturas, são elas: \textbf{descritores locais} e \textbf{descritores globais}. Cada classe tem características que a faz mais robusta para combater diferentes tipos de ataques, sendo então cada uma indicada para situações diferentes.
     
     Descritores locais geram assinaturas baseadas em pontos ou regiões de interesse de cada quadro do vídeo. Os pontos de interesse são ser determinados a partir de regiões que possuem uma acentuada variação na orientação do gradiente dos elementos presentes em um quadro, como por exemplo o enquadramento de uma porta ou o pico de uma montanha. As regiões de interesse são determinadas pelos \textit{pixels} ao redor de um ponto de interesse e ajudam a determinar os limites dessas regiões \citeauthor{radhakrishnan2007content}. Esses descritores normalmente são robustos contra variações fotométricas (borrados, iluminação, cores, ruído e compressão JPEG) podem ser custosos computacionalmente devido aos cálculos necessários para determinar os pontos de interesse \citeauthor{naini2014vanishing}. Um descritor local consiste normalmente de três etapas: detecção das características, descrição das características e combinação das características, de acordo com \citeauthor{chen2010zernike}.
 
@@ -131,6 +133,7 @@ Após esse pré-processamento, para cada quadro é realizada a divisão em $M \t
         \centering
         \includegraphics[width=0.8\textwidth]{dados/figuras/mo_final.png}
         \caption{Exemplo com a divisão em blocos, cálculo das intensidades médias e ordem atribuída a cada valor.}
+        \label{fig:medidaord}
     \end{figure}
 
  \begin{figure}[h]
