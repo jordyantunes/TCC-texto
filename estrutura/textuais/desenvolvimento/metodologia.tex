@@ -10,10 +10,10 @@ A metodologia empregada neste trabalho está organizada nos seguintes passos pri
 \begin{description}
 \item[Etapa 1] Aquisição da base de vídeos UCF50 - Action Recognition Data Set \citeauthor{reddy2013recognizing}.
 \item[Etapa 2] Aplicação das 14 distorções descritas na Seção~\ref{sec:ataques} sobre a base.
-\item[Etapa 3] Geração das assinaturas utilizando os algoritmos baseados em diferença de quadro, gradientes, medida ordinal, quadros de cena e wavelets, descritos no Capítulo~\ref{chap:revisao}.
+\item[Etapa 3] Geração das assinaturas utilizando os algoritmos baseados em diferença de quadro, gradientes, medida ordinal, quadros de cena, padrão binário por região e wavelets, descritos no Capítulo~\ref{chap:revisao}.
 \item[Etapa 4] Realização do procedimento de comparação de um conjunto de treinamento das assinaturas, a fim de definir um limiar para classificação.
 \item[Etapa 5] Realização do procedimento de comparação de um conjunto de testes das assinaturas, a partir dos limiares obtidos na Etapa 4.
-\item[Etapa 5] Análise comparativa dos resultados obtidos a partir da Etapas 4. Os resultados desta etapa serão discutidos em detalhes no próximo capítulo.
+\item[Etapa 5] Análise comparativa dos resultados obtidos a partir da Etapa 4. Os resultados desta etapa serão discutidos em detalhes no próximo capítulo.
 \end{description}
 
 As seções a seguir detalham como esses passos serão realizados.
@@ -42,7 +42,7 @@ Para a criação de um conjunto de cenários de treinamento e teste, foram aplic
 \begin{table}[h]
 \centering
 \caption{Parâmetros usados na aplicação das distorções}
-\label{tab:params} \begin{tabular}{ll} \hline
+\label{tab:params} \begin{tabular}{|l|l|} \hline
 \textbf{Distorção}                                                                & \textbf{Parâmetros}                                                                                                      \\ \hline
 \multicolumn{1}{|l|}{Adição de texto e legendas}                                  & \multicolumn{1}{l|}{}                                                                                                    \\ \hline
 \multicolumn{1}{|l|}{Adição de Marca D'água}                                      & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Texto: "Copyright"\\ Tamanho da fonte: 20\\ Opacidade: 65\%\end{tabular}} \\ \hline

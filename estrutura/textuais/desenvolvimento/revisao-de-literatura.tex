@@ -89,8 +89,6 @@ Para \citeauthor{gudivada1995content}, recuperação de imagens baseada em conte
 
 A Figura \ref{fig:ataques} ilustra o resultado da aplicação dos ataques acima em uma imagem.
 
- 
-    
     	\begin{figure}[h]
         \centering
         \includegraphics[width=0.8\textwidth]{dados/figuras/Ataques.png}
@@ -288,7 +286,7 @@ Para realizar a comparação entre duas assinaturas, \citeauthor{cook2011efficie
     
     O algoritmo fundamenta-se na ideia de que as chances de existirem cinco quadros de cena seguidos é extremamente baixa, por isso são selecionados apenas os cinco primeiros quadros de cena de um vídeo.
 
-A obtenção da assinatura é realizada para todos os quadros, para então serem comparadas e selecionadas. Como pode ser observado no Diagrama \ref{dig:sceneframe}, os quadros passam por um pré-processamento, onde o componente de luminância é obtido. O quadro então é recortando, mantendo-se apenas sua região central e, por fim, redimensionado para o tamanho definido de $3/4$QCIF, ou seja, $(108\times132)$.
+A obtenção da assinatura é realizada para todos os quadros, para então serem comparadas e selecionadas. Como pode ser observado no Diagrama \ref{fig:dia_sceneframe}, os quadros passam por um pré-processamento, onde o componente de luminância é obtido. O quadro então é recortando, mantendo-se apenas sua região central e, por fim, redimensionado para o tamanho definido de $3/4$QCIF, ou seja, $(108\times132)$.
 
 Após o processamento inicial, o quadro é então dividido em $144$ pedaços menores, de tamanho $(9\times11)$, cuja média de intensidade irá compor parte da assinatura deste quadro. Além dos $144$ valores, o descritor é composto também por $576$ elementos diferenciais, totalizando $720$ valores. Para obter esses elementos, cada fragmento é dividido em oito elementos menores, como mostra a Figura \ref{fig:divsceneframe}, e então é realizada a subtração de $a - b$, $c - d$, $e - f$ e $g - h$.
 
