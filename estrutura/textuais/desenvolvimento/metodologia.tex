@@ -9,7 +9,7 @@ A metodologia empregada neste trabalho está organizada nos seguintes passos pri
 
 \begin{description}
 \item[Etapa 1] Aquisição da base de vídeos UCF50 - Action Recognition Data Set \citeauthor{reddy2013recognizing}.
-\item[Etapa 2] Aplicação das 14 distorções descritar na Seção~/\ref{sec:ataques} sobre a base.
+\item[Etapa 2] Aplicação das 14 distorções descritas na Seção~\ref{sec:ataques} sobre a base.
 \item[Etapa 3] Geração das assinaturas utilizando os algoritmos baseados em diferença de quadro, gradientes, medida ordinal, quadros de cena e wavelets, descritos no Capítulo~\ref{chap:revisao}.
 \item[Etapa 4] Realização do procedimento de comparação de um conjunto de treinamento das assinaturas, a fim de definir um limiar para classificação.
 \item[Etapa 5] Realização do procedimento de comparação de um conjunto de testes das assinaturas, a partir dos limiares obtidos na Etapa 4.
@@ -21,17 +21,60 @@ As seções a seguir detalham como esses passos serão realizados.
 \section{Definição e Obtenção da Base de Vídeos}
 \label{sec:database}
 
-Foi escolhida a base UCF50 - Action Recognition Data Set \citeauthor{reddy2013recognizing}, que é comumente utilizada para em projetos de reconhecimento de movimento humano e está segmentada em 50 categorias diferentes que representam ações do quotidiano, como por exemplo ciclismo, natação, caminhada com o cachorro, TaiChi, etc. Dentro de cada categoria, os vídeos há pelo menos 4 vídeos pertencentes a uma mesma gravação, apresentando assim o mesmo os mesmos personagens, fundo e ponto de vista. A fim de reduzir o número de vídeos que apresentam o mesmo conteúdo, foram selecionados apenas o primeiro vídeo de cada grupo.
+Para a realização dos experimentos desta monografia, foi escolhida a base de vídeos UCF50 - Action Recognition Data Set \citeauthor{reddy2013recognizing}, que é comumente utilizada em projetos de reconhecimento de movimento humano. Ela foi escolhida pela quantidade de vídeos que contém, além de sua licença de livre utilização.
 
-A base original é composta de 6.681 vídeos com duração média entre 3 a 9 segundos e após a seleção descrita no parágrafo anterior, restaram 1.264 vídeos. 
+Ela está segmentada em 50 categorias diferentes que representam ações do quotidiano, como por exemplo ciclismo, natação, caminhada com o cachorro, TaiChi, etc. Dentro de cada categoria, há pelo menos 4 vídeos pertencentes a uma mesma gravação, apresentando assim os mesmos personagens, fundo e ponto de vista. A fim de reduzir o número de vídeos que apresentam o mesmo conteúdo, foram selecionados apenas o primeiro vídeo de cada grupo.
 
-os motivos para sua escolha foram a quantidade de vídeos e sua licença de livre utilização. 
+A base original é composta de 6.681 vídeos com duração média entre 3 a 9 segundos e após a seleção descrita no parágrafo anterior, restaram 1.264 vídeos. Para cada vídeo selecionado foram aplicadas as distorções descritas na Seção~\ref{sec:ataques}, totalizando 18.960 itens, sendo destes, 17.696 vídeos resultantes das distorções. A Figura~\ref{fig:exemplos} apresenta alguns exemplos de vídeos da base.
 
-Do total de 6.681 itens, foram selecionados 1.264, pois os vídeos estavam fragmentados em diversas cenas, ou seja, apenas uma cena de cada vídeo foi utilizada. Cada cena tem uma duração média de 3 a 9 segundos.
+\begin{figure}
+    \centering
+    \caption{Exemplos de vídeos retirados da base. O primeiro mostra um jogo de baseball, o segundo mostra uma criança fazendo malabarismo, o terceiro mostra uma competição de levantamento de pesos}
+    \label{fig:exemplos}
+    \includegraphics[width=0.8\textwidth]{dados/figuras/exemplos.png}
+\end{figure}
 
-Para cada vídeo selecionado foram aplicadas as distorções descritas em \ref{sec:distorcoes}, totalizando 18.960 itens, sendo destes, 17.696 vídeos resultantes das distorções.
+\section{Aplicação das Distorções}
+\label{sec:met-distorcoes}
 
-\section{Definição e implementação dos algoritmos}
+Para a criação de um conjunto de cenários de treinamento e teste, foram aplicadas as 14 distorções descritas na Seção~\ref{sec:ataques} sobre os 1.264 vídeos selecionados da base UCF50. Estes cenários propiciam a avaliação do desempenho das diferentes assinaturas revisitadas neste trabalho quanto à robustez e unicidade quando os vídeos são submetidos a diferentes tipos de distorções. A fim de garantir a reprodutibilidade do experimento, os parâmetros utilizados para a aplicação de cada uma das distorções serão explicitados a seguir.
+
+\begin{table}[h]
+\centering
+\caption{Parâmetros usados na aplicação das distorções}
+\label{tab:params}
+\begin{tabular}{ll}
+\hline
+\textbf{Distorção}                                                                & \textbf{Parâmetros}                                                                                                      \\ \hline
+\multicolumn{1}{|l|}{Adição de texto e legendas}                                  & \multicolumn{1}{l|}{}                                                                                                    \\ \hline
+\multicolumn{1}{|l|}{Adição de Marca D'água}                                      & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Texto: "Copyright"\\ Tamanho da fonte: 20\\ Opacidade: 65\%\end{tabular}} \\ \hline
+\multicolumn{1}{|l|}{Adição de Quadro ou Bordas}                                  & \multicolumn{1}{l|}{Tamanho da borda: 25 pixels}                                                                         \\ \hline
+\multicolumn{1}{|l|}{Redimensionamento da Altura e Largura dos Vídeos para Maior} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Fator de redimensionamento: 2\\ Mantém aspect ratio: sim\end{tabular}}    \\ \hline
+\multicolumn{1}{|l|}{Eliminação de uma faixa ou região dos quadros}               & \multicolumn{1}{l|}{}                                                                                                    \\ \hline
+\multicolumn{1}{|l|}{Inversão/espelhamento}                                       & \multicolumn{1}{l|}{Sentido: horizontal}                                                                                 \\ \hline
+\multicolumn{1}{|l|}{Rotação}                                                     & \multicolumn{1}{l|}{10 graus}                                                                                            \\ \hline
+\multicolumn{1}{|l|}{Desfoque/borrado}                                            & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Tipo: gaussiano\\ Sigma: 3\end{tabular}}                                  \\ \hline
+\multicolumn{1}{|l|}{Inversão das cores}                                          & \multicolumn{1}{l|}{}                                                                                                    \\ \hline
+\multicolumn{1}{|l|}{Alteração das compressão dos quadros do vídeo}               & \multicolumn{1}{l|}{Compressão utilizada: JPEG}                                                                          \\ \hline
+\multicolumn{1}{|l|}{Aceleração do vídeo 1}                                       & \multicolumn{1}{l|}{Aumento da velocidade em 50\%}                                                                       \\ \hline
+\multicolumn{1}{|l|}{Aceleração do vídeo 2}                                       & \multicolumn{1}{l|}{Aumento da velocidade em 25\%}                                                                       \\ \hline
+Remoção de quadros                                                                &                                                                                                                          \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Geração das Assinaturas}
+\label{sec:met-assinaturas}
+
+\section{Comparações de Assinaturas para Treinamento}
+\label{sec:met-comparacao-treinamento}
+
+\section{Comparações de Assinaturas para Testes}
+\label{sec:met-comparacao-testes}
+
+
+\section{Análise dos Resultados}
+\label{sec:met-analise}
+
 
 \textbf{[TODO]}
 
