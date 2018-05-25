@@ -37,14 +37,12 @@ A base original é composta de 6.681 vídeos com duração média entre 3 a 9 se
 \section{Aplicação das Distorções}
 \label{sec:met-distorcoes}
 
-Para a criação de um conjunto de cenários de treinamento e teste, foram aplicadas as 14 distorções descritas na Seção~\ref{sec:ataques} sobre os 1.264 vídeos selecionados da base UCF50. Estes cenários propiciam a avaliação do desempenho das diferentes assinaturas revisitadas neste trabalho quanto à robustez e unicidade quando os vídeos são submetidos a diferentes tipos de distorções. A fim de garantir a reprodutibilidade do experimento, os parâmetros utilizados para a aplicação de cada uma das distorções serão explicitados a seguir.
+Para a criação de um conjunto de cenários de treinamento e teste, foram aplicadas as 14 distorções descritas na Seção~\ref{sec:ataques} sobre os 1.264 vídeos selecionados da base UCF50. Estes cenários propiciam a avaliação do desempenho das diferentes assinaturas revisitadas neste trabalho quanto à robustez e unicidade quando os vídeos são submetidos a diferentes tipos de distorções. A fim de garantir a reprodutibilidade do experimento, os parâmetros utilizados para a aplicação de cada uma das distorções são explicitados na Tabela~\ref{tab:params}.
 
 \begin{table}[h]
 \centering
 \caption{Parâmetros usados na aplicação das distorções}
-\label{tab:params}
-\begin{tabular}{ll}
-\hline
+\label{tab:params} \begin{tabular}{ll} \hline
 \textbf{Distorção}                                                                & \textbf{Parâmetros}                                                                                                      \\ \hline
 \multicolumn{1}{|l|}{Adição de texto e legendas}                                  & \multicolumn{1}{l|}{}                                                                                                    \\ \hline
 \multicolumn{1}{|l|}{Adição de Marca D'água}                                      & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Texto: "Copyright"\\ Tamanho da fonte: 20\\ Opacidade: 65\%\end{tabular}} \\ \hline
@@ -76,17 +74,14 @@ Remoção de quadros                                                            
 \label{sec:met-analise}
 
 
-\textbf{[TODO]}
+% Foi escolhida a linguagem Python (versão 2.7.12) para a implementação dos algoritmos por ser multiplataforma e  por sua simplicidade na integração com bibliotecas de alta-performance implementadas em linguagens de baixo nível (C). Isto foi importante pois serão utilizadas as bibliotecas \textit{OpenCV} (versão 3.0.0) e \textit{NumPy} (versão 1.12.1) para manipulação e operação de imagens.
+
+% Para a compilação da base de vídeos foi utilizada a biblioteca MagicImage (versão 7.0.7-8-Q16-x64 - Windows), que incluí os programas \textit{convert} e \textit{ffmpeg}, utilizados para conversão de formatos, aplicação de distorções e transformações de vídeo e imagem respectivamente.
+
+% \section{Definição e Implementação do método de comparação}
 
 
-Foi escolhida a linguagem Python (versão 2.7.12) para a implementação dos algoritmos por ser multiplataforma e  por sua simplicidade na integração com bibliotecas de alta-performance implementadas em linguagens de baixo nível (C). Isto foi importante pois serão utilizadas as bibliotecas \textit{OpenCV} (versão 3.0.0) e \textit{NumPy} (versão 1.12.1) para manipulação e operação de imagens.
-
-Para a compilação da base de vídeos foi utilizada a biblioteca MagicImage (versão 7.0.7-8-Q16-x64 - Windows), que incluí os programas \textit{convert} e \textit{ffmpeg}, utilizados para conversão de formatos, aplicação de distorções e transformações de vídeo e imagem respectivamente.
-
-\section{Definição e Implementação do método de comparação}
-
-
-\textbf{[EM DESENVOLVIMENTO]}
+% \textbf{[EM DESENVOLVIMENTO]}
 
 % pegar base de assinaturas distrocidas, e para cada distorçao, calcular a distancia para todas as assinaturas originais
 
@@ -96,16 +91,16 @@ Para a compilação da base de vídeos foi utilizada a biblioteca MagicImage (ve
 
 % EMBASAR ESSAS PARADAS LOUCAS
 
-\section{Validação das implementações}
+% \section{Validação das implementações}
 
-Antes de realizar-se qualquer experimento, é necessário que os algoritmos implementados passem por uma etapa de validação que consiste em comparar seus resultados com os dos artigos de base. Para isso serão revisados os artigos dos quais os algoritmos foram retirados, além de códigos disponibilizados através destes trabalhos.
+% Antes de realizar-se qualquer experimento, é necessário que os algoritmos implementados passem por uma etapa de validação que consiste em comparar seus resultados com os dos artigos de base. Para isso serão revisados os artigos dos quais os algoritmos foram retirados, além de códigos disponibilizados através destes trabalhos.
 
-A validação ocorrerá em duas etapas:
+% A validação ocorrerá em duas etapas:
 
-\begin{enumerate}
-\item teste de software;
-\item comparação das saídas dos algoritmos implementados para o trabalho e as implementações originais, dada a mesma entrada.
-\end{enumerate}
+% \begin{enumerate}
+% \item teste de software;
+% \item comparação das saídas dos algoritmos implementados para o trabalho e as implementações originais, dada a mesma entrada.
+% \end{enumerate}
 
-\section{Definição dos Experimentos}
-\label{sec:definicaoexperimentos}
+% \section{Definição dos Experimentos}
+% \label{sec:definicaoexperimentos}
