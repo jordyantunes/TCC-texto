@@ -83,6 +83,8 @@ O passo final de preparação para os experimentos deste trabalho foi a criaçã
 \section{Comparação de Assinaturas}
 \label{sec:met-comparacao}
 
+Como os vídeos podem sofrer distorções temporais como a mudança de velocidade e de \textit{frame rate}, foi preciso utilizar uma medida de distância que não fizesse uma comparação 1:1 de todos os componentes das assinaturas, além de permitir a comparação de assinaturas de tamanhos diferentes. Foi escolhido o DTW (\textit{Dynamic Time Warping}), uma técnica conhecida para alinhamento entre duas sequências temporais. Originalmente, esta técnica foi utilizada para a comparação de diferentes padrões vocais em aplicações de reconhecimento de voz, mas o DTW já foi utilizado com sucesso para lidar com deformações temporais e velocidades diferentes em dados dependentes de tempo, explica \citeauthor{muller2007dynamic}.
+
 % É preciso encontrar uma medida de comparação entre 2 assinaturas que leve em consideração que elas podem ter tamanhos diferentes
 % apresentar dtw
 % breve história
