@@ -37,31 +37,48 @@ A base original é composta de 6.681 vídeos com duração média entre 3 a 9 se
 \section{Aplicação das Distorções}
 \label{sec:met-distorcoes}
 
-Para a criação de um conjunto de cenários de treinamento e teste, foram aplicadas as 14 distorções descritas na Seção~\ref{sec:ataques} sobre os 1.264 vídeos selecionados da base UCF50. Estes cenários propiciam a avaliação do desempenho das diferentes assinaturas revisitadas neste trabalho quanto à robustez e unicidade quando os vídeos são submetidos a diferentes tipos de distorções. A fim de garantir a reprodutibilidade do experimento, os parâmetros utilizados para a aplicação de cada uma das distorções são explicitados na Tabela~\ref{tab:params}.
+Para a criação de um conjunto de cenários de treinamento e teste, foram aplicadas as 14 distorções descritas na Seção~\ref{sec:ataques} sobre os 1.264 vídeos selecionados da base UCF50, totalizando 17.696 vídeos distorcidos. Estes cenários propiciam a avaliação do desempenho das diferentes assinaturas revisadas neste trabalho quanto à robustez e a unicidade quando os vídeos são submetidos a diferentes tipos de distorções. A fim de garantir a reprodutibilidade do experimento, os parâmetros utilizados para a aplicação de cada uma das distorções são explicitados na Tabela~\ref{tab:params}. Para facilitar a discussão dos resultados, serão utilizadas as siglas definidas na primeira coluna da tabela quando houve referência às distorções.
 
 \begin{table}[h]
 \centering
 \caption{Parâmetros usados na aplicação das distorções}
-\label{tab:params} \begin{tabular}{ll} \hline
-\textbf{Distorção}                                                                & \textbf{Parâmetros}                                                                                                      \\ \hline
-\multicolumn{1}{|l|}{Adição de texto e legendas}                                  & \multicolumn{1}{l|}{}                                                                                                    \\ \hline
-\multicolumn{1}{|l|}{Adição de Marca D'água}                                      & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Texto: "Copyright"\\ Tamanho da fonte: 20\\ Opacidade: 65\%\end{tabular}} \\ \hline
-\multicolumn{1}{|l|}{Adição de Quadro ou Bordas}                                  & \multicolumn{1}{l|}{Tamanho da borda: 25 pixels}                                                                         \\ \hline
-\multicolumn{1}{|l|}{Redimensionamento da Altura e Largura dos Vídeos para Maior} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Fator de redimensionamento: 2\\ Mantém aspect ratio: sim\end{tabular}}    \\ \hline
-\multicolumn{1}{|l|}{Eliminação de uma faixa ou região dos quadros}               & \multicolumn{1}{l|}{}                                                                                                    \\ \hline
-\multicolumn{1}{|l|}{Inversão/espelhamento}                                       & \multicolumn{1}{l|}{Sentido: horizontal}                                                                                 \\ \hline
-\multicolumn{1}{|l|}{Rotação}                                                     & \multicolumn{1}{l|}{10 graus}                                                                                            \\ \hline
-\multicolumn{1}{|l|}{Desfoque/borrado}                                            & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Tipo: gaussiano\\ Sigma: 3\end{tabular}}                                  \\ \hline
-\multicolumn{1}{|l|}{Inversão das cores}                                          & \multicolumn{1}{l|}{}                                                                                                    \\ \hline
-\multicolumn{1}{|l|}{Alteração das compressão dos quadros do vídeo}               & \multicolumn{1}{l|}{Compressão utilizada: JPEG}                                                                          \\ \hline
-\multicolumn{1}{|l|}{Aceleração do vídeo 1}                                       & \multicolumn{1}{l|}{Aumento da velocidade em 50\%}                                                                       \\ \hline
-\multicolumn{1}{|l|}{Aceleração do vídeo 2}                                       & \multicolumn{1}{l|}{Aumento da velocidade em 25\%}                                                                       \\ \hline
-Remoção de quadros                                                                &                                                                                                                          \\ \hline
+\label{tab:params}
+\begin{tabular}{|p{0.2\textwidth}|p{0.4\textwidth}|p{0.4\textwidth}|} \hline
+    \textbf{Sigla} & \textbf{Distorção} & \textbf{Parâmetros} \\ \hline
+    TEXT & Adição de texto e legendas & \\ \hline
+    WATERMARK & Adição de Marca D'água & \begin{tabular}{@{}l@{}}Texto: "Copyright"\\ Tamanho da fonte: 20\\ Opacidade: 65\% \end{tabular}\\ \hline
+    BORDER & Adição de Quadro ou Bordas & Tamanho da borda: 25 pixels \\ \hline
+    BIG & Redimensionamento da Altura e Largura dos Vídeos para Maior & \begin{tabular}{@{}l@{}} Fator de redimensionamento: 2\\ MANTÉM aspect ratio: sim \end{tabular} \\ \hline
+    CROP & Eliminação de uma faixa ou região dos quadros &  \\ \hline
+    FLOP & Inversão/espelhamento & Sentido: horizontal \\ \hline
+    ROTATE & Rotação & 10 graus \\ \hline
+    BLUR & Desfoque & \begin{tabular}{@{}l@{}}Tipo: gaussiano\\ Sigma: 3\end{tabular} \\ \hline
+    COLOR & Inversão das cores &  \\ \hline
+    JPEG & Alteração das compressão dos quadros do vídeo & Compressão utilizada: JPEG \\ \hline
+    FAST1 & Aceleração do vídeo 1 & Aumento da velocidade em 50\% \\ \hline
+    FAST2 & Aceleração do vídeo 2 & Aumento da velocidade em 25\% \\ \hline
 \end{tabular}
 \end{table}
 
 \section{Geração das Assinaturas}
 \label{sec:met-assinaturas}
+
+O passo final de preparação para os experimentos deste trabalho foi a criação das assinaturas utilizando os 6 algoritmos descritos no Capítulo~\ref{chap:revisao}. As assinaturas foram geradas para todos os 17.696 vídeos originais e distorcidos, totalizando 106.176 assinaturas. Para facilitar a consulta dos resultados do experimento, todas as assinaturas foram arquivadas em um banco de dados contendo dados do vídeo a qual a assinatura pertence, se o vídeo é um vídeo original ou um distorcido, o tipo da distorção e uma referência ao vídeo original, além do tipo de assinatura utilizado. A Tabela~\ref{tab:assinaturas} apresenta todas as assinaturas sendo utilizadas, junto do intervalo numérico em que as assinaturas se encontram, além dos tipos de características de um vídeo utilizados para obtê-las. A primeira coluna da tabela apresenta a sigla de cada assinatura que será utilizada na Seção de Resultados.
+
+\begin{table}[h]
+    \centering
+    \caption{Assinaturas utilizadas para comparação}
+    \label{tab:assinaturas}
+    \begin{tabular}{|p{0.2\textwidth}|p{0.259\textwidth}|p{0.259\textwidth}|p{0.259\textwidth}|} \hline
+        \textbf{Sigla} & \textbf{Assinatura} & \textbf{Características} & \textbf{Intervalo de Dados} \\ \hline
+        gradient & Gradiente & - & [0-1] \\ \hline
+        framedif & FrameDiff & - & [0-1] \\ \hline
+        medidaordina & Medida Ordinal & - & [0-1] \\ \hline
+        wavelet & Wavelets & - & [0-1] \\ \hline
+        rb & RBP & - & [0-1] \\ \hline
+        scenefram & Scene Frame & - & [0-1] \\ \hline
+    \end{tabular}
+\end{table}
 
 \section{Comparações de Assinaturas para Treinamento}
 \label{sec:met-comparacao-treinamento}
