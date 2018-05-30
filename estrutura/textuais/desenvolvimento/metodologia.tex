@@ -83,7 +83,29 @@ O passo final de preparação para os experimentos deste trabalho foi a criaçã
 \section{Comparação de Assinaturas}
 \label{sec:met-comparacao}
 
-Como os vídeos podem sofrer distorções temporais como a mudança de velocidade e de \textit{frame rate}, foi preciso utilizar uma medida de distância que não fizesse uma comparação 1:1 de todos os componentes das assinaturas, além de permitir a comparação de assinaturas de tamanhos diferentes. Foi escolhido o DTW (\textit{Dynamic Time Warping}), uma técnica conhecida para alinhamento entre duas sequências temporais. Originalmente, esta técnica foi utilizada para a comparação de diferentes padrões vocais em aplicações de reconhecimento de voz, mas o DTW já foi utilizado com sucesso para lidar com deformações temporais e velocidades diferentes em dados dependentes de tempo, explica \citeauthor{muller2007dynamic}.
+As assinaturas geradas na etapa anterior são compostas de vetores de características e cada um dos algoritmos geradores descreve uma forma de compará-los, geralmente utilizando a distância euclidiana ou a distância de manhattan. Para simplificar a implementação e análise dos resultados, foi necessária a escolha de uma medida única capaz de lidar com as características de cada assinatura. Um dos fatores a ser considerado é que o tamanho das assinaturas é proporcional ao tamanho dos vídeos dos quais elas provém, além disso, este trabalho usa algumas distorções do tipo temporal que alteram a velocidade e o \textit{framerate} de vídeos, alterando seu tamanho. Sendo assim, a medida utilizada precisa lidar com assinaturas de tamanhos e frequências diferentes.
+
+Enquanto a distância Euclidiana pode ser útil para comparar as assinaturas de um único quadro de cada vídeo, o fato dela comparar cada valor de duas assinaturas de um em um a torna suscetível a distorções temporais. Para resolver os problemas mencionados, foi escolhido o DTW (\textit{Dynamic Time Warping}) como forma de comparação, uma técnica conhecida para alinhamento entre duas sequências temporais. Originalmente, esta técnica foi utilizada para a comparação de diferentes padrões vocais em aplicações de reconhecimento de voz, mas o DTW já foi utilizado com sucesso para lidar com deformações temporais e velocidades diferentes em dados dependentes de tempo, explica \citeauthor{muller2007dynamic}.
+
+Ao contrário de medidas como a Distância Euclidiana que comparam cada valor dentro de uma sequência com apenas um valor de outra, o DTW pareia vários valores das duas sequências para compensar distorções temporais, como mostra a Figura~\ref{fig:dist-comparacao}. Para achar esse pareamento, o DTW compara todos os valores das duas sequências do início ao fim utilizando uma medida de distância (normalmente distância de Manhattan ou Euclidiana) e o valor mínimo das 3 comparações anteriores, o resultado é uma matriz de custo, como mostra a Figura~\ref{fig:dtw-caminho}. Em seguida, percorre-se a matriz da última célula até a primeira, sempre escolhendo a célula com o menor custo como próximo passo. O caminho formado é o pareamento entre valores das duas sequências temporais.
+
+\begin{figure}[h]
+    \centering
+    \caption{Distância entre duas sequências temporais medida usando distância euclidiana (na imagem de cima) e o DTW (na imagem de baixo)}
+    \label{fig:dist-comparacao}
+    \includegraphics[width=0.6\textwidth]{dados/figuras/dtw-euclidiana.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \caption{a) Matriz de custo formada comparando duas sequências temporais. b) Caminho com menor custo}
+    \label{fig:dtw-caminho}
+    \begin{tabular}{ll}
+    \includegraphics[width=0.4\textwidth]{dados/figuras/dtw-comparacao.png} &
+    \includegraphics[width=0.4\textwidth]{dados/figuras/dtw-comparacao-caminho.png} \\
+    a) Matriz de custo & b) Caminho mais barato
+    \end{tabular}
+\end{figure}
 
 % Fórmula do DTW
 
