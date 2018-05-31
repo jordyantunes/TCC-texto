@@ -31,7 +31,7 @@ A base original é composta de 6.681 vídeos com duração média entre 3 a 9 se
     \centering
     \caption{Exemplos de vídeos retirados da base. O primeiro mostra um jogo de baseball, o segundo mostra uma criança fazendo malabarismo, o terceiro mostra uma competição de levantamento de pesos}
     \label{fig:exemplos}
-    \includegraphics[width=0.8\textwidth]{dados/figuras/exemplos.png}
+    \includegraphics[width=0.8\textwidth]{dados/figuras/exemplos}
 \end{figure}
 
 \section{Aplicação das Distorções}
@@ -95,7 +95,7 @@ Enquanto a distância Euclidiana pode ser útil para comparar as assinaturas de 
     \centering
     \caption{Distância entre duas sequências temporais medida usando distância euclidiana (na imagem de cima) e o DTW (na imagem de baixo)}
     \label{fig:dist-comparacao}
-    \includegraphics[width=0.6\textwidth]{dados/figuras/dtw-euclidiana.png}
+    \includegraphics[width=0.6\textwidth]{dados/figuras/dtw-euclidiana}
 \end{figure}
 
 Para achar esse pareamento, o DTW compara todos os valores das duas sequências do início ao fim utilizando uma medida de distância (normalmente distância de Manhattan ou Euclidiana) e o valor mínimo das 3 comparações anteriores, o resultado é uma matriz de custo, como mostra a Figura~\ref{fig:dtw-caminho}. Em seguida, percorre-se a matriz da última célula até a primeira, sempre escolhendo a célula com o menor custo como próximo passo. O caminho formado é o pareamento entre valores das duas sequências temporais.
@@ -106,8 +106,8 @@ Para achar esse pareamento, o DTW compara todos os valores das duas sequências 
     \caption{a) Matriz de custo formada comparando duas sequências temporais. b) Caminho com menor custo}
     \label{fig:dtw-caminho}
     \begin{tabular}{ll}
-    \includegraphics[width=0.4\textwidth]{dados/figuras/dtw-comparacao.png} &
-    \includegraphics[width=0.4\textwidth]{dados/figuras/dtw-comparacao-caminho.png} \\
+    \includegraphics[width=0.4\textwidth]{dados/figuras/dtw-comparacao} &
+    \includegraphics[width=0.4\textwidth]{dados/figuras/dtw-comparacao-caminho} \\
     a) Matriz de custo & b) Caminho mais barato
     \end{tabular}
 \end{figure}
@@ -120,6 +120,8 @@ Em sua forma original, o DTW tem uma complexidade de $ O(N^{2}) $, por este moti
 
 \section{Experimentos}
 \label{sec:met-Experimentos}
+
+A primeira parte do experimento foi o treinamento, ela consistiu em comparar as assinaturas dos cenários de treinamento definidos na Seção~\ref{sec:met-assinaturas} utilizando o DTW para encontrar um limiar de corte para a classificação das assinaturas. Como o resultado de uma comparação de duas assinaturas é um único valor de distância, optou-se por utilizar um método simples para encontrar o limiar de cada algoritmo, simulando a classificação das assinaturas utilizando vários valores de limiar pertinentes a cada algoritmo, visando encontrar um limiar que maximize a acurária e precisão da classificação.
 
 % divisão entre treinamento, validação e teste
 
