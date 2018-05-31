@@ -95,7 +95,7 @@ Enquanto a distância Euclidiana pode ser útil para comparar as assinaturas de 
     \centering
     \caption{Distância entre duas sequências temporais medida usando distância euclidiana (na imagem de cima) e o DTW (na imagem de baixo)}
     \label{fig:dist-comparacao}
-    \includegraphics[width=0.6\textwidth]{dados/figuras/dtw-euclidiana.png}
+%     \includegraphics[width=0.6\textwidth]{dados/figuras/dtw-euclidiana.png}
 \end{figure}
 
 Para achar esse pareamento, o DTW compara todos os valores das duas sequências do início ao fim utilizando uma medida de distância (normalmente distância de Manhattan ou Euclidiana) e o valor mínimo das 3 comparações anteriores, o resultado é uma matriz de custo, como mostra a Figura~\ref{fig:dtw-caminho}. Em seguida, percorre-se a matriz da última célula até a primeira, sempre escolhendo a célula com o menor custo como próximo passo. O caminho formado é o pareamento entre valores das duas sequências temporais.
@@ -106,8 +106,8 @@ Para achar esse pareamento, o DTW compara todos os valores das duas sequências 
     \caption{a) Matriz de custo formada comparando duas sequências temporais. b) Caminho com menor custo}
     \label{fig:dtw-caminho}
     \begin{tabular}{ll}
-    \includegraphics[width=0.4\textwidth]{dados/figuras/dtw-comparacao.png} &
-    \includegraphics[width=0.4\textwidth]{dados/figuras/dtw-comparacao-caminho.png} \\
+%     \includegraphics[width=0.4\textwidth]{dados/figuras/dtw-comparacao.png} &
+%     \includegraphics[width=0.4\textwidth]{dados/figuras/dtw-comparacao-caminho.png} \\
     a) Matriz de custo & b) Caminho mais barato
     \end{tabular}
 \end{figure}
