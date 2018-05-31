@@ -80,6 +80,10 @@ O passo final de preparação para os experimentos deste trabalho foi a criaçã
     \end{tabular}
 \end{table}
 
+As assinaturas geradas nesta etapa foram arranjadas em cenários de treinamento e teste para a realização do experimento. Para a criação de um caso de teste, é escolhida uma assinatura do grupo de assinaturas originais e uma assinatura do grupo de teste, sempre geradas pelo mesmo algoritmo, e estas são comparadas segundo o método descrito na Seção~\ref{sec:met-comparacao}. Caso o resultado da comparação fique abaixo de um limiar empiricamente definido, o vídeo que gerou a assinatura de teste é considerado como uma cópia do vídeo que gerou a assinatura original.
+
+Para que cada algoritmo possa ser utilizado para classificar se uma assinatura do grupo de teste é uma cópia de uma assinatura do grupo de originais, é preciso definir um limiar de corte para cada algoritmo. Para isso, foi definido um cenário de treinamento em que 50\% das combinações de assinatura que são cópias foram escolhidos aleatoriamente, ou seja, 8.848 por algoritmo, totalizando 53.088 casos de treinamento de cópias. O mesmo número de casos de treinamento de não-cópias foi escolhido aleatoriamente.
+
 \section{Comparação de Assinaturas}
 \label{sec:met-comparacao}
 
