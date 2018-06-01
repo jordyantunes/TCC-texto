@@ -32,6 +32,7 @@ A base original é composta de 6.681 vídeos com duração média entre 3 a 9 se
     \caption{Exemplos de vídeos retirados da base. O primeiro mostra um jogo de baseball, o segundo mostra uma criança fazendo malabarismo, o terceiro mostra uma competição de levantamento de pesos}
     \label{fig:exemplos}
     \includegraphics[width=0.8\textwidth]{dados/figuras/exemplos}
+    \fonte{Autoria própria}
 \end{figure}
 
 \section{Aplicação das Distorções}
@@ -39,7 +40,7 @@ A base original é composta de 6.681 vídeos com duração média entre 3 a 9 se
 
 Para a criação de um conjunto de cenários de treinamento e teste, foram aplicadas as 14 distorções descritas na Seção~\ref{sec:ataques} sobre os 1.264 vídeos selecionados da base UCF50, totalizando 17.696 vídeos distorcidos. Estes cenários propiciam a avaliação do desempenho das diferentes assinaturas revisadas neste trabalho quanto à robustez e a unicidade quando os vídeos são submetidos a diferentes tipos de distorções. A fim de garantir a reprodutibilidade do experimento, os parâmetros utilizados para a aplicação de cada uma das distorções são explicitados na Tabela~\ref{tab:params}. Para facilitar a discussão dos resultados, serão utilizadas as siglas definidas na primeira coluna da tabela quando houve referência às distorções.
 
-\begin{table}[h]
+\begin{table}[!ht]
 \centering
 \caption{Parâmetros usados na aplicação das distorções}
 \label{tab:params}
