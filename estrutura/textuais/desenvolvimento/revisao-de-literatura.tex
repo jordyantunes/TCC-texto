@@ -394,9 +394,9 @@ Esta abordagem foi escolhida por ter sido projetada especialmente para ser robus
 
 Após a etapa de pré-processamento, para serem utilizados como entrada para este algoritmo, os vídeos devem ser transformados para escala de cinza e ter suas intensidades normalizadas para o intervalo $[0,1]$. A assinatura proposta por \citeauthor{Dutta2013} é composta de uma parte baseada na transformada de Haar e em outra parte baseada na distribuição espacial de gradientes.
 
- Para gerar a assinatura é necessária uma imagem $I$, obtida após a conversão para escala de cinza e normalização. São aplicadas $n$ iterações da transformada de Haar para computar e gerar as bandas $HH, LH, HL$ e $LL$. 
+ Para gerar a assinatura é necessária uma imagem $I$, obtida após a conversão para escala de cinza e normalização. São aplicadas $n$ iterações da transformada de Haar para computar e gerar as bandas $HH, LH, HL$ e $LL$.  A  para computar a energia de $LH$, $HL$, $HH$: 
  
- Fórmula para computar a energia de $LH$, $HL$, $HH$: $\frac{1}{MN}\sum_{x=1}^M \sum_{y=1}^N |\mathbb{I}(x,y)|$;
+ $\frac{1}{MN}\sum_{x=1}^M \sum_{y=1}^N |\mathbb{I}(x,y)|$;
  
  %Para i de 1 até $n$, onde $n$ é o número de iterações da transformada de Haar:
 %   \begin{enumerate}
