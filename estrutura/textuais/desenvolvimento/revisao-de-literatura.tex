@@ -340,7 +340,7 @@ O primeiro limiar, utilizado para as $144$ médias de intensidade, é obtido da 
 \item O limiar $ThM$ utilizado será $a_i$ onde $i = floor(0.25*144)$.
 \end{enumerate}
 
-Cada valor $m_i$ é então definido através da Equação \ref{eq:mediaquart}, podendo variar de $[0 - 3]$ .
+Cada valor $m_i$ é então definido através da Equação \ref{eq:mediaquart}, estando no intervalo $[0 - 3]$ .
 
 \begin{equation}
 	\label{eq:mediaquart}
@@ -396,7 +396,7 @@ Após a etapa de pré-processamento, para serem utilizados como entrada para est
 
  Para gerar a assinatura é necessária uma imagem $I$, obtida após a conversão para escala de cinza e normalização. São aplicadas $n$ iterações da transformada de Haar para computar e gerar as bandas $HH, LH, HL$ e $LL$. 
  
- Fórmula para computar energia de $LH$, $HL$, $HH$: $\frac{1}{MN}\sum_{x=1}^M \sum_{y=1}^N |\mathbb{I}(x,y)|$;
+ Fórmula para computar a energia de $LH$, $HL$, $HH$: $\frac{1}{MN}\sum_{x=1}^M \sum_{y=1}^N |\mathbb{I}(x,y)|$;
  
  %Para i de 1 até $n$, onde $n$ é o número de iterações da transformada de Haar:
 %   \begin{enumerate}
