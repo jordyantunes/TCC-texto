@@ -19,9 +19,9 @@ Em 1999, o compartilhamento de vídeos na internet ainda era uma realidade dista
 
 Desde então, várias técnicas têm sido usadas para a geração de assinaturas de vídeos. \citeauthor{coskun2006spatio} propuseram o conceito de funções de \textit{hash} como uma ferramenta para identificação dos vídeos, criando um algoritmo que utiliza as informações espaço-temporais do vídeo baseado no diferencial da luminância entre regiões de quadros. Outras abordagens incluem o uso de descritores globais que utilizam a distribuição da intensidade de movimento e cor \citeauthor{hampapur2001comparison}, além de medidas ordinais \citeauthor{hua2004robust}, que se provaram robustas para variadas resoluções, mudanças de iluminação e formatos de vídeos.	   	
 
-Descritores locais também foram extensamente pesquisadas, como em \citeauthor{joly2007content}, cujo algoritmo apresentado busca ser eficiente para buscas em grandes bases de dados, tanto em velocidade quanto em qualidade. Há também a  pesquisa de \citeauthor{law2006robust}, que usa o algoritmo de Harris para encontrar pontos de interesse no vídeo e criar uma assinatura compacta.
+Assinaturas baseadas em características locais também foram pesquisadas, como em \citeauthor{joly2007content}, cujo algoritmo apresentado busca ser eficiente para buscas em grandes bases de dados, tanto em velocidade quanto em qualidade. Há também a  pesquisa de \citeauthor{law2006robust}, que usa o algoritmo de Harris para encontrar pontos de interesse no vídeo e criar uma assinatura compacta.
 
-\citeauthor{de2012combinaccao} fez um estudo comparativo entre descritores globais e locais e mostrou como unir os dois tipos de descritores através de algoritmos genéticos. \citeauthor{de2012combinaccao} também fez vários experimentos mostrando que a combinação de descritores globais e locais são complementares e se usados em conjunto, produzem resultados superiores quando comparados com o uso individual de cada tipo de descritor.
+\citeauthor{de2012combinaccao} fez um estudo comparativo entre assinaturas globais e locais e mostrou como unir os dois tipos de assinaturas utilizando de algoritmos genéticos. \citeauthor{de2012combinaccao} também fez experimentos mostrando que a combinação de descritores globais e locais são complementares e, se usados em conjunto, produzem resultados superiores quando comparados com o uso individual de cada tipo de descritor.
 
 \citeauthor{hu2011survey} discorre sobre a indexação e recuperação de conteúdo em vídeos. O trabalho apresenta métodos para analisar a estrutura de vídeos, segmentação de cenas, extração de quadros-chave, características de movimento, mineração de informações em vídeos, mensuramento de similaridade e relevância entre assinaturas digitais, pesquisa de conteúdo em vídeos entre outros.
 
@@ -329,18 +329,9 @@ Após o processamento inicial, o quadro é então dividido em $144$ pedaços men
     \label{fig:divsceneframe}
 \end{figure}
 
-
 O artigo também propõe uma alternativa para diminuir o espaço de memória utilizado para armazenar as assinaturas, visto que o banco de dados dos vídeos pode ser grande. Para isso, é proposta uma técnica chamada quantificação quaternária, na qual os valores são classificados de acordo com um \textit{threshold}, calculado dinamicamente para cada quadro.
 
-O primeiro limiar, utilizado para as $144$ médias de intensidade, é obtido da seguinte maneira, onde $m_i$ representa cada valor dentro do conjunto $M$ de médias de intensidade:
-
-\begin{enumerate}
-\item Para todo $m_i$ em $M$, é calculado o valor absoluto $a_i = abs(m_i - 128)$, obtendo novos valores $A$.
-\item Os valores de $A$ são ordenados crescentemente.
-\item O limiar $ThM$ utilizado será $a_i$ onde $i = floor(0.25*144)$.
-\end{enumerate}
-
-Cada valor $m_i$ é então definido através da Equação \ref{eq:mediaquart}, estando no intervalo $[0 - 3]$ .
+O primeiro limiar, utilizado para as $144$ médias de intensidade, é obtido da seguinte maneira: considere que $m_i$ representa cada valor dentro do conjunto $M$ de médias de intensidade. Para todo $m_i$ em $M$, é calculado o valor absoluto $a_i = abs(m_i - 128)$, obtendo novos valores $A$. Os valores de $A$ são, então, organizados em ordem crescente. O limiar $ThM$ utilizado será $a_i$ onde $i = floor(0.25*144)$. Finalmente, cada valor $m_i$ é então definido através da Equação \ref{eq:mediaquart}.
 
 \begin{equation}
 	\label{eq:mediaquart}
@@ -353,10 +344,14 @@ Cada valor $m_i$ é então definido através da Equação \ref{eq:mediaquart}, e
      \end{cases}
 \end{equation}
 
+A mesma lógica é aplicada para os $576$ valores diferenciais, porém, para estes não é necessário realizar as subtrações por $128$.
+
+Com os valores quaternizados, a assinatura será adicionada ao vetor final de resultado com duas condições: o quadro não pode ser um quadro de transição, chamado de \textit{black frame} pelos autores e, em comparação com o último quadro de cena adicionado ao resultado, a diferença entre as assinaturas deve ser maior que um limiar definido por \citeauthor{mao2015sceneframe}.
+
  \begin{figure}[h]
       \centering
       \caption{Diagrama do algoritmo baseado em quadros de cena.}
-      \includegraphics[width=0.96\textwidth]{dados/figuras/SceneFrame.png}
+      \includegraphics[width=\textwidth]{dados/figuras/SceneFrame.png}
       \fonte{Autoria própria}
        	\label{fig:dia_sceneframe}
     \end{figure}  
@@ -374,7 +369,7 @@ O método divide o quadro em regiões na forma de círculos, então divide os c�
 
  \begin{figure}[h]
       \centering
-      \caption{Diagrama do algoritmo baseado padrões binários por região}
+      \caption{Diagrama do algoritmo baseado padrões binários por região.}
       \includegraphics[width=0.96\textwidth]{dados/figuras/RBP.png}
       \fonte{Autoria própria}
        	\label{fig:dia_rbp}
@@ -394,16 +389,22 @@ Esta abordagem foi escolhida por ter sido projetada especialmente para ser robus
 
 Após a etapa de pré-processamento, para serem utilizados como entrada para este algoritmo, os vídeos devem ser transformados para escala de cinza e ter suas intensidades normalizadas para o intervalo $[0,1]$. A assinatura proposta por \citeauthor{Dutta2013} é composta de uma parte baseada na transformada de Haar e em outra parte baseada na distribuição espacial de gradientes.
 
- Para gerar a assinatura é necessária uma imagem $I$, obtida após a conversão para escala de cinza e normalização. São aplicadas $n$ iterações da transformada de Haar para computar e gerar as bandas $HH, LH, HL$ e $LL$.  A  para computar a energia de $LH$, $HL$, $HH$: 
+ Para gerar a assinatura é necessária uma imagem $I$, obtida após a conversão para escala de cinza e normalização. São aplicadas $n$ iterações da transformada de Haar para computar e gerar as bandas $HH, LH, HL$ e $LL$.  A Equação \ref{eq:bandasH} mostra como computar a energia de $LH$, $HL$, $HH$. 
  
- $\frac{1}{MN}\sum_{x=1}^M \sum_{y=1}^N |\mathbb{I}(x,y)|$;
+ \begin{equation}
+	\label{eq:bandasH}
+	\frac{1}{MN}\sum_{x=1}^M \sum_{y=1}^N |\mathbb{I}(x,y)|
+\end{equation} 
+ 
+ 
  
  %Para i de 1 até $n$, onde $n$ é o número de iterações da transformada de Haar:
 %   \begin{enumerate}
 %     \item Aplicar a transformada de Haar sobre $I$ para obter um vetor com ($LL, LH, HL, HH$);
 %     \item Computar energia de $LH$, $HL$, $HH$ \footnote{$  \frac{1}{MN}\sum_{x=1}^M \sum_{y=1}^N |\mathbb{I}(x,y)|$};
 %   \end{enumerate}
- Em seguida, computa-se a energia da subimagem $I$ somente do último valor de $LL$ e então esses valores são concatenados em um vetor. Finalmente, os valores de energia obtidos nos passos anteriores são concatenados resultando na assinatura do vídeo.
+
+ Em seguida, computa-se somente a energia do último valor de $LL$ da subimagem $I$. Finalmente, os valores de energia obtidos nos passos anteriores são concatenados em um vetor, resultando na assinatura do vídeo.
 
 % \begin{figure}[h]
 %   \centering
