@@ -140,53 +140,17 @@ Os experimentos realizados neste trabalho são dividos em duas etapas: a obtenç
 
 Para cada assinatura distorcida $a \in A_d$, existe uma assinatura correspondente $b \in A_o$ tal que $a$ seja uma cópia distorcida de $b$. Um caso de treinamento/teste $c$ é composto de uma tupla $(a, b)$ tal que $a \in A_o$ e $b \in A_d$. Um caso de treinamento $c$ é marcado como "cópia" se $b$ for uma cópia distorcida de $a$, senão é marcado como "não cópia". Sendo assim, há um total de 22.367.744 de possíveis casos de treinamento/teste para cada tipo de assinatura, sendo apenas 17.584 marcados como "cópia".Visando a criação de um conjunto de casos de treinamento balanceado, foram escolhidos aleatoriamente 50\% dos 17.584 casos de "cópia" (8.792), e o mesmo número de casos "não cópia" para cada algoritmo. O mesmo critério foi utilizado para a criação dos conjuntos de teste: o resto dos 50\% dos casos "cópia" foi selecionado, além de 8.792 casos "não cópia".
 
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|l|l|l|l|l|}
-        \hline
-        Casos Total & Casos "cópia" & Casos "não cópia" & Casos "cópia" para treinamento & Casos "não cópia" para treinamento \\ \hline
-        22.367.744 & 17.584 & 22.350.160 & 8.792 & 8.792 \\ \hline
-    \end{tabular}
-\end{table}
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{|l|l|l|l|l|}
+%         \hline
+%         Casos Total & Casos "cópia" & Casos "não cópia" & Casos "cópia" para treinamento & Casos "não cópia" para treinamento \\ \hline
+%         22.367.744 & 17.584 & 22.350.160 & 8.792 & 8.792 \\ \hline
+%     \end{tabular}
+% \end{table}
 
+Para realizar uma classificação de um vídeo de teste como sendo cópia de um dos vídeos originais, as assinaturas dos dois são comparadas utilizando o DTW (definido da Seção~\ref{sec:met-comparacao}), que retorna como resultado uma medida de distância. Essa classificação utilizando o valor de distância só é possível após definido um limiar de corte para cada algoritmo, sendo que um vídeo de teste é considerado cópia de um vídeo original se a distância entre os dois obtida através do DTW esteja abaixo deste limiar. Logo, a primeira etapa dos experimentos é a definição destes limiares de forma empírica.
 
-A primeira parte do experimento foi o treinamento, ela consistiu em comparar as assinaturas dos cenários de treinamento definidos na Seção~\ref{sec:met-assinaturas} utilizando o DTW para encontrar um limiar de corte para a classificação das assinaturas. Como o resultado de uma comparação de duas assinaturas é um único valor de distância, optou-se por utilizar um método simples para encontrar o limiar de cada algoritmo, simulando a classificação das assinaturas utilizando vários valores de limiar pertinentes a cada algoritmo, visando encontrar um limiar que maximize a acurária e precisão da classificação.
+O conjunto de parametrização definido anteriormente é divido em 5 subconjuntos organizados de forma aleatória. Para cada subconjunto, é simulada a classificação de "cópia" e "não-cópia" com um intervalo de valores, a fim de encontrar um limiar ideal. Com o intuito de maximizar o número de verdadeiros-positivos e diminuir o número de falsos-negativos, é utilizada a medida \textit{FMeasure} como parâmetro, escolhendo o limiar que maximiza este valor. Ao final da simulação para os 5 subconjuntos, o limiar final de cada assinatura é definido como a média dos limiares obtidos com a simulação para cada subconjunto.
 
-% comentar que serão utilizados o resto dos cenários
-% serão analisados os tipos de distorcao separadamente
-% combinacao de algoritmos
-
-\section{Análise dos Resultados}
-\label{sec:met-analise}
-
-
-% Foi escolhida a linguagem Python (versão 2.7.12) para a implementação dos algoritmos por ser multiplataforma e  por sua simplicidade na integração com bibliotecas de alta-performance implementadas em linguagens de baixo nível (C). Isto foi importante pois serão utilizadas as bibliotecas \textit{OpenCV} (versão 3.0.0) e \textit{NumPy} (versão 1.12.1) para manipulação e operação de imagens.
-
-% Para a compilação da base de vídeos foi utilizada a biblioteca MagicImage (versão 7.0.7-8-Q16-x64 - Windows), que incluí os programas \textit{convert} e \textit{ffmpeg}, utilizados para conversão de formatos, aplicação de distorções e transformações de vídeo e imagem respectivamente.
-
-% \section{Definição e Implementação do método de comparação}
-
-
-% \textbf{[EM DESENVOLVIMENTO]}
-
-% pegar base de assinaturas distrocidas, e para cada distorçao, calcular a distancia para todas as assinaturas originais
-
-% pegar as duas menores distancias para cada distorçao de cada vídeo
-
-% se a dif do primeiro colocado (primera distancia) for diferente o suficiente para o segundo colocado , entao podemos assumir (podemos?) que encontramos a assinatura do vídeo original
-
-% EMBASAR ESSAS PARADAS LOUCAS
-
-% \section{Validação das implementações}
-
-% Antes de realizar-se qualquer experimento, é necessário que os algoritmos implementados passem por uma etapa de validação que consiste em comparar seus resultados com os dos artigos de base. Para isso serão revisados os artigos dos quais os algoritmos foram retirados, além de códigos disponibilizados através destes trabalhos.
-
-% A validação ocorrerá em duas etapas:
-
-% \begin{enumerate}
-% \item teste de software;
-% \item comparação das saídas dos algoritmos implementados para o trabalho e as implementações originais, dada a mesma entrada.
-% \end{enumerate}
-
-% \section{Definição dos Experimentos}
-% \label{sec:definicaoexperimentos}
+Na fase de testes, são utilizados os limiares encontrados na fase de parametrização para classificar os conjuntos de teste e avaliar cada tipo de assinatura quanto à sua robustez e unicidade quando usadas individualmente. Por fim, é realizada a combinação das assinaturas "gradiente", "wavelets", "medida ordinal", "scene frame" e "rbp", com a assinatura "camera motion" para avaliar se a combinação de assinaturas temporais e espaciais é mais eficaz na detecção de cópias.
