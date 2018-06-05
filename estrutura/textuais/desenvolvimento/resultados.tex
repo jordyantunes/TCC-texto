@@ -3,10 +3,19 @@
 \chapter{Análise e Discussão dos Resultados}
 \label{chap:resultados}
 
-Este capítulo discute os resultados obtidos nas duas etapas do experimento definidas no Capítulo~\ref{chap:metodologia}: treinamento e teste.
+Este capítulo discute os resultados obtidos no experimento de detecção de cópias de vídeos utilizando as assinaturas detalhadas neste trabalho, dentro dos casos de teste detalhados na Seção~\ref{sec:met-Experimentos}.
 
+Conforme detalhado anteriormente, na etapa de treinamento, para cada tipo de assinatura 5 conjuntos de treinamento são utilizados para determinar o limiar de classificação para da assinatura. Isso é feito simulando a classificação de cada conjunto de treinamento utilizando um limiar dentro de um intervalo especificado. A fim de obter o melhor índice de casos classificados corretamente, foi utilizado o ponto máximo da medida $F1$ como ponto em que 
+
+
+Na sequência, serão discutidos os resultados obtidos
 \section{Robustez}
+% Verificar se consegue encontrar a cópia
 \section{Unicidade}
+% Verificar se identifica que é cópia de apenas 1 vídeo
+
+% Separar por distorções e discutir o resultado de cada algoritmo
+% Mostrar que 
 
 % ------------------------- Treinamento
 \begin{figure}[h]
@@ -74,42 +83,42 @@ Este capítulo discute os resultados obtidos nas duas etapas do experimento defi
 	\centering
 	\label{fig:limiares-framediff}
 	\caption{Teste de limiares para a assinatura framediff}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_distorcao_FrameDiff.png}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_FrameDiff.png}
 \end{figure}
 \begin{figure}[h]
 	\centering
 	\label{fig:limiares-medidaordinal}
 	\caption{Teste de limiares para a assinatura medida ordinal}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_distorcao_Medida_Ordinal.png}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Medida_Ordinal.png}
 \end{figure}
 \begin{figure}[h]
 	\centering
 	\label{fig:limiares-sceneframe}
 	\caption{Teste de limiares para a assinatura sceneframe}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_distorcao_Scene_Frame.png}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Scene_Frame.png}
 \end{figure}
 \begin{figure}[h]
 	\centering
 	\label{fig:limiares-gradiente}
 	\caption{Teste de limiares para a assinatura gradiente}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_distorcao_Gradiente.png}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Gradiente.png}
 \end{figure}
 \begin{figure}[h]
 	\centering
 	\label{fig:limiares-rbp}
 	\caption{Teste de limiares para a assinatura rbp}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_distorcao_RBP.png}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_RBP.png}
 \end{figure}
 \begin{figure}[h]
 	\centering
 	\label{fig:limiares-wavelets}
 	\caption{Teste de limiares para a assinatura wavelets}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_distorcao_Wavelets.png}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Wavelets.png}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
 	\label{fig:limiares-camera-motion}
 	\caption{Teste de limiares para a assinatura camera motion}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_distorcao_Camera_Motion.png}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Camera_Motion.png}
 \end{figure}
