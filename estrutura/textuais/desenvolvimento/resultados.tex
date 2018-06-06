@@ -3,9 +3,35 @@
 \chapter{Análise e Discussão dos Resultados}
 \label{chap:resultados}
 
-Este capítulo discute os resultados obtidos no experimento de detecção de cópias de vídeos utilizando as assinaturas detalhadas neste trabalho, dentro dos casos de teste detalhados na Seção~\ref{sec:met-Experimentos}.
+Este capítulo discute os resultados obtidos no experimento de detecção de cópias de vídeos utilizando as assinaturas revisados neste trabalho, utilizando os conjuntos de parametrização e teste detalhados na Seção~\ref{sec:met-Experimentos}.
 
-Conforme detalhado anteriormente, na etapa de treinamento, para cada tipo de assinatura 5 conjuntos de treinamento são utilizados para determinar o limiar de classificação para da assinatura. Isso é feito simulando a classificação de cada conjunto de treinamento utilizando um limiar dentro de um intervalo especificado. A fim de obter o melhor índice de casos classificados corretamente, foi utilizado o ponto máximo da medida $F1$ como ponto em que 
+Conforme detalhado na seção anterior, para a determinação do limiar de classificação de cada assinatura, são realizadas simulações de classificação utilizando um intervalo de limiares. Os casos de parametrização de cada assinatura são dividos em 5 subconjuntos e ao final, é utilizada a média dos limiares resultantes da simulação com cada subconjunto como limiar para a assinatura na fase de testes. A Figura~\ref{fig:todos-limiares} ilustra como é feita a escolha de um limiar para cada algoritmo.
+
+\begin{figure}[h]
+	\centering
+	\caption{Exemplo de simulação de classificação para cada um dos tipos de assinatura. O eixo X é composto dos limiares testados para a assinatura. Os pontos vermelhos indicam o valor máximo de \textit{fmeasure}, que é o ponto em que o limiar apresenta o melhor resultado.}
+	\label{fig:todos-limiares}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/todos_final.png}
+\end{figure}
+
+Os subconjuntos de parametrização foram nomeados de T.1 a T.5 e o melhor limiar resultante da simulação com cada subconjunto está disposto na Tabela~\ref{tab:limiares}, além do limiar final de cada algoritmo.
+
+\begin{table}[h]
+	\caption{Limiares obtidos nas simulações com cada subconjunto de parametrização.}
+	\label{tab:limiares}
+	\begin{tabular}{|l|r|r|r|r|r|r|}
+		\hline
+		\textbf{Assinatura} & \textbf{T.1} & \textbf{T.2} & \textbf{T.3} & \textbf{T.4} & \textbf{T.5} & \textbf{Limiar Final}\\ \hline
+		Gradiente & 761.52 & 637.27 & 681.36 & 705.41 & 629.25 & 682.96\\ \hline
+		FrameDiff & 6.63 & 6.48 & 6.33 & 6.78 & 6.93 & 6.63\\ \hline
+		Medida Ordinal & 657.31 & 729.45 & 661.32 & 725.45 & 749.49 & 704.60\\ \hline
+		Wavelets & 597.19 & 593.18 & 625.25 & 601.20 & 625.25 & 608.41\\ \hline
+		RBP & 5501.00 & 6793.58 & 6553.10 & 6147.29 & 4569.13 & 5912.82\\ \hline
+		Scene Frame & 399.49 & 391.95 & 399.49 & 391.95 & 399.49 & 396.48\\ \hline
+		Camera Motion & 111.82 & 123.84 & 107.01 & 139.47 & 128.65 & 122.16\\ \hline
+	\end{tabular}
+\end{table}
+
 
 
 Na sequência, serão discutidos os resultados obtidos
@@ -68,8 +94,6 @@ Na sequência, serão discutidos os resultados obtidos
 	\caption{Limiares}
 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/todos_final.png}
 \end{figure}
-
-\input{estrutura/textuais/limiares}
 
 \begin{figure}[h]
 	\centering
