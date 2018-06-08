@@ -3,9 +3,9 @@
 \chapter{Análise e Discussão dos Resultados}
 \label{chap:resultados}
 
-Este capítulo discute os resultados obtidos no experimento de detecção de cópias de vídeos utilizando as assinaturas revisadas neste trabalho, utilizando os conjuntos de parametrização e teste detalhados na Seção~\ref{sec:met-Experimentos}.
+Este capítulo discute os resultados obtidos no experimento de detecção de cópias de vídeos através da aplicação das assinaturas digitais revisadas neste trabalho sobre os conjuntos de parametrização e teste detalhados na Seção~\ref{sec:met-Experimentos}.
 
-Conforme detalhado na seção anterior, para a determinação do limiar de classificação de cada assinatura, são realizadas simulações de classificação utilizando um intervalo de limiares. Os casos de parametrização de cada assinatura são dividos em 5 subconjuntos e ao final, é utilizada a média dos limiares resultantes da simulação com cada subconjunto como limiar para a assinatura na fase de testes. A Figura~\ref{fig:todos-limiares} ilustra como é feita a escolha de um limiar para cada algoritmo onde foram plotadas as medidas de precisão, revocação e \textit{f-measure} para entender o comportamento de cada assinatura.
+Conforme detalhado na seção anterior, para a determinação do limiar de classificação de cada assinatura, são realizadas simulações de classificação utilizando um intervalo de limiares. Os casos de parametrização de cada assinatura são dividos em 5 subconjuntos e ao final, é utilizada a média dos limiares resultantes da simulação com cada subconjunto como limiar para a assinatura. Na Figura~\ref{fig:todos-limiares}, foram plotados os valores de precisão, revocação e \textit{fmeasure} para cada assinatura ao longo das simulações com diferentes limiares. O ponto vermelho de cada sub-gráfico ilustra como é feita a escolha de um limiar para cada assinatura.
 
 
 \begin{figure}[h]
@@ -56,115 +56,154 @@ Outras distorções que tiveram pouco efeito sobre a classificação são as que
 Entre as distorções fotométricas, a color foi a mais efetiva em enganar a detecção de cópias, apenas as assinaturas Camera Motion e Wavelets conseguiram resultados bom com revocação acima dos 90\%, enquanto todas as outras assinaturas obteram valores de revocação abaixo de 40\%. Os resultados favoráveis a essas duas assinaturas se devem ao fato destas não utilizarem valores de luminância para descrever um vídeo, enquanto os outros o fazem. Já a distorção blur afetou negativamente todos as assinaturas que usam bordas ou pequenas regiões de interesse para descrever um vídeo, pois enfraquece os detalhes de um quadro. A distorção jpeg teve resultados semelhantes por também causar uma perda de informação dentro de cada quadro do vídeo. 
 
 % Por fim, as assinaturas geométricas...
+% No geral, a assinatura... para fotométricas, para temporais e geométricas
 
+A revocação sozinha não pode ser utilizada para a avaliação de uma assinatura, pois bastaria marcar todos os pares de vídeos como sendo cópias para atingir um valor de 100\% de revocação. Vê-se necessária uma análise complementar à da robustez, sobre a capacidade discriminante de uma assinatura: a unicidade. A seção a seguir discute sua definição, apresenta uma forma de medi-la e avalia cada assinatura quanto a essa métrica.
 
 % Verificar se consegue encontrar a cópia
 \section{Unicidade}
+
+Segundo \citeauthor{hua2004robust}, unicidade é a capacidade discriminativa de uma assinatura de vídeo, o que significa que vídeos com conteúdos diferentes devem ter assinaturas diferentes. Esta característica é essencial para a utilidade de uma assinatura, pois uma técnica que gera muitos casos de falsos positivos perde sua utilidade como ferramenta de automação de detecção de cópias. Para avaliar esta característica, é utilizada a medida de precisão, que mede a quantidade de casos que são relevantes (verdadeiros positivos), dentro de todos os pares de vídeos que são classificados como cópias (verdadeiros positivos e falsos positivos)\cite{Ting2010}.
+
+A Figura~\ref{fig:heatmap-precisao} apresenta os valores de precisão resultados dos testes com todas as assinaturas. Ao comparar estes resultados com os valores da Figura~\ref{fig:heatmap-revocacao}, nota-se uma relação entre as duas: os pontos escuros (piores resultados) e os claros (melhores resultados) estão localizados nas mesmas regiões. No entanto, a diferença de intensidade entre cada assinatura não é proporcional. A Figura~\ref{fig:todos-limiares} apresentada no início deste capítulo mostra a diminuição da capacidade discriminativa de cada assinatura a medida com que o limiar de corte se afasta do zero, além disso, nota-se também que cada assinatura apresenta uma proporção diferente para essa diminuição. As assinaturas Medida Ordinal, Wavelets, Scene Frame e RBP são os que mantém a precisão em níveis mais altos, e isso é refletido na Figura~\ref{fig:heatmap-precisao}.
+
+\begin{figure}[h]
+	\centering
+	\caption{Mapa de calor de precisão de cada tipo de assinatura com cada tipo de distorção}
+	\label{fig:heatmap-precisao}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_precisao.png}	
+\end{figure}
+
+Em termos gerais, a assinatura Medida Ordinal tem os melhores resultados neste teste, não apresentando nenhum valor de precisão abaixo de 75\% e tendo valores acima de 90\% para 8 das 14 distorções. Assim como no análise da robustez, as assinaturas temporais obtiveram os piores resultados e o fizeram exatamente nos mesmos casos: fast1, fast2 e flop. Para entender o motivo destes resultados para as assinaturas temporais, foram plotados histogramas dos resultados das comparações de cada assinatura. As séries verdes representam pares de vídeos que são cópias entre si, enquanto que as séries azuis representam não-cópias. A Figura~\ref{fig:histograma-camera-motion} mostra que a assinatura Camera Motion é capaz de distinguir entre a maioria das distorções (embora que não perfeitamente), mas falha quase completamente nas distorções temporais de aceleração (fast1 e fast2) e de inversão de cores(color). Usando este histograma, pode-se afirmar que a escolha do limiar para essa assinatura tem pouco efeito no resultado da sua classificação para essas distorções, pois os grupos de "cópias" e "não-cópias" estão quase completamente sobrepostos e não há como separá-los. O mesmo fenômeno com as distorções temporais pode ser observado na Figura~\ref{fig:histograma-framediff} para a assinatura FrameDiff. 
+
+\begin{figure}[h]
+	\centering
+	\caption{Histograma de valores resultantes da comparação entre pares de vídeos de teste e vídeos originais para a assinatura Camera Motion. Os casos que são cópias estão marcados de verde, enquanto que os não-cópias estão marcados de azul. Quanto mais afastados os dois grupos, maior o poder de discriminação de cada da assinatura para aquela distorção. Ex: Distorção color}
+	\label{fig:histograma-camera-motion}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Camera_Motion.png}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\caption{Histograma de valores resultantes da comparação entre pares de vídeos de teste e vídeos originais para a assinatura FrameDiff. Os casos que são cópias estão marcados de verde, enquanto que os não-cópias estão marcados de azul. Quanto mais afastados os dois grupos, maior o poder de discriminação de cada da assinatura para aquela distorção. Ex: Distorção flop}
+	\label{fig:histograma-framediff}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_FrameDiff.png}
+\end{figure}
+
+Por fim, para avaliar todas as assinaturas de modo geral, é preciso levar em consideração sua robustez e unicidade simultaneamente. 
+
+\begin{figure}[h]
+	\centering
+	\caption{Mapa de calor de \textit{fmeasure} de cada tipo de assinatura com cada tipo de distorção}
+	\label{fig:heatmap-final_f1}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_f1.png}
+\end{figure}
+
 % Verificar se identifica que é cópia de apenas 1 vídeo
 
 % Separar por distorções e discutir o resultado de cada algoritmo
 % Mostrar que 
 
 % ------------------------- Treinamento
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-framediff}
-	\caption{Teste de limiares para a assinatura framediff}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_FrameDiff.png}
-\end{figure}
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-medidaordinal}
-	\caption{Teste de limiares para a assinatura medida ordinal}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_Medida_Ordinal.png}
-\end{figure}
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-sceneframe}
-	\caption{Teste de limiares para a assinatura sceneframe}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_Scene_Frame.png}
-\end{figure}
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-gradiente}
-	\caption{Teste de limiares para a assinatura gradiente}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_Gradiente.png}
-\end{figure}
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-rbp}
-	\caption{Teste de limiares para a assinatura rbp}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_RBP.png}
-\end{figure}
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-wavelets}
-	\caption{Teste de limiares para a assinatura wavelets}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_Wavelets.png}
-\end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-framediff}
+% 	\caption{Teste de limiares para a assinatura framediff}
+% 	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_FrameDiff.png}
+% \end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-medidaordinal}
+% 	\caption{Teste de limiares para a assinatura medida ordinal}
+% 	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_Medida_Ordinal.png}
+% \end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-sceneframe}
+% 	\caption{Teste de limiares para a assinatura sceneframe}
+% 	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_Scene_Frame.png}
+% \end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-gradiente}
+% 	\caption{Teste de limiares para a assinatura gradiente}
+% 	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_Gradiente.png}
+% \end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-rbp}
+% 	\caption{Teste de limiares para a assinatura rbp}
+% 	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_RBP.png}
+% \end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-wavelets}
+% 	\caption{Teste de limiares para a assinatura wavelets}
+% 	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_Wavelets.png}
+% \end{figure}
 
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-camera-motion}
-	\caption{Teste de limiares para a assinatura camera motion}
-	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_Camera_Motion.png}
-\end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-camera-motion}
+% 	\caption{Teste de limiares para a assinatura camera motion}
+% 	\includegraphics[width=0.8\textwidth]{dados/figuras/experimentos/histograma_Camera_Motion.png}
+% \end{figure}
 
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares}
-	\caption{Limiares}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/todos_final.png}
-\end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares}
+% 	\caption{Limiares}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/todos_final.png}
+% \end{figure}
 
-\begin{figure}[h]
-	\centering
-	\label{fig:final_heatmap}
-	\caption{Final}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final.png}
-\end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:final_heatmap}
+% 	\caption{Final}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final.png}
+% \end{figure}
 
 
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-framediff}
-	\caption{Teste de limiares para a assinatura framediff}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_FrameDiff.png}
-\end{figure}
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-medidaordinal}
-	\caption{Teste de limiares para a assinatura medida ordinal}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Medida_Ordinal.png}
-\end{figure}
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-sceneframe}
-	\caption{Teste de limiares para a assinatura sceneframe}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Scene_Frame.png}
-\end{figure}
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-gradiente}
-	\caption{Teste de limiares para a assinatura gradiente}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Gradiente.png}
-\end{figure}
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-rbp}
-	\caption{Teste de limiares para a assinatura rbp}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_RBP.png}
-\end{figure}
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-wavelets}
-	\caption{Teste de limiares para a assinatura wavelets}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Wavelets.png}
-\end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-framediff}
+% 	\caption{Teste de limiares para a assinatura framediff}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_FrameDiff.png}
+% \end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-medidaordinal}
+% 	\caption{Teste de limiares para a assinatura medida ordinal}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Medida_Ordinal.png}
+% \end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-sceneframe}
+% 	\caption{Teste de limiares para a assinatura sceneframe}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Scene_Frame.png}
+% \end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-gradiente}
+% 	\caption{Teste de limiares para a assinatura gradiente}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Gradiente.png}
+% \end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-rbp}
+% 	\caption{Teste de limiares para a assinatura rbp}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_RBP.png}
+% \end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-wavelets}
+% 	\caption{Teste de limiares para a assinatura wavelets}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Wavelets.png}
+% \end{figure}
 
-\begin{figure}[h]
-	\centering
-	\label{fig:limiares-camera-motion}
-	\caption{Teste de limiares para a assinatura camera motion}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Camera_Motion.png}
-\end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\label{fig:limiares-camera-motion}
+% 	\caption{Teste de limiares para a assinatura camera motion}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Camera_Motion.png}
+% \end{figure}
