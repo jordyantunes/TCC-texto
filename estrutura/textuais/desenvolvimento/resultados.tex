@@ -121,7 +121,37 @@ $$
 Dist_{final} = Dist_{ass1} * \alpha + Dist_{ass2} * (1-\alpha)
 $$
 
-Como cada tipo de assinatura gera valores muito diferentes ao ser usado como entrada para o DTW (veja Tabela~\ref{tab:limiares} para exemplos), esses valores passam por uma etapa de normalização antes de serem combinados. Além disso, é preciso escolher o fator $\alpha$ de combinação, além de definir um novo limiar de classificação para a "nova assinatura" criada. Assim como para a análise dos algoritmos separados no início deste capítulo, foi realizada uma simulação de classificação com um intervalo de valores de limiares, a fim de definir um limiar para a classificação maximizando a medida fmeasure. Essa simulação foi repetida para os valores de $\alpha = \{0.1, 0.25, 0.5, 0.75, 0.9\}$, como ilustra a Figura~\ref{fig:alpha-limiar}.
+Como cada tipo de assinatura gera valores muito diferentes ao ser usado como entrada para o DTW (veja Tabela~\ref{tab:limiares} para exemplos), esses valores passam por uma etapa de normalização antes de serem combinados. Além disso, é preciso escolher o fator $\alpha$ de combinação, além de definir um novo limiar de classificação para a "nova assinatura" criada. Assim como para a análise dos algoritmos separados no início deste capítulo, foi realizada uma simulação de classificação com um intervalo de valores de limiares, a fim de definir um limiar para a classificação maximizando a medida fmeasure. Essa simulação foi repetida para os valores de $\alpha = \{0.1, 0.25, 0.5, 0.75, 0.9\}$, como ilustra a Figura~\ref{fig:alpha-limiar}. Os resultados da etapa de parametrização estão dispostos na Tabela~\ref{tab:juncao-limiares-alpha}.
+
+\begin{figure}[h]
+	\centering
+	\caption{Simulação de classificação todas as combinações de assinatura, alternando o valor de alpha entre 0.1 e 0.9}
+	\label{fig:alpha-limiar}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/alpha_juncao.png}
+\end{figure}
+
+\begin{table}[h]
+\caption{Tabela com os valores de alpha e limiar que maximizam a fmeasure na etapa de parametrização.}
+\label{tab:juncao-limiares-alpha}
+\begin{tabular}{|l|l|r|r|r|}
+\hline
+\textbf{Assinatura 1} & \textbf{Assinatura 2} & \textbf{Alpha} & \textbf{Limiar} & \textbf{Fmeasure} \\\hline
+\multirow{6}{*}{Camera Motion} & FrameDiff & 0.25 & 0.040268 & 0.668909 \\\cline{2-5}
+& Gradiente & 0.90 & 0.093960 & 0.620811 \\\cline{2-5}
+& Medida Ordinal & 0.10 & 0.073826 & 0.802687 \\\cline{2-5}
+& RBP & 0.25 & 0.073826 & 0.771050 \\\cline{2-5}
+& Scene Frame & 0.25 & 0.033557 & 0.709924 \\\cline{2-5}
+& Wavelets & 0.10 & 0.080537 & 0.710831 \\\hline
+	\end{tabular}
+\end{table}
+
+Após a etapa de parametrização, foram rodados os testes utilizando os valores de $\alpha$ e de limiar definidos anteriormente. Para comparar os resultados com aqueles dos algoritmos separados, os valores da medida fmeasure para cada teste de classificação estão dispostos na Figura~\ref{fig:compacao-metodos}. No geral, a combinação de duas assinaturas não teve efeitos positivos na classificação. Com ela, todas as combinações passaram a ser sensíveis a distorções temporais e poucos casos apresentaram melhoras. Nos casos em que a mudança foi positiva, o ganho foi de menos de 5\%. 
+
+\begin{figure}
+	\caption{Histograma com valores de fmeasure para cada tipo de assinatura. A esquerda, resultados da combinação da assinatura Camera Motion com as demais, a direita, assinaturas aplicadas isoladamente.}
+	\label{fig:compacao-metodos}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_comparacao.png}	
+\end{figure}
 
 % Por fim, para avaliar as assinaturas de modo geral, é preciso levar em consideração sua robustez e unicidade simultaneamente. 
 
@@ -131,30 +161,6 @@ Como cada tipo de assinatura gera valores muito diferentes ao ser usado como ent
 % 	\label{fig:heatmap-final_f1}
 % 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_f1.png}
 % \end{figure}
-
-
-\begin{figure}[h]
-	\centering
-	\caption{Simulação de classificação todas as combinações de assinatura, alternando o valor de alpha entre 0.1 e 0.9}
-	\label{fig:alpha-limiar}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/alpha_juncao.png}
-\end{figure}
-
-
-\begin{table}[h]
-	\caption{Tabela com os valores de alpha e limiar que maximizam a fmeasure na etapa de parametrização.}
-	\label{tab:juncao-limiares-alpha}
-	\begin{tabular}{|l|r|r|r|}
-		\hline
-		\textbf{Assinatura} & \textbf{Alpha} & \textbf{Limiar} & \textbf{Fmeasure} \\\hline
-		FrameDiff & 0.25 & 0.040268 & 0.668909 \\\hline
-		Gradiente & 0.90 & 0.093960 & 0.620811 \\\hline
-		Medida Ordinal & 0.10 & 0.073826 & 0.802687 \\\hline
-		RBP & 0.25 & 0.073826 & 0.771050 \\\hline
-		Scene Frame & 0.25 & 0.033557 & 0.709924 \\\hline
-		Wavelets & 0.10 & 0.080537 & 0.710831 \\\hline
-	\end{tabular}
-\end{table}
 
 
 % Verificar se identifica que é cópia de apenas 1 vídeo
