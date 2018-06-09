@@ -3,16 +3,15 @@
 \chapter{Análise e Discussão dos Resultados}
 \label{chap:resultados}
 
-Este capítulo discute os resultados obtidos no experimento de detecção de cópias de vídeos através da aplicação das assinaturas digitais revisadas neste trabalho sobre os conjuntos de parametrização e teste detalhados na Seção~\ref{sec:met-Experimentos}.
+Este capítulo discute os resultados obtidos nos experimentos de detecção de cópias de vídeos através da aplicação das assinaturas digitais revisadas neste trabalho sobre os conjuntos de parametrização e teste detalhados na Seção~\ref{sec:met-Experimentos}.
 
-Conforme detalhado na seção anterior, para a determinação do limiar de classificação de cada assinatura, são realizadas simulações de classificação utilizando um intervalo de limiares. Os casos de parametrização de cada assinatura são dividos em 5 subconjuntos e ao final, é utilizada a média dos limiares resultantes da simulação com cada subconjunto como limiar para a assinatura. Na Figura~\ref{fig:todos-limiares}, foram plotados os valores de precisão, revocação e \textit{fmeasure} para cada assinatura ao longo das simulações com diferentes limiares. O ponto vermelho de cada sub-gráfico ilustra como é feita a escolha de um limiar para cada assinatura.
-
+Conforme detalhado na seção anterior, para a determinação do limiar de classificação de cada assinatura, são realizadas simulações de classificação utilizando um intervalo de limiares. Os casos de parametrização de cada assinatura são dividos em 5 subconjuntos e ao final, é utilizada a média dos limiares resultantes da simulação com cada subconjunto como limiar para a assinatura. Na Figura~\ref{fig:exemplo-simulacao}, foram plotados os valores de precisão, revocação e \textit{fmeasure} para cada assinatura ao longo das simulações com diferentes limiares. O ponto vermelho de cada sub-gráfico ilustra como é feita a escolha de um limiar para cada assinatura.
 
 \begin{figure}[h]
 	\centering
-	\caption{Exemplo de simulação de classificação para cada um dos tipos de assinatura. O eixo X é composto dos limiares testados para a assinatura. Os pontos vermelhos indicam o valor máximo de \textit{fmeasure}, ponto em que o limiar apresenta o melhor resultado.}
-	\label{fig:todos-limiares}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/todos_final.png}
+	\caption{Exemplo de simulação de classificação para um tipos de assinatura. O eixo X é composto dos limiares testados para a assinatura. O ponto vermelho indica o valor máximo de \textit{fmeasure}, ponto em que o limiar apresenta o melhor resultado.}
+	\label{fig:exemplo-simulacao}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/limiar_Medida_Ordinal_0.png}
 \end{figure}
 
 Os subconjuntos de parametrização foram nomeados de T.1 a T.5 e o melhor limiar resultante da simulação com cada subconjunto está disposto na Tabela~\ref{tab:limiares}, além do limiar final de cada algoritmo.
@@ -65,8 +64,6 @@ A revocação sozinha não pode ser utilizada para a avaliação de uma assinatu
 
 Segundo \citeauthor{hua2004robust}, unicidade é a capacidade discriminativa de uma assinatura de vídeo, o que significa que vídeos com conteúdos diferentes devem ter assinaturas diferentes. Esta característica é essencial para a utilidade de uma assinatura, pois uma técnica que gera muitos casos de falsos positivos perde sua utilidade como ferramenta de automação de detecção de cópias. Para avaliar esta característica, é utilizada a medida de precisão, que mede a quantidade de casos que são relevantes (verdadeiros positivos), dentro de todos os pares de vídeos que são classificados como cópias (verdadeiros positivos e falsos positivos)\cite{Ting2010}.
 
-A Figura~\ref{fig:heatmap-precisao} apresenta os valores de precisão resultados dos testes com todas as assinaturas. Ao comparar estes resultados com os valores da Figura~\ref{fig:heatmap-revocacao}, nota-se uma relação entre as duas: os pontos escuros (piores resultados) e os claros (melhores resultados) estão localizados nas mesmas regiões. No entanto, a diferença de intensidade entre cada assinatura não é proporcional. A Figura~\ref{fig:todos-limiares} apresentada no início deste capítulo mostra a diminuição da capacidade discriminativa de cada assinatura a medida com que o limiar de corte se afasta do zero, além disso, nota-se também que cada assinatura apresenta uma proporção diferente para essa diminuição. As assinaturas Medida Ordinal, Wavelets, Scene Frame e RBP são os que mantém a precisão em níveis mais altos, e isso é refletido na Figura~\ref{fig:heatmap-precisao}.
-
 \begin{figure}[h]
 	\centering
 	\caption{Mapa de calor de precisão de cada tipo de assinatura com cada tipo de distorção}
@@ -74,30 +71,89 @@ A Figura~\ref{fig:heatmap-precisao} apresenta os valores de precisão resultados
 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_precisao.png}	
 \end{figure}
 
-Em termos gerais, a assinatura Medida Ordinal tem os melhores resultados neste teste, não apresentando nenhum valor de precisão abaixo de 75\% e tendo valores acima de 90\% para 8 das 14 distorções. Assim como no análise da robustez, as assinaturas temporais obtiveram os piores resultados e o fizeram exatamente nos mesmos casos: fast1, fast2 e flop. Para entender o motivo destes resultados para as assinaturas temporais, foram plotados histogramas dos resultados das comparações de cada assinatura. As séries verdes representam pares de vídeos que são cópias entre si, enquanto que as séries azuis representam não-cópias. A Figura~\ref{fig:histograma-camera-motion} mostra que a assinatura Camera Motion é capaz de distinguir entre a maioria das distorções (embora que não perfeitamente), mas falha quase completamente nas distorções temporais de aceleração (fast1 e fast2) e de inversão de cores(color). Usando este histograma, pode-se afirmar que a escolha do limiar para essa assinatura tem pouco efeito no resultado da sua classificação para essas distorções, pois os grupos de "cópias" e "não-cópias" estão quase completamente sobrepostos e não há como separá-los. O mesmo fenômeno com as distorções temporais pode ser observado na Figura~\ref{fig:histograma-framediff} para a assinatura FrameDiff. 
+A Figura~\ref{fig:heatmap-precisao} apresenta os valores de precisão resultados dos testes com todas as assinaturas. Em termos gerais, a assinatura Medida Ordinal tem os melhores resultados neste teste, não apresentando nenhum valor de precisão abaixo de 75\% e tendo valores acima de 90\% para 8 das 14 distorções. Assim como no análise da robustez, as assinaturas temporais obtiveram os piores resultados e o fizeram exatamente nos mesmos casos: fast1, fast2 e flop. 
+
+Para entender o motivo destes resultados para as assinaturas temporais e verificar se estes não se devem a uma escolha ruim de limiares, foram plotados histogramas dos resultados das comparações de cada tipo de assinatura. A Figura~\ref{fig:histograma-camera-motion} apresenta quatro histogramas de valores resultantes da comparação entre pares de vídeos de teste e vídeos originais para a assinatura Camera Motion. Os casos que são cópias estão marcados de verde, enquanto que os não-cópias estão marcados de azul. Quanto mais afastados os dois grupos, maior o poder de discriminação da assinatura para aquela distorção. Nota-se que para a distorção color, a assinatura é capaz de separar os grupos de cópia e não cópia, enquanto que para as outras distorções a assinatura sobrepõe os dois grupos de forma que não é possível separá-los apenas utilizando um limiar de corte. O mesmo ocorre com a assinatura FrameDiff, que não é capaz de classificar assinaturas que sofreram as distorções fast1 e fast2, mas consegue classificar quase perfeitamente casos com as distorções flop e frame(Figura~\ref{fig:histograma-framediff}).
 
 \begin{figure}[h]
 	\centering
-	\caption{Histograma de valores resultantes da comparação entre pares de vídeos de teste e vídeos originais para a assinatura Camera Motion. Os casos que são cópias estão marcados de verde, enquanto que os não-cópias estão marcados de azul. Quanto mais afastados os dois grupos, maior o poder de discriminação de cada da assinatura para aquela distorção. Ex: Distorção color}
+	\caption{Histogramas de resultados de comparações para a assinatura Camera Motion.}
 	\label{fig:histograma-camera-motion}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Camera_Motion.png}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_Camera_Motion_cortado.png}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
-	\caption{Histograma de valores resultantes da comparação entre pares de vídeos de teste e vídeos originais para a assinatura FrameDiff. Os casos que são cópias estão marcados de verde, enquanto que os não-cópias estão marcados de azul. Quanto mais afastados os dois grupos, maior o poder de discriminação de cada da assinatura para aquela distorção. Ex: Distorção flop}
+	\caption{Histogramas de resultados de comparações para a assinatura FrameDiff.}
 	\label{fig:histograma-framediff}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_FrameDiff.png}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_FrameDiff_cortado.png}
 \end{figure}
 
-Por fim, para avaliar todas as assinaturas de modo geral, é preciso levar em consideração sua robustez e unicidade simultaneamente. 
+\section{Peso da escolha do limiar sobre a detecção de cópias}
+
+Para chegar a uma conclusão sobre o tipo de assinatura mais adequado para a detecção de cópias em relação a sua robustez e unicidade, é preciso analisar ambos a precisão e a revocação de forma conjunta. Através da Figura~\ref{fig:heatmap-lado-a-lado} , que compara as duas medidas, nota-se uma relação entre estas: os pontos escuros (piores resultados) estão localizados nas mesmas regiões, mas no geral, todas as assinaturas tiveram resultados de precisão melhores que os de revocação. Além disso, ao observar a figura, nota-se também que a relação entre revocação e precisão não é linear. A Figura~\ref{fig:todos-limiares} mostra a variação das medidas de precisão e revocação a medida que o limiar de corte cresce. Há claramente uma diminuição da capacidade discriminativa de cada assinatura a medida com que o limiar de corte se afasta do zero, e evidencia que cada assinatura apresenta uma proporção diferente para essa diminuição. As assinaturas Medida Ordinal, Wavelets, Scene Frame e RBP são as que mantém a precisão em níveis mais altos. 
 
 \begin{figure}[h]
 	\centering
-	\caption{Mapa de calor de \textit{fmeasure} de cada tipo de assinatura com cada tipo de distorção}
-	\label{fig:heatmap-final_f1}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_f1.png}
+	\caption{Mapas de calor de revocação e precisão para cada assinatura.}
+	\label{fig:heatmap-lado-a-lado}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_lado.png}
 \end{figure}
+
+\begin{figure}[h]
+	\centering
+	\caption{Simulação de classificação para cada um dos tipos de assinatura. A medida que o limiar se afasta do zero, o valor de precisão diminui e o de revocação aumenta. Cada tipo de assinatura tem uma proporção diferente para essa variação.}
+	\label{fig:todos-limiares}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/todos_final.png}
+\end{figure}
+ 
+A seguir, será discutido se a aplicação de dois tipos de assinatura de forma conjunta é mais eficiência na detecção de cópias que a aplicação de apenas uma de forma isolada. Será definido o método de combinação destas assinaturas, além da escolha de um limiar de classificação para cada uma destas combinações.
+
+\section{Combinação de Assinaturas}
+
+Assim como as distorções, as assinaturas podem ser classificadas quanto às características de um vídeo que elas utilizam em sua formação. Das assinaturas usadas neste trabalho, duas são temporais (Camera Motion e FrameDiff), enquanto todas as outras são espaciais. Nesta etapa dos experimentos, estes dois tipos de assinatura foram combinados a fim de definir se as métricas de robustez e unicidade são melhoradas em relação às assinaturas utilizadas separadamente. Embora várias combinações de assinaturas sejam possível, para este trabalho, assinatura Camera Motion foi combinada com as todas as outras. 
+
+O primeiro passo é a definição do método de combinação destas assinaturas. Ao invés de combinar os vetores de assinaturas em si, são combinados os valores de distância retornados ao passar um par de vetores pelo DTW, a fim de criar um valor de distância que é a soma ponderada dos valores originais, como mostra a fórmula a seguir.
+
+$$
+Dist_{final} = Dist_{ass1} * \alpha + Dist_{ass2} * (1-\alpha)
+$$
+
+Como cada tipo de assinatura gera valores muito diferentes ao ser usado como entrada para o DTW (veja Tabela~\ref{tab:limiares} para exemplos), esses valores passam por uma etapa de normalização antes de serem combinados. Além disso, é preciso escolher o fator $\alpha$ de combinação, além de definir um novo limiar de classificação para a "nova assinatura" criada. Assim como para a análise dos algoritmos separados no início deste capítulo, foi realizada uma simulação de classificação com um intervalo de valores de limiares, a fim de definir um limiar para a classificação maximizando a medida fmeasure. Essa simulação foi repetida para os valores de $\alpha = \{0.1, 0.25, 0.5, 0.75, 0.9\}$, como ilustra a Figura~\ref{fig:alpha-limiar}.
+
+% Por fim, para avaliar as assinaturas de modo geral, é preciso levar em consideração sua robustez e unicidade simultaneamente. 
+
+% \begin{figure}[h]
+% 	\centering
+% 	\caption{Mapa de calor de \textit{fmeasure} de cada tipo de assinatura com cada tipo de distorção}
+% 	\label{fig:heatmap-final_f1}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_f1.png}
+% \end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\caption{Simulação de classificação todas as combinações de assinatura, alternando o valor de alpha entre 0.1 e 0.9}
+	\label{fig:alpha-limiar}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/alpha_juncao.png}
+\end{figure}
+
+
+\begin{table}[h]
+	\caption{Tabela com os valores de alpha e limiar que maximizam a fmeasure na etapa de parametrização.}
+	\label{tab:juncao-limiares-alpha}
+	\begin{tabular}{|l|r|r|r|}
+		\hline
+		\textbf{Assinatura} & \textbf{Alpha} & \textbf{Limiar} & \textbf{Fmeasure} \\\hline
+		FrameDiff & 0.25 & 0.040268 & 0.668909 \\\hline
+		Gradiente & 0.90 & 0.093960 & 0.620811 \\\hline
+		Medida Ordinal & 0.10 & 0.073826 & 0.802687 \\\hline
+		RBP & 0.25 & 0.073826 & 0.771050 \\\hline
+		Scene Frame & 0.25 & 0.033557 & 0.709924 \\\hline
+		Wavelets & 0.10 & 0.080537 & 0.710831 \\\hline
+	\end{tabular}
+\end{table}
+
 
 % Verificar se identifica que é cópia de apenas 1 vídeo
 
