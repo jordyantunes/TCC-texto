@@ -3,33 +3,4 @@
 \chapter{Conclusão}
 \label{chap:conclusao}
 
-Uma das contribuições importantes do trabalho é ser uma literatura moderna sobre esteganografia e esteganálise, visto que há certa defasagem desses assuntos na literatura em português. Esses temas tem ganhado notoriedade na comunidade científica e são áreas de estudo complexas e multidisciplinares que tocam, por exemplo, as áreas de Processamento de Sinais, Segurança da Informação, Teoria da Informação e Teoria dos Códigos. Além disso, também foi utilizada uma abordagem de esteganálise com \textit{deep learning} que é um dos métodos que estão sendo investigados atualmente por estegoanalistas.
-
-Nos resultados, a utilização dos descritores SRM em	 um \textit{ensemble} de classificadores FLD obteve resultados melhores quando o treinamento e teste foram feitos no mesmo cenário, ou seja, quando o classificador foi treinado e testado em estego imagens geradas pelo mesmo algoritmo de esteganografia e com o mesmo \textit{payload}. 
-
-A CNN se comportou de maneira distinta, tendo resultados semelhantes mesmo quando testada em cenários diferentes. Ela generaliza os casos de teste de tal forma que funciona similarmente em diversos cenários, enquanto a abordagem utilizando SRM é mais especializada e funciona melhor para um cenário. 
-
-Estes resultados sugerem que a CNN é mais apropriada para a utilização em ambientes de esteganálise cega e o \textit{ensemble} de classificadores se comporta  melhor em ambientes de esteganálise direcionada. Essa diferença de resultados também indica que a CNN não está aprendendo algo semelhante aos filtros do SRM.
-
-Essas observações acerca da natureza das duas abordagens foi possível devido a uma metodologia onde, para cada conjunto de treinamento (que consideraram a combinação de diferentes algoritmos de esteganografia e \textit{payloads}), foram utilizados dois classificadores: CNN e \textit{ensemble} de classificadores (FLD como base). Eles foram aplicados para classificar diversos cenários de teste gerados nesse trabalho. Assim, podemos analisar a diferença das duas abordagens em diversos contextos de esteganálise.
-
-Abordagens de \textit{deep learning} estão sendo aplicadas com sucesso em diversos problemas difíceis de Processamento de Sinais. Em esteganálise não é diferente, com bons resultados recentes utilizando CNNs \citeauthor{tan2014stacked,qian2015deep,cnn_base,xu2016ensemble}. Portanto, o estudo de esteganálise com CNN é bastante promissor, ainda tendo lacunas de possíveis metodologias, arquiteturas e camadas relacionadas a otimização da rede especificamente para problemas de esteganálise há serem exploradas.
-
-\section{Trabalhos Futuros}
-\label{sec:trabalhosFuturos}
-
-Os resultados desse trabalho mostraram as diferenças de generalização e especificação dos detectores de esteganografia. Uma continuação desse trabalho, utilizando a mesma metodologia poderia ser a criação de um \textit{Ensamble of CNNs}, com o fim de aumentar a acurácia sem perder a generalização. Além dessa mudança da forma em que as CNNs são utilizadas, é possível também alterar a estrutura interna de cada uma das CNNs.
-
-Há diferentes e novas estruturas de CNN que estão sendo investigadas para resolver diferentes problemas. Alguns exemplos são as \textit{Recurrent Neural Networks}, \textit{Residual Neural Networks}, \textit{Region Based CNN} entre outras. Essas arquiteturas podem ser exploradas com a finalidade de solucionar problemas de esteganálise, como o trabalho de \citeonline{wu2017deep} onde é utilizado uma \textit{Residual Neural Network} com $\approx 60$ camadas. Algumas dessas arquiteturas favorecem intuitivamente alguns problemas da esteganálise forense como, por exemplo, uma \textit{Region Based CNN} poderia ser treinada para descobrir a localização dos dados embutidos e, com isso, obter dicas do algoritmo que foi utilizado. \textit{Recurrent Neural Networks} criam relações entre as camadas o que poderia ser utilizado para a estimativa de \textit{payloads}.
-
-Como o SRM para esteganálise direcionada obteve mais sucesso nos testes realizados, os kernels da CNN poderiam ser inicializados com os filtros lineares desse descritor (o que seria uma forma de explorar o comportamento desses detectores). Também, trabalhos como os de \citeonline{denemark2014selection} e \citeonline{denemark2016improving} buscam aprimoramentos, alterações e acréscimos nos descritores SRM. Esses trabalhos podem também ser explorados em conjunto com CNNs.
-
-\citeonline{sedighi2016content} apresentaram uma definição rigorosa de modelos de imagens de cobertura e estego imagens, conseguindo chegar em uma fórmula fechada para um detector ótimo de esteganografia % (essa fórmula pode ser vista na Equação~\ref{eq:deteccao-otima}) 
-que elevou o compreendimento sobre os limites da esteganálise. Esses resultados podem ser utilizados para a criação de novos métodos e arquiteturas de CNNs para esteganálise.
-
-Recentemente, \citeonline{sedighi2017histogram} publicaram resultados sobre a implementação de uma nova camada para CNN chamada de \textit{Histogram Layer}, criada especificamente para melhorar resultados em esteganálise. Apesar do estado da arte não ser atingido, esses resultados foram importantes como prova de conceito de uma rede com informações e métodos esteganográficos previamente conhecidos, deixando a dúvida da existência de outros métodos similares misturando conhecimentos de esteganálise com aprendizado das CNNs.
-
-% \section{CONSIDERAÇÕES FINAIS}
-% \label{sec:consideracoesFinais}
-
-%A escalabilidade com o número de amostras para treino sem perda de performance na classificação, se igualando a classificadores bem estabelecidos, com SVM, em conjunto com as outras características já listadas tornam o \textit{Ensemble of Classifiers} de FLDs ideal para o experimento proposto.%, no qual é aplicado um descritor de alta dimensionalidade (SRM) a uma grande quantidade de imagens para treino.
+TODO
