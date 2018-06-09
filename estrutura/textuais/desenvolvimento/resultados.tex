@@ -9,7 +9,7 @@ Conforme detalhado na seção anterior, para a determinação do limiar de class
 
 \begin{figure}[h]
 	\centering
-	\caption{Exemplo de simulação de classificação para um tipos de assinatura. O eixo X é composto dos limiares testados para a assinatura. O ponto vermelho indica o valor máximo de \textit{fmeasure}, ponto em que o limiar apresenta o melhor resultado.}
+	\caption{Exemplo de simulação de classificação para um tipo de assinatura. O eixo X é composto dos limiares testados para a assinatura. O ponto vermelho indica o valor máximo de \textit{fmeasure}, ponto em que o limiar apresenta o melhor resultado.}
 	\label{fig:exemplo-simulacao}
 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/limiar_Medida_Ordinal_0.png}
 \end{figure}
@@ -30,22 +30,24 @@ Os subconjuntos de parametrização foram nomeados de T.1 a T.5 e o melhor limia
 		Scene Frame & 399.49 & 391.95 & 399.49 & 391.95 & 399.49 & 396.48\\ \hline
 		Camera Motion & 111.82 & 123.84 & 107.01 & 139.47 & 128.65 & 122.16\\ \hline
 	\end{tabular}
+      \fonte{Autoria própria.}
 \end{table}
 
 Na sequência, serão discutidos os resultados obtidos nos testes utilizando os limiares definidos na etapa anterior para cada tipo de assinatura. As assinaturas serão analisadas quanto a sua robustez e unicidade por tipo de distorção aplicada (fotométrica, geométrica ou temporal). Por fim, será avaliado se a junção de um algoritmo temporal (camera motion) e um algoritmo espacial é mais eficaz em detectar cópias de vídeo que a utilização de um tipo de assinatura de forma isolada. 
 
 \section{Robustez}
 
-Segundo \citeauthor{hua2004robust}, robustez é a capacidade de uma assinatura ser tolerante a ruído, o que quer dizer que dois vídeos com o mesmo conteúdo devem ter assinaturas idênticas ou muito similares, mesmo que eles tenham passado por algum tipo de distorção. Esta é uma das duas propriedades desejadas em uma assinatura, a outra sendo unicidade, que será abordada na próxima seção.
+Segundo \citeonline{hua2004robust}, robustez é a capacidade de uma assinatura ser tolerante a ruído, o que quer dizer que dois vídeos com o mesmo conteúdo devem ter assinaturas idênticas ou muito similares, mesmo que eles tenham passado por algum tipo de distorção. Esta é uma das duas propriedades desejadas em uma assinatura, a outra sendo unicidade, que será abordada na próxima seção.
 
 Ao tentar determinar a robustez de um algoritmo, leva-se em consideração apenas os casos de teste em que de fato um par de vídeos tem o mesmo conteúdo, ou seja, o vídeo de teste é uma cópia do vídeo original. A partir daí, a pergunta levantada é "quantos destes casos de cópia a assinatura consegue classificar corretamente?", ou em termos de recuperação de informações "quantos elementos relevantes foram selecionados?". Esta é exatamente a definição da medida de revocação~\cite{Ting2010}, que foi utilizada para este teste. As medidas de revocação obtidas para cada assinaturas podem ser vistas na Figura~\ref{fig:heatmap-revocacao}.
 
 
 \begin{figure}[h]
 	\centering
-	\caption{Mapa de calor de revocação de cada tipo de assinatura com cada tipo de distorção}
+	\caption{Mapa de calor de revocação de cada tipo de assinatura com cada tipo de distorção.}
 	\label{fig:heatmap-revocacao}
 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_recall.png}	
+      \fonte{Autoria própria.}
 \end{figure}
 
 As assinaturas temporais (Camera Motion e FrameDiff) obtiveram os piores resultados na análise da robustez em geral, sendo que elas são especialmente afetadas pelas distorções temporais de aceleração fast1 e fast2. É possível notar também que a medida com que os vídeos foram mais acelerados, as assinaturas temporais tiveram resultados piores. A assinatura temporal FrameDiff obteve aproximadamente 6\% no teste com a distorção fast1 e e 0\% com a distorção fast2, mostrando que esse tipo de assinatura é extremamente sensível à perda de informação causada pela diminuição do número de quadros de um vídeo. A Camera Motion foi mais sensível a distorção flop, que inverte o vídeo horizontalmente. Isso faz sentido pois esta distorção inverte a translação e rotação da câmera. A última distorção temporal, frame, foi a que causou menos problemas para as assinaturas em geral (3 delas conseguiram classificar corretamente em 100\% dos casos e todas as outras têm revocação maior que 80\%), pois a quantidade de quadros retirados de um vídeo é pequena se comparado às outras distorções temporais, além disso este tipo de distorção é pouco perceptível por humanos.
@@ -62,11 +64,11 @@ A revocação sozinha não pode ser utilizada para a avaliação de uma assinatu
 % Verificar se consegue encontrar a cópia
 \section{Unicidade}
 
-Segundo \citeauthor{hua2004robust}, unicidade é a capacidade discriminativa de uma assinatura de vídeo, o que significa que vídeos com conteúdos diferentes devem ter assinaturas diferentes. Esta característica é essencial para a utilidade de uma assinatura, pois uma técnica que gera muitos casos de falsos positivos perde sua utilidade como ferramenta de automação de detecção de cópias. Para avaliar esta característica, é utilizada a medida de precisão, que mede a quantidade de casos que são relevantes (verdadeiros positivos), dentro de todos os pares de vídeos que são classificados como cópias (verdadeiros positivos e falsos positivos)\cite{Ting2010}.
+Segundo \citeonline{hua2004robust}, unicidade é a capacidade discriminativa de uma assinatura de vídeo, o que significa que vídeos com conteúdos diferentes devem ter assinaturas diferentes. Esta característica é essencial para a utilidade de uma assinatura, pois uma técnica que gera muitos casos de falsos positivos perde sua utilidade como ferramenta de automação de detecção de cópias. Para avaliar esta característica, é utilizada a medida de precisão, que mede a quantidade de casos que são relevantes (verdadeiros positivos), dentro de todos os pares de vídeos que são classificados como cópias (verdadeiros positivos e falsos positivos)\cite{Ting2010}.
 
 \begin{figure}[h]
 	\centering
-	\caption{Mapa de calor de precisão de cada tipo de assinatura com cada tipo de distorção}
+	\caption{Mapa de calor de precisão de cada tipo de assinatura com cada tipo de distorção.}
 	\label{fig:heatmap-precisao}
 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_precisao.png}	
 \end{figure}
