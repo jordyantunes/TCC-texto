@@ -12,6 +12,7 @@ Conforme detalhado na seção anterior, para a determinação do limiar de class
 	\caption{Exemplo de simulação de classificação para um tipo de assinatura. O eixo X é composto dos limiares testados para a assinatura. O ponto vermelho indica o valor máximo de \textit{fmeasure}, ponto em que o limiar apresenta o melhor resultado.}
 	\label{fig:exemplo-simulacao}
 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/limiar_Medida_Ordinal_0.png}
+    \fonte{Autoria própria.}
 \end{figure}
 
 Os subconjuntos de parametrização foram nomeados de T.1 a T.5 e o melhor limiar resultante da simulação com cada subconjunto está disposto na Tabela~\ref{tab:limiares}, além do limiar final de cada algoritmo.
@@ -70,7 +71,8 @@ Segundo \citeonline{hua2004robust}, unicidade é a capacidade discriminativa de 
 	\centering
 	\caption{Mapa de calor de precisão de cada tipo de assinatura com cada tipo de distorção.}
 	\label{fig:heatmap-precisao}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_precisao.png}	
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_precisao.png}
+    \fonte{Autoria própria.}
 \end{figure}
 
 A Figura~\ref{fig:heatmap-precisao} apresenta os valores de precisão resultados dos testes com todas as assinaturas. Em termos gerais, a assinatura Medida Ordinal tem os melhores resultados neste teste, não apresentando nenhum valor de precisão abaixo de 75\% e tendo valores acima de 90\% para 8 das 14 distorções. Assim como no análise da robustez, as assinaturas temporais obtiveram os piores resultados e o fizeram exatamente nos mesmos casos: fast1, fast2 e flop. 
@@ -89,6 +91,7 @@ Para entender o motivo destes resultados para as assinaturas temporais e verific
 	\caption{Histogramas de resultados de comparações para a assinatura FrameDiff.}
 	\label{fig:histograma-framediff}
 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/histograma_distorcao_FrameDiff_cortado.png}
+        \fonte{Autoria própria.}
 \end{figure}
 
 \section{Peso da escolha do limiar sobre a detecção de cópias}
@@ -100,6 +103,7 @@ Para chegar a uma conclusão sobre o tipo de assinatura mais adequado para a det
 	\caption{Mapas de calor de revocação e precisão para cada assinatura.}
 	\label{fig:heatmap-lado-a-lado}
 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_lado.png}
+        \fonte{Autoria própria.}
 \end{figure}
 
 \begin{figure}[h]
@@ -107,6 +111,7 @@ Para chegar a uma conclusão sobre o tipo de assinatura mais adequado para a det
 	\caption{Simulação de classificação para cada um dos tipos de assinatura. A medida que o limiar se afasta do zero, o valor de precisão diminui e o de revocação aumenta. Cada tipo de assinatura tem uma proporção diferente para essa variação.}
 	\label{fig:todos-limiares}
 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/todos_final.png}
+    \fonte{Autoria própria.}
 \end{figure}
  
 A seguir, será discutido se a aplicação de dois tipos de assinatura de forma conjunta é mais eficiência na detecção de cópias que a aplicação de apenas uma de forma isolada. Será definido o método de combinação destas assinaturas, além da escolha de um limiar de classificação para cada uma destas combinações.
@@ -125,12 +130,14 @@ Como cada tipo de assinatura gera valores muito diferentes ao ser usado como ent
 
 \begin{figure}[h]
 	\centering
-	\caption{Simulação de classificação todas as combinações de assinatura, alternando o valor de alpha entre 0.1 e 0.9}
+	\caption{Simulação de classificação todas as combinações de assinatura, alternando o valor de alpha entre 0.1 e 0.9.}
 	\label{fig:alpha-limiar}
 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/alpha_juncao.png}
+    \fonte{Autoria própria.}
 \end{figure}
 
 \begin{table}[h]
+\centering
 \caption{Tabela com os valores de alpha e limiar que maximizam a fmeasure na etapa de parametrização.}
 \label{tab:juncao-limiares-alpha}
 \begin{tabular}{|l|l|r|r|r|}
@@ -143,6 +150,7 @@ Como cada tipo de assinatura gera valores muito diferentes ao ser usado como ent
 & Scene Frame & 0.25 & 0.033557 & 0.709924 \\\cline{2-5}
 & Wavelets & 0.10 & 0.080537 & 0.710831 \\\hline
 	\end{tabular}
+    \fonte{Autoria própria.}
 \end{table}
 
 Após a etapa de parametrização, foram rodados os testes utilizando os valores de $\alpha$ e de limiar definidos anteriormente. Para comparar os resultados com aqueles dos algoritmos separados, os valores da medida fmeasure para cada teste de classificação estão dispostos na Figura~\ref{fig:compacao-metodos}. No geral, a combinação de duas assinaturas não teve efeitos positivos na classificação. Com ela, todas as combinações passaram a ser sensíveis a distorções temporais e poucos casos apresentaram melhoras. Nos casos em que a mudança foi positiva, o ganho foi de menos de 5\%. 
@@ -150,7 +158,8 @@ Após a etapa de parametrização, foram rodados os testes utilizando os valores
 \begin{figure}
 	\caption{Histograma com valores de fmeasure para cada tipo de assinatura. A esquerda, resultados da combinação da assinatura Camera Motion com as demais, a direita, assinaturas aplicadas isoladamente.}
 	\label{fig:compacao-metodos}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_comparacao.png}	
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_comparacao.png}
+    \fonte{Autoria própria.}
 \end{figure}
 
 % Por fim, para avaliar as assinaturas de modo geral, é preciso levar em consideração sua robustez e unicidade simultaneamente. 
