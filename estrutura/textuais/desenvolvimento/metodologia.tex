@@ -84,24 +84,25 @@ O passo final de preparação para os experimentos deste trabalho foi a criaçã
         rb & RBP & - \\ \hline
         sceneframe & Scene Frame & - \\ \hline
     \end{tabular}
+    \fonte{\cite{hua2004robust}, \cite{lee2008robust}, \cite{cook2011efficient}, \cite{mao2015sceneframe}, \cite{kim2014rotation}, \cite{Dutta2013}, \cite{minetto2007reliable}.}
 \end{table}
 
 As assinaturas geradas nesta etapa foram arranjadas em grupos de parametrização e testes para a realização do experimento. 
 
-Para a criação de um caso de teste, é escolhida uma assinatura do grupo de assinaturas originais e uma assinatura do grupo de teste, sempre geradas pelo mesmo algoritmo como pode ser visto da Figura \ref{fig:comparacao}, e estas são comparadas segundo o método descrito na Seção~\ref{sec:met-comparacao}. Caso o resultado da comparação fique abaixo de um limiar empiricamente definido, o vídeo que gerou a assinatura de teste é considerado como uma cópia do vídeo que gerou a assinatura original.
+Para a criação de um caso de teste, é escolhida uma assinatura do grupo de assinaturas originais e uma assinatura do grupo de teste, sempre geradas pelo mesmo algoritmo como pode ser visto da Figura \ref{fig:comparacao}, e estas são comparadas segundo o método descrito na Seção \ref{sec:met-comparacao}. Caso o resultado da comparação fique abaixo de um limiar empiricamente definido, o vídeo que gerou a assinatura de teste é considerado como uma cópia do vídeo que gerou a assinatura original.
 
 \begin{figure}
     \centering
-    \caption{Diagrama das comparações dos casos de teste}
+    \caption{Diagrama das comparações dos casos de teste.}
     \label{fig:comparacao}
     \includegraphics[width=0.8\textwidth]{dados/figuras/Comparador-1}
-    \fonte{Autoria própria}
+    \fonte{Autoria própria.}
 \end{figure}
 
-Para classificar se uma assinatura do grupo de teste é uma cópia de uma assinatura do grupo de originais, é preciso definir um parâmetro de corte para cada algoritmo. Para isso, foi definido um cenário de treinamento de 8.848 vídeos por algoritmo, ou seja, metade do total de assinaturas respectivas a cada algoritmo. Isso representa um total de 53.088 vídeos que são realmente cópias, enquanto 
+% Para classificar se uma assinatura do grupo de teste é uma cópia de uma assinatura do grupo de originais, é preciso definir um parâmetro de corte para cada algoritmo. Para isso, foi definido um cenário de treinamento de 8.848 vídeos por algoritmo, ou seja, metade do total de assinaturas respectivas a cada algoritmo. Isso representa um total de 53.088 vídeos que são realmente cópias, enquanto 
 
 
-em que 50\% das combinações de assinatura que são cópias foram escolhidos aleatoriamente, ou seja, 8.848 por algoritmo, totalizando 53.088 casos de treinamento de cópias. O mesmo número de casos de treinamento de não-cópias foi escolhido aleatoriamente.
+% em que 50\% das combinações de assinatura que são cópias foram escolhidos aleatoriamente, ou seja, 8.848 por algoritmo, totalizando 53.088 casos de treinamento de cópias. O mesmo número de casos de treinamento de não-cópias foi escolhido aleatoriamente.
 
 \section{Comparação de Assinaturas}
 \label{sec:met-comparacao}
