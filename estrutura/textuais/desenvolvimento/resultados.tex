@@ -5,11 +5,11 @@
 
 Este capítulo discute os resultados obtidos nos experimentos de detecção de cópias de vídeos através da aplicação das assinaturas digitais revisadas neste trabalho sobre os conjuntos de parametrização e teste detalhados na Seção~\ref{sec:met-Experimentos}.
 
-Conforme detalhado na seção anterior, para a determinação do limiar de classificação de cada assinatura, são realizadas simulações de classificação utilizando um intervalo de limiares. Os casos de parametrização de cada assinatura são dividos empiricamente em 5 subconjuntos e ao final, é utilizada a média dos limiares resultantes da simulação com cada subconjunto como limiar para a assinatura. Na Figura~\ref{fig:exemplo-simulacao}, foram plotados os valores de precisão, revocação e \textit{fmeasure} para cada assinatura ao longo das simulações com diferentes limiares. O ponto vermelho, indicando o maior valor de fmeasure escolha do limiar para cada assinatura.
+Conforme detalhado na seção anterior, para a determinação do limiar de classificação de cada assinatura, são realizadas simulações de classificação utilizando um intervalo de limiares. Os casos de parametrização de cada assinatura são divididos empiricamente em 5 subconjuntos e ao final, é utilizada a média dos limiares resultantes da simulação com cada subconjunto como limiar para a assinatura. Na Figura~\ref{fig:exemplo-simulacao}, foram plotados os valores de precisão, revocação e \textit{$F$-measure} para cada assinatura ao longo das simulações com diferentes limiares. O ponto vermelho, indicando o maior valor de $F$-measure escolha do limiar para cada assinatura.
 
 \begin{figure}[h]
 	\centering
-	\caption{Exemplo de simulação de classificação para um tipo de assinatura. O eixo x é composto dos limiares testados para a assinatura. O ponto vermelho indica o valor máximo de \textit{fmeasure}, ponto em que o limiar apresenta o melhor resultado. F1 representa o \textit{fmeasure}.}
+	\caption{Exemplo de simulação de classificação para um tipo de assinatura. O eixo x é composto dos limiares testados para a assinatura. O ponto vermelho indica o valor máximo de \textit{fmeasure}, ponto em que o limiar apresenta o melhor resultado. F1 representa o \textit{$F$-measure}.}
 	\label{fig:exemplo-simulacao}
 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/limiar_Medida_Ordinal_0.png}
     \fonte{Autoria própria.}
