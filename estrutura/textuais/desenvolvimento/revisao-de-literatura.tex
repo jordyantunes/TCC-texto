@@ -7,24 +7,24 @@
 \chapter{Revisão da Literatura}
 \label{chap:revisao}
 
-As Seções \ref{sec:video} à \ref{sec:assinatura} apresentam definições úteis para melhor compreensão do trabalho, como vídeo e suas divisões, técnicas de detecção de cópias e conteúdo em vídeo, os principais tipos de ataques que um vídeo pode sofrer, e, finalmente, a definição de assinatura digital de vídeo e os algoritmos selecionados para este trabalho.
 
-\section{Trabalhos relacionados}
-\label{chap:relacionados}
+%\section{Trabalhos relacionados}
+%\label{chap:relacionados}
 
   % Artigo 9 - 372: Ele fala de técnicas na história - comparar cenas (final/inicio): comparar descritores; - transformação pós-produção: utilização de pontos de interesse;
 
 
 Em 1999, o compartilhamento de vídeos na internet ainda era uma realidade distante, entretanto, \citeonline{indyk1999finding} já buscavam métodos para encontrar vídeos pirateados e duplicatas na rede. Os autores então propuseram um algoritmo para geração de assinaturas temporais baseadas nos limites das cenas de um vídeo. Embora este método seja bom para encontrar filmes e vídeos longos, ele não é apropriado para identificar vídeos curtos e cenas isoladas, com duração de até quatro minutos. Esse tipo de produção é a mais comum nas plataformas de compartilhamento de vídeos atualmente \cite{comscoreinc} .
 
-Desde então, várias técnicas têm sido usadas para a geração de assinaturas de vídeos. \citeonline{coskun2006spatio} propuseram o conceito de funções de \textit{hash} como uma ferramenta para identificação de vídeos, criando um algoritmo que utiliza as informações espaço-temporais do vídeo baseado no diferencial da luminância entre regiões de quadros. Outras abordagens incluem o uso de descritores globais que utilizam a distribuição da intensidade de movimento e cor \cite{hampapur2001comparison}, além de medidas ordinais \cite{hua2004robust}, que se provaram robustas para variadas resoluções, mudanças de iluminação e formatos de vídeos.	   	
+Desde então, várias técnicas têm sido usadas para a geração de assinaturas de vídeos. \citeonline{coskun2006spatio} propuseram o conceito de funções de \textit{hash} como uma ferramenta para identificação de vídeos, criando um algoritmo que utiliza as informações espaço-temporais do vídeo baseado no \verificar{diferencial} da luminância entre regiões de quadros. Outras abordagens incluem o uso de descritores globais que utilizam a distribuição da intensidade de movimento e cor \cite{hampapur2001comparison}, além de medidas ordinais \cite{hua2004robust}, que se provaram robustas para variadas resoluções, mudanças de iluminação e formatos de vídeos.	   	
 
-Assinaturas baseadas em características locais também foram pesquisadas, como em \cite{joly2007content}, cujo algoritmo apresentado busca ser eficiente para buscas em grandes bases de dados, tanto em velocidade quanto em qualidade. Há também a  pesquisa de \citeonline{law2006robust}, que usa o algoritmo de Harris para encontrar pontos de interesse no vídeo e criar uma assinatura compacta.
+Assinaturas baseadas em características locais também foram pesquisadas, como em \cite{joly2007content}, cujo algoritmo apresentado procura ser eficiente para buscas em grandes bases de dados, \verificar{tanto em velocidade quanto em qualidade}. Há também a  pesquisa de \citeonline{law2006robust}, que usa o algoritmo de Harris para encontrar pontos de interesse no vídeo e criar uma assinatura compacta.
 
 \citeonline{de2012combinaccao} fez um estudo comparativo entre assinaturas globais e locais e mostrou como unir os dois tipos de assinaturas utilizando de algoritmos genéticos. \citeonline{de2012combinaccao} também fez experimentos mostrando que a combinação de descritores globais e locais são complementares e, se usados em conjunto, produzem resultados superiores quando comparados com o uso individual de cada tipo de descritor.
 
 \citeonline{hu2011survey} discorre sobre a indexação e recuperação de conteúdo em vídeos. O trabalho apresenta métodos para analisar a estrutura de vídeos, segmentação de cenas, extração de quadros-chave, características de movimento, mineração de informações em vídeos, mensuramento de similaridade e relevância entre assinaturas digitais, pesquisa de conteúdo em vídeos, entre outros.
 
+As Seções \ref{sec:video} à \ref{sec:assinatura} apresentam definições úteis para melhor compreensão do trabalho, como a estrutura de um vídeo, técnicas de detecção de cópias e conteúdo,  principais tipos de ataque, e, finalmente, a definição de assinatura digital para vídeos e os algoritmos selecionados para este trabalho.
 
 \section{Vídeo}
 \label{sec:video}  
@@ -33,7 +33,7 @@ Assinaturas baseadas em características locais também foram pesquisadas, como 
 
 	Logo acima na hierarquia existem as tomadas, termo que se refere a um ou mais quadros capturados em sequência, representando uma ação ininterrupta no tempo e no espaço. Tomadas contínuas podem ser agrupadas em cenas para gerar coerência na história do vídeo. Um vídeo pode ser composto por uma ou mais cenas.
 
-       Um conceito importante também relacionado a vídeo é o quadro de cena, utilizado pelo algoritmo de \citeonline{mao2015sceneframe}, um dos descritores que fazem parte do experimento proposto. \citeonline{7848130} definem quadro de cena como a imagem que define os pontos de início e fim de qualquer transição suave de imagens, é o quadro que melhor representa a cena no geral. Quadros de cena são amplamente utilizados na produção de animações, em que normalmente o objeto ou sujeito da imagem se move em relação ao fundo \textit{(background)}. De acordo com \citeonline{mao2015sceneframe}, o quadro de cena deve possuir todos os mesmos elementos (pessoas, objetos, animais, etc.) exibidos na cena e o background deve ser altamente similar ao restante dos quadros. Na Figura \ref{fig:quadro_cena}, qualquer um dos cinco quadros pode ser eleito como o quadro de cena, pois todos têm os mesmos elementos (a mesma pessoa e o mesmo cachorro), além do background ser praticamente o mesmo em todos os quadros.
+       Um conceito importante também relacionado ao vídeo é o quadro de cena (do inglês \emph{key-frame}) --- o descritor de \citeonline{mao2015sceneframe}, que faz parte do experimento proposto, utiliza este conceito. \citeonline{7848130} descrevem um quadro de cena como a imagem que define os pontos de início e fim de qualquer transição suave de imagens (o quadro que melhor representa a cena no geral). Quadros de cena são amplamente utilizados na produção de animações, em que normalmente o objeto ou sujeito da imagem se move em relação ao fundo \textit{(background)}. De acordo com \citeonline{mao2015sceneframe}, o quadro de cena deve possuir todos os elementos (pessoas, objetos, animais, etc.) exibidos na cena e o background deve ser altamente similar ao restante dos quadros. Na Figura \ref{fig:quadro_cena}, qualquer um dos cinco quadros pode ser eleito como o quadro de cena, pois todos têm os mesmos elementos (a mesma pessoa e o mesmo cachorro), além do background ser praticamente o mesmo em todos os quadros.
 
  \begin{figure}[!htb]
       \centering
@@ -88,9 +88,9 @@ A transformada pode ser aplicada de forma recursiva, usando o quadro $I$ como en
 
 	Para evitar a detecção de duplicatas é comum a realização de ataques, ou distorções, nos vídeos. Existem várias maneiras de modificar um vídeo, como redimensionamento do tamanho, inserção ou remoção de alguns quadros, alteração de cada quadro individualmente através da adição ou remoção de elementos, tais como bordas e legendas.
 
-	No escopo deste trabalho são estudados 14 tipos de ataques para simular as táticas mais comuns utilizadas pelos apropriadores de conteúdo que tentam dificultar o reconhecimento de duplicatas. Os ataques são: adição de texto e legendas no vídeo, adição de marca d'água, adição de quadro ou bordas, redimensionamento da altura e largura dos quadros, eliminação de uma faixa ou região dos quadros, inversão/espelhamento, rotação, borramento, inversão de cores, alteração do formato de compressão dos quadros do vídeo, aceleramento do vídeo e, finalmente, remoção de quadros. A Figura \ref{fig:ataques} ilustra o resultado da aplicação dos ataques acima em uma imagem.
+	No escopo deste trabalho são estudados 14 tipos de ataques para simular as táticas mais comuns utilizadas pelos apropriadores de conteúdo que tentam dificultar o reconhecimento de duplicatas. Os ataques são: adição de texto e legendas no vídeo, adição de marca d'água, adição de quadro ou bordas, redimensionamento da altura e largura dos quadros, eliminação de uma faixa ou região dos quadros, inversão/espelhamento, rotação, borramento, inversão de cores, alteração do formato de compressão dos quadros do vídeo, aceleramento do vídeo e, finalmente, remoção de quadros. A Figura \ref{fig:ataques} ilustra o resultado da aplicação de 8 dos ataques descritos acima em uma imagem.
 
-    	\begin{figure}[h]
+    \begin{figure}[h]
         \centering
          \caption{Exemplos de ataques em uma imagem.}
         \includegraphics[width=0.8\textwidth]{dados/figuras/Ataques.png}
@@ -100,9 +100,9 @@ A transformada pode ser aplicada de forma recursiva, usando o quadro $I$ como en
     	\label{fig:ataques}
     \end{figure}
 
-Os ataques dos tipos remoção de quadros, alteração do formato de compressão e aceleramento do vídeo só são perceptíveis na visualização dos vídeos em um dispositivo de exibição, como um computador, e por isso não estão representados na Figura 3. O ataque do tipo remoção de quadros consiste em remover alguns quadros ao longo do vídeo e muitas vezes passa despercebido ao olho humano. O maior indicativo de que um vídeo sofreu esse ataque é observar a diferença temporal entre uma duplicata e o vídeo original, sendo que a duplicata terá uma duração menor em relação ao original. O ataque do tipo alteração da taxa de quadros também é realizado através da remoção de alguns quadros do vídeo, entretanto, o vídeo permanece com a mesma duração, pois os quadros restantes são na verdade exibidos por mais tempo, ou seja, um quadro que era exibido durante um segundo passa a ser exibido durante dois segundos. O ataque do tipo alteração do formato de compressão é ainda mais difícil de ser percebido por humanos pois em muitos casos a diferença na imagem é muito sutil e geralmente ocorre em regiões que não são o foco da atenção do observador. Uma forma de descobrir se um vídeo sofreu esse tipo de ataque é observar o tamanho em disco da duplicata em relação do vídeo original, sendo que a duplicata normalmente ocupa menos espaço em disco devido à compressão \textit{lossless} do formato JPEG.
+Os ataques dos tipos remoção de quadros, alteração do formato de compressão e aceleramento do vídeo só são perceptíveis quando visualizados em um dispositivo de exibição, como um computador, e por isso não estão representados na Figura~\ref{fig:ataques}. O ataque do tipo remoção de quadros consiste em remover alguns quadros ao longo do vídeo e muitas vezes passa despercebido ao olho humano. O maior indicativo de que um vídeo sofreu esse ataque é observar a diferença temporal entre uma duplicata e o vídeo original, sendo que a duplicata terá uma duração menor em relação ao original. O ataque do tipo alteração da taxa de quadros também é realizado através da remoção de alguns quadros do vídeo, entretanto, o vídeo permanece com a mesma duração, pois os quadros restantes são na verdade exibidos por mais tempo, ou seja, um quadro que era exibido durante um segundo passa a ser exibido durante dois segundos. O ataque do tipo alteração do formato de compressão é ainda mais difícil de ser percebido por humanos pois em muitos casos a diferença na imagem é muito sutil e geralmente ocorre em regiões que não são o foco da atenção do observador. Uma forma de descobrir se um vídeo sofreu esse tipo de ataque é observar o tamanho em disco da duplicata em relação do vídeo original, sendo que a duplicata normalmente ocupa menos espaço em disco devido à compressão \textit{\verificar{lossless}} do formato JPEG.
 
-Os ataques podem ainda ser classificados como geométricos, fotométricos ou temporais. Ataques geométricos afetam as características globais dos vídeos, ataques fotométricos as características locais e, os ataques temporais, a dimensão temporal dos vídeos. A classificação dos ataques que serão utilizados nos vídeos deste trabalho é exibida na Tabela \ref{tab-classificacao-ataques}.
+Os ataques podem ainda ser classificados como geométricos, fotométricos ou temporais. Ataques geométricos afetam as características globais dos vídeos, ataques fotométricos afetam as características locais e, os ataques temporais, a dimensão temporal dos vídeos. A classificação dos ataques que serão utilizados nos vídeos deste trabalho é exibida na Tabela \ref{tab-classificacao-ataques}.
 
 \begin{table}[!ht]
 \centering
@@ -161,9 +161,9 @@ Os ataques podem ainda ser classificados como geométricos, fotométricos ou tem
 \subsection{Assinatura baseada na medida ordinal}
 \label{sec:med_ordinal}
 
-	O algoritmo proposto por \citeonline{hua2004robust} baseia-se na intensidade dos \textit{pixels} de cada quadro para compor a assinatura. Primeiramente, a taxa de amostragem, ou seja, a taxa de quadros por segundo (FPS) do vídeo de entrada é padronizada, para que a assinatura gerada fique mais compacta e seja tolerante a diferentes formatos de compressão, por exemplo. Além disso, o vídeo é convertido para escala de cinza.
+	O algoritmo proposto por \citeonline{hua2004robust} baseia-se na intensidade dos \textit{pixels} de cada quadro para compor a assinatura. Primeiramente, a taxa de amostragem, ou seja, a taxa de quadros por segundo (FPS) do vídeo de entrada é padronizada, para que a assinatura gerada fique mais compacta e seja tolerante a diferentes formatos de compressão. Além disso, o vídeo é convertido para escala de cinza.
 
-	Após esse pré-processamento, cada quadro é particionado em $M \times N$ blocos, como pode ser observado na Figura \ref{fig:medidaord}, e a intensidade média para cada um dos blocos é computada. O descritor é então formado pela concatenação dos vetores em cada bloco. O método é resumido na Figura \ref{fig:dia_ordinal}.
+	Após esse pré-processamento, cada quadro é particionado em $M \times N$ blocos, como pode ser observado na Figura~\ref{fig:medidaord}, e a intensidade média para cada um dos blocos é computada. O descritor é então formado pela concatenação dos vetores em cada bloco. O método é resumido na Figura~\ref{fig:dia_ordinal}.
     
     %Esses valores são então organizados em ordem crescente em um vetor representando a assinatura do vídeo.
 
@@ -223,11 +223,11 @@ Os ataques podem ainda ser classificados como geométricos, fotométricos ou tem
 \Theta(x,y) = tan^{-1}\left (\frac{\mathbb{G}y}{\mathbb{G}x} \right)
 \end{equation}
     
-    Em seguida o centroide para cada bloco é obtido a partir do somatório do produto da magnitude e orientação, dividido pela somatória de todas as magnitudes daquele bloco, como pode ser observado na Equação \ref{eq:gradientes}.
+    Em seguida o centroide para cada bloco $b[i]$ é obtido a partir do somatório do produto da magnitude e orientação, dividido pela somatória de todas as magnitudes daquele bloco, como pode ser observado na Equação \ref{eq:gradientes}.
     
 \begin{equation}
 	\label{eq:gradientes}
-	[i] = \frac{\sum_{x,y \in b[i]} w(x,y)\Theta (x,y)}{\sum_{x,y \in b[i]} w(x,y)}
+	b[i] = \frac{\sum_{x,y \in b[i]} w(x,y)\Theta (x,y)}{\sum_{x,y \in b[i]} w(x,y)}
 \end{equation}
 
 A assinatura final é obtida pela concatenação desses vetores (Figura \ref{fig:dia_gradiente}).
@@ -309,7 +309,7 @@ A assinatura final é obtida pela concatenação desses vetores (Figura \ref{fig
 
   A abordagem proposta por \citeonline{mao2015sceneframe} é baseada na assinatura de quadros de cena (Seção \ref{sec:video}). De acordo com os autores, os quadros de cena podem ser intraframes, ou seja, quadros que iniciam tomadas, quanto interframes, contanto que sigam as características descritas na Seção \ref{sec:video}, ou seja, possuir todos os mesmos elementos dos quadros restantes e o mesmo \textit{background}.
 
-A assinatura individual de cada quadro é calculada, como pode ser observado na Figura \ref{fig:dia_sceneframe}. Os quadros passam por um pré-processamento, onde o componente de luminância pertencente ao espaço HSL (\textit{hue, saturation, lightness}) da imagem é extraído, uma vez que apenas este valor é considerado pelo algoritmo. O quadro é recortado mantendo-se apenas sua região central e redimensionado para o tamanho definido de $(108\times132)$ pixels. Além disso, é aplicado o filtro passa-baixa da Gaussiana.
+A assinatura individual de cada quadro é calculada conforme os passos descritos na Figura \ref{fig:dia_sceneframe}. Os quadros passam por um pré-processamento, onde o componente de luminância pertencente ao espaço HSL (\textit{hue, saturation, lightness}) da imagem é extraído, uma vez que apenas este valor é considerado pelo algoritmo. O quadro é recortado mantendo-se apenas sua região central e redimensionado para o tamanho definido de $(108\times132)$ pixels. Além disso, é aplicado o filtro passa-baixa da Gaussiana.
 
 \begin{figure}[h]
   \centering
@@ -431,6 +431,26 @@ Após a etapa de pré-processamento, para serem utilizados como entrada para est
       \fonte{Autoria própria.}
        	\label{fig:dia_wavelet}
     \end{figure}  
+    
+% --------------------------------------------------------------------------------------------------
+%
+% CAMERA MOTION
+%
+% --------------------------------------------------------------------------------------------------
+
+\subsection{Assinatura baseada no movimento da câmera}
+\label{wavelets}
+
+%trabalha com keyframes para cada cena do vídeo
+%detec'ão de movimento
+%capaz de identificar movimento de camera em 95% dos testes e detectar objetos de "background e foreground"
+%dois passos: 1. determinar uma regiao de fluxo óptico no video; 2. estimar o movimento da camera na regiao de fluxo óptico
+%o fluxo óptico de uma imagem I para uma posterior imagem J é uma função F que para o domínio da imagem D, associa um vetor de velocidade F(u) tal que u + F(u) pertencem ao domínio D.
+%este algoritmo assume que o fluxo óptico f está fixado em um conjunto de pontos, que formam uma lista de vetores. o algoritmo requer que cada vetor f(i) tenha um peso correspondente (wi), que representa a sua confiabilidade.
+
+
+
+Esse algoritmo proposto por \citeonline{minetto2007reliable}
 
 
 
