@@ -120,38 +120,54 @@ A seguir, será discutido se a aplicação de dois tipos de assinatura de forma 
 
 Assim como as distorções, as assinaturas podem ser classificadas quanto às características de um vídeo que elas utilizam em sua formação. Das assinaturas usadas neste trabalho, duas são temporais (Camera Motion e FrameDiff), enquanto todas as outras são espaciais. Nesta etapa dos experimentos, estes dois tipos de assinatura foram combinados a fim de definir se as métricas de robustez e unicidade são melhoradas em relação às assinaturas utilizadas separadamente. Embora várias combinações de assinaturas sejam possíveis, para este trabalho, a assinatura Camera Motion foi combinada com as todas as outras. 
 
-O primeiro passo é a definição do método de combinação destas assinaturas. Ao invés de combinar os vetores de assinaturas em si, são combinados os valores de distância retornados ao passar um par de vetores pelo DTW, a fim de criar um valor de distância que é a soma ponderada dos valores originais, como mostra a fórmula abaixo, em que D1 é a distância de uma assinatura espacial D2 é a distância da assinatura temporal.
+% ------------------------------------------
+% V1 com combinação por valores de diferença
+% ------------------------------------------
+
+% O primeiro passo é a definição do método de combinação destas assinaturas. Ao invés de combinar os vetores de assinaturas em si, são combinados os valores de distância retornados ao passar um par de vetores pelo DTW, a fim de criar um valor de distância que é a soma ponderada dos valores originais, como mostra a fórmula abaixo, em que D1 é a distância de uma assinatura espacial D2 é a distância da assinatura temporal.
+
+O primeiro passo é a definição do método de combinação destas assinaturas. Como visto no Capítulo~\ref{chap:metodologia}, uma assinatura de vídeo é um vetor de características que é formado pela concatenação das características de cada quadro de um vídeo. Sendo assim, podemos separar a assinatura em sub-vetores onde cada um destes representa um quadro no vídeo. Para combinar dois tipos diferentes de assinaturas que descrevem o mesmo vídeo, os sub-vetores dos quadros correspondentes são concatenados em pares e então adicionados em sequência, como mostra a Figura~X. 
+
+% $$
+% D_{final} = \alpha * Dist_{1} + (1-\alpha) * Dist_{2}
+% $$
+
+Como cada tipo de assinatura gera valores muito diferentes ao ser usado como entrada para o DTW (veja Tabela~\ref{tab:limiares} para exemplos), esses valores passam por uma etapa de normalização utilizando o método Min-Max, que realiza uma transformação linear para um intervalo de valores pré-definido (que é $[0 1]$), como mostra a Equação~\ref{eq:minmax}.
 
 $$
-D_{final} = \alpha * Dist_{1} + (1-\alpha) * Dist_{2}
+\label{eq:minmax}
+A' = \left(\frac{A - min(A)}{max(A) - min(A)}\right) * (D - C) + C
 $$
 
-Como cada tipo de assinatura gera valores muito diferentes ao ser usado como entrada para o DTW (veja Tabela~\ref{tab:limiares} para exemplos), esses valores passam por uma etapa de normalização antes de serem combinados. Além disso, é preciso escolher o fator $\alpha$ de combinação, além de definir um novo limiar de classificação para a ``nova assinatura'' criada. Assim como para a análise dos algoritmos separados no início deste capítulo, foi realizada uma simulação de classificação com um intervalo de valores de limiares, a fim de definir um limiar para a classificação maximizando a medida fmeasure. Essa simulação foi repetida para os valores de $\alpha = \{0.1, 0.25, 0.5, 0.75, 0.9\}$, como ilustra a Figura~\ref{fig:alpha-limiar}. Os resultados da etapa de parametrização estão dispostos na Tabela~\ref{tab:juncao-limiares-alpha}.
+Onde $A'$ é o vetor $A$ normalizado, e $C e D$ são os valores mínimos e máximos definidos previamente. No caso desta monografia, foram utilizados $C = 0$ e $D = 1$ para normalizar os vetores no intervalo $[0, 1]$.
 
-\begin{figure}[h]
-	\centering
-	\caption{Simulação de classificação todas as combinações de assinatura, alternando o valor de alpha entre 0.1 e 0.9.}
-	\label{fig:alpha-limiar}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/alpha_juncao.png}
-    \fonte{Autoria própria.}
-\end{figure}
 
-\begin{table}[h]
-\centering
-\caption{Tabela com os valores de alpha e limiar que maximizam a fmeasure na etapa de parametrização.}
-\label{tab:juncao-limiares-alpha}
-\begin{tabular}{|l|l|r|r|r|}
-\hline
-\textbf{Assinatura 1} & \textbf{Assinatura 2} & \textbf{Alpha} & \textbf{Limiar} & \textbf{Fmeasure} \\\hline
-\multirow{6}{*}{Camera Motion} & FrameDiff & 0.25 & 0.040268 & 0.668909 \\\cline{2-5}
-& Gradiente & 0.90 & 0.093960 & 0.620811 \\\cline{2-5}
-& Medida Ordinal & 0.10 & 0.073826 & 0.802687 \\\cline{2-5}
-& RBP & 0.25 & 0.073826 & 0.771050 \\\cline{2-5}
-& Scene Frame & 0.25 & 0.033557 & 0.709924 \\\cline{2-5}
-& Wavelets & 0.10 & 0.080537 & 0.710831 \\\hline
-	\end{tabular}
-    \fonte{Autoria própria.}
-\end{table}
+% Além disso, é preciso escolher o fator $\alpha$ de combinação, além de definir um novo limiar de classificação para a ``nova assinatura'' criada. Assim como para a análise dos algoritmos separados no início deste capítulo, foi realizada uma simulação de classificação com um intervalo de valores de limiares, a fim de definir um limiar para a classificação maximizando a medida fmeasure. Essa simulação foi repetida para os valores de $\alpha = \{0.1, 0.25, 0.5, 0.75, 0.9\}$, como ilustra a Figura~\ref{fig:alpha-limiar}. Os resultados da etapa de parametrização estão dispostos na Tabela~\ref{tab:juncao-limiares-alpha}.
+
+% \begin{figure}[h]
+% 	\centering
+% 	\caption{Simulação de classificação todas as combinações de assinatura, alternando o valor de alpha entre 0.1 e 0.9.}
+% 	\label{fig:alpha-limiar}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/alpha_juncao.png}
+%     \fonte{Autoria própria.}
+% \end{figure}
+
+% \begin{table}[h]
+% \centering
+% \caption{Tabela com os valores de alpha e limiar que maximizam a fmeasure na etapa de parametrização.}
+% \label{tab:juncao-limiares-alpha}
+% \begin{tabular}{|l|l|r|r|r|}
+% \hline
+% \textbf{Assinatura 1} & \textbf{Assinatura 2} & \textbf{Alpha} & \textbf{Limiar} & \textbf{Fmeasure} \\\hline
+% \multirow{6}{*}{Camera Motion} & FrameDiff & 0.25 & 0.040268 & 0.668909 \\\cline{2-5}
+% & Gradiente & 0.90 & 0.093960 & 0.620811 \\\cline{2-5}
+% & Medida Ordinal & 0.10 & 0.073826 & 0.802687 \\\cline{2-5}
+% & RBP & 0.25 & 0.073826 & 0.771050 \\\cline{2-5}
+% & Scene Frame & 0.25 & 0.033557 & 0.709924 \\\cline{2-5}
+% & Wavelets & 0.10 & 0.080537 & 0.710831 \\\hline
+% 	\end{tabular}
+%     \fonte{Autoria própria.}
+% \end{table}
 
 Após a etapa de parametrização, foram rodados os testes utilizando os valores de $\alpha$ e de limiar definidos anteriormente. Para comparar os resultados com aqueles dos algoritmos separados, os valores da medida fmeasure para cada teste de classificação estão dispostos na Figura~\ref{fig:compacao-metodos}. No geral, a combinação de duas assinaturas não teve efeitos positivos na classificação. Com ela, todas as combinações passaram a ser sensíveis a distorções temporais e poucos casos apresentaram melhoras. Nos casos em que a mudança foi positiva, o ganho foi de menos de 5\%. 
 
