@@ -89,17 +89,9 @@ O passo final de preparação para os experimentos deste trabalho foi a criaçã
     \fonte{Autoria própria.}
 \end{table}
 
-As assinaturas geradas nesta etapa foram arranjadas em grupos de parametrização e teste para a realização do experimento. O conjunto de vídeos foi dividido em um grupo de parametrização com \textbf{[NUMERO X DE VIDEOS]} e um grupo para testes com \textbf{[NUMERO Y DE VIDEOS]}. O grupo de parametrização tem um grupo de vídeos originais com \textbf{[NUMERO X1 DE VIDEOS]} e um grupo de vídeos distorcidos com \textbf{[NUMERO X2 DE VIDEOS]}. O grupo de teste contém um grupo de vídeos originais com \textbf{[NUMERO Y1 DE VIDEOS]} vídeos e um grupo de vídeos distorcidos com \textbf{[NUMERO Y2 DE VIDEOS]}.
+% As assinaturas geradas nesta etapa foram arranjadas em grupos de parametrização e teste para a realização do experimento. O conjunto de vídeos foi dividido em um grupo de parametrização com \textbf{[NUMERO X DE VIDEOS]} e um grupo para testes com \textbf{[NUMERO Y DE VIDEOS]}. O grupo de parametrização tem um grupo de vídeos originais com \textbf{[NUMERO X1 DE VIDEOS]} e um grupo de vídeos distorcidos com \textbf{[NUMERO X2 DE VIDEOS]}. O grupo de teste contém um grupo de vídeos originais com \textbf{[NUMERO Y1 DE VIDEOS]} vídeos e um grupo de vídeos distorcidos com \textbf{[NUMERO Y2 DE VIDEOS]}.
 
-Para a criação de um caso de teste, é escolhida uma assinatura do grupo de assinaturas originais e uma assinatura do grupo de teste, sempre geradas pelo mesmo algoritmo como pode ser visto da Figura \ref{fig:comparacao}, e estas são comparadas segundo o método descrito na Seção \ref{sec:met-comparacao}. Caso o resultado da comparação fique abaixo de um limiar empiricamente definido, o vídeo que gerou a assinatura de teste é considerado como uma cópia do vídeo que gerou a assinatura original.
-
-\begin{figure}
-    \centering
-    \caption{Diagrama das comparações dos casos de teste.}
-    \label{fig:comparacao}
-    \includegraphics[width=1.0\textwidth]{dados/figuras/Comparador-1}
-    \fonte{Autoria própria.}
-\end{figure}
+% Para a criação de um caso de teste, é escolhida uma assinatura do grupo de assinaturas originais e uma assinatura do grupo de teste, sempre geradas pelo mesmo algoritmo como pode ser visto da Figura \ref{fig:comparacao}, e estas são comparadas segundo o método descrito na Seção \ref{sec:met-comparacao}. Caso o resultado da comparação fique abaixo de um limiar empiricamente definido, o vídeo que gerou a assinatura de teste é considerado como uma cópia do vídeo que gerou a assinatura original.
 
 % Para classificar se uma assinatura do grupo de teste é uma cópia de uma assinatura do grupo de originais, é preciso definir um parâmetro de corte para cada algoritmo. Para isso, foi definido um cenário de treinamento de 8.848 vídeos por algoritmo, ou seja, metade do total de assinaturas respectivas a cada algoritmo. Isso representa um total de 53.088 vídeos que são realmente cópias, enquanto 
 
@@ -145,9 +137,17 @@ Em sua forma original, o DTW tem uma complexidade de $ O(N^{2}) $, por esse moti
 \section{Experimentos}
 \label{sec:met-Experimentos}
 
-Os experimentos realizados neste trabalho são dividos em duas etapas: a obtenção dos parâmetros de cada assinatura para a classificação de cópias (treinamento), e testes das assinaturas. Para a criação dos casos de treinamento/teste, são necessárias algumas definições. O conjunto $A_o = \{a_1, a_2, a_3, ..., a_n\}$ contém todas as $n$ assinaturas dos vídeos originais, o conjunto $A_d = \{a_1, a_2, a_3, ..., a_m\}$ contém as $m$ assinaturas dos vídeos distorcidos. Como há 1.264 vídeos originais na base de vídeos e 7 tipos de assinaturas sendo examinadas neste trabalho, o conjunto $A_o$ tem tamanho $n=8.848$. Como há 14 distorções sendo utilizadas neste trabalho, o conjunto $A_d$ tem tamanho $m=123.872$.
+Os experimentos realizados neste trabalho estão divididos em duas etapas: a obtenção dos parâmetros de cada assinatura para a classificação de cópias (treinamento), e testes das assinaturas. Para a criação dos casos de treinamento/teste, são necessárias algumas definições. O conjunto $A_o = \{a_1, a_2, a_3, ..., a_n\}$ contém todas as $n$ assinaturas dos vídeos originais, o conjunto $A_d = \{a_1, a_2, a_3, ..., a_m\}$ contém as $m$ assinaturas dos vídeos distorcidos. Como há 1.264 vídeos originais na base de vídeos e 7 tipos de assinaturas sendo examinadas neste trabalho, o conjunto $A_o$ tem tamanho $n=8.848$. Como há 14 distorções sendo utilizadas neste trabalho, o conjunto $A_d$ tem tamanho $m=123.872$.
 
-Para cada assinatura distorcida $a \in A_d$, existe uma assinatura correspondente $b \in A_o$ tal que $a$ é uma cópia distorcida de $b$. Um caso de treinamento/teste $c$ é composto de uma tupla $(a, b)$ tal que $a \in A_o$ e $b \in A_d$. Um caso de treinamento $c$ é marcado como ``cópia'' se $b$ for uma cópia distorcida de $a$, senão é marcado como ``não cópia''. Sendo assim, há um total de 22.367.744 de possíveis casos de treinamento/teste para cada tipo de assinatura, sendo apenas 17.584 marcados como ``cópia''. Visando a criação de um conjunto de casos de treinamento balanceado, foram escolhidos aleatoriamente 50\% dos 17.584 casos de ``cópia'' (8.792), e o mesmo número de casos ``não cópia'' para cada algoritmo. O mesmo critério foi utilizado para a criação dos conjuntos de teste: o resto dos 50\% dos casos ``cópia'' foram selecionado, além de 8.792 casos ``não cópia''.
+Para cada assinatura distorcida $a \in A_d$, existe uma assinatura correspondente $b \in A_o$ tal que $a$ é uma cópia distorcida de $b$. Um caso de treinamento/teste $c$ é composto de uma tupla $(a, b)$ tal que $a \in A_o$ e $b \in A_d$. Um caso de treinamento $c$ é marcado como ``cópia'' se $b$ for uma cópia distorcida de $a$, senão é marcado como "não cópia". Sendo assim, há um total de 22.367.744 de possíveis casos de treinamento/teste para cada tipo de assinatura, sendo apenas 17.584 marcados como ``cópia''. Visando a criação de um conjunto de casos de treinamento balanceado, foram escolhidos aleatoriamente 50\% dos 17.584 casos de ``cópia'' (8.792), e o mesmo número de casos ``não cópia'' para cada algoritmo, como pode ser observado na Figura \ref{fig:comparacao}. O mesmo critério foi utilizado para a criação dos conjuntos de teste: o resto dos 50\% dos casos ``cópia'' foram selecionado, além de 8.792 casos "não cópia".
+
+\begin{figure}[h]
+    \centering
+    \caption{Diagrama das comparações dos casos de teste.}
+    \label{fig:comparacao}
+    \includegraphics[width=1.0\textwidth]{dados/figuras/Comparador-1}
+    \fonte{Autoria própria.}
+\end{figure}
 
 \begin{figure}[h]
     \centering
