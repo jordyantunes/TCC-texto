@@ -40,14 +40,18 @@ Na sequência, serão discutidos os resultados obtidos nos testes utilizando os 
 
 Segundo \citeonline{hua2004robust}, robustez é a capacidade de uma assinatura ser tolerante a ruído, o que quer dizer que dois vídeos com o mesmo conteúdo devem ter assinaturas idênticas ou muito similares, mesmo que eles tenham passado por algum tipo de distorção. Esta é uma das propriedades desejadas em uma assinatura, a outra sendo unicidade.
 
-Ao tentar determinar a robustez de um algoritmo, leva-se em consideração apenas os casos de teste em que de fato um par de vídeos tem o mesmo conteúdo, ou seja, o vídeo de teste é uma cópia do vídeo original. A partir daí, a pergunta levantada é ``quantos destes casos de cópia a assinatura consegue classificar corretamente?'', ou em termos de recuperação de informações ``quantos elementos relevantes foram selecionados?''. Esta é exatamente a definição da medida de revocação~\cite{Ting2010}, que foi utilizada para este teste. As medidas de revocação obtidas para cada assinatura e para diferentes tipos de distorção podem ser vistas na Figura~\ref{fig:heatmap-revocacao}.
+Ao tentar determinar a robustez de um algoritmo, leva-se em consideração apenas os casos de teste em que de fato um par de vídeos tem o mesmo conteúdo, ou seja, o vídeo de teste é uma cópia do vídeo original. A partir daí, a pergunta levantada é ``quantos destes casos de cópia a assinatura consegue classificar corretamente?'', ou em termos de recuperação de informações ``quantos elementos relevantes foram selecionados?''. Esta é exatamente a definição da medida de revocação~\cite{Ting2010}, que foi utilizada para este teste. As medidas de revocação obtidas para cada assinatura e para diferentes tipos de distorção podem ser vistas na Figura~\ref{fig:heatmap-comparacoes}.
 
 
 \begin{figure}[h]
 	\centering
-	\caption{Mapa de calor de revocação de cada tipo de assinatura com cada tipo de distorção.}
-	\label{fig:heatmap-revocacao}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_recall.png}	
+	\caption{Mapa de calor de revocação, precisão e fmeasure de cada tipo de assinatura com cada tipo de distorção.}
+	% \label{fig:heatmap-revocacao}
+	\label{fig:heatmap-comparacoes}
+	% \includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_recall.png}	
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/before_recall.pdf}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/before_precision.pdf}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/before_fmeasure.pdf}	
       \fonte{Autoria própria.}
 \end{figure}
 
@@ -67,15 +71,15 @@ A revocação sozinha não pode ser utilizada para a avaliação de uma assinatu
 
 Segundo \citeonline{hua2004robust}, unicidade é a capacidade discriminativa de uma assinatura de vídeo, o que significa que vídeos com conteúdos diferentes devem ter assinaturas diferentes. Esta característica é essencial para a utilidade de uma assinatura, pois uma técnica que gera muitos casos de falsos positivos perde sua utilidade como ferramenta de automação de detecção de cópias. Para avaliar esta característica, é utilizada a medida de precisão, que mede a quantidade de casos que são relevantes (verdadeiros positivos), dentro de todos os pares de vídeos que são classificados como cópias (verdadeiros positivos e falsos positivos)\cite{Ting2010}.
 
-\begin{figure}[h]
-	\centering
-	\caption{Mapa de calor de precisão de cada tipo de assinatura com cada tipo de distorção.}
-	\label{fig:heatmap-precisao}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_precisao.png}
-    \fonte{Autoria própria.}
-\end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\caption{Mapa de calor de precisão de cada tipo de assinatura com cada tipo de distorção.}
+% 	\label{fig:heatmap-precisao}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/before_precision.pdf}
+%     \fonte{Autoria própria.}
+% \end{figure}
 
-A Figura~\ref{fig:heatmap-precisao} apresenta os valores de precisão resultantes dos testes com todas as assinaturas. Em termos gerais, a assinatura Medida Ordinal tem os melhores resultados neste teste, não apresentando nenhum valor de precisão abaixo de 75\% e tendo valores acima de 90\% para 8 das 14 distorções. Assim como no análise da robustez, as assinaturas temporais obtiveram os piores resultados e o fizeram exatamente nos mesmos casos: fast1, fast2 e flop. 
+A Figura~\ref{fig:heatmap-comparacoes} apresenta os valores de precisão resultantes dos testes com todas as assinaturas. Em termos gerais, a assinatura Medida Ordinal tem os melhores resultados neste teste, não apresentando nenhum valor de precisão abaixo de 75\% e tendo valores acima de 90\% para 8 das 14 distorções. Assim como no análise da robustez, as assinaturas temporais obtiveram os piores resultados e o fizeram exatamente nos mesmos casos: fast1, fast2 e flop. 
 
 Para entender o motivo destes resultados para as assinaturas temporais e verificar se estes não se devem a uma escolha ruim de limiares, foram plotados histogramas dos resultados das comparações de cada tipo de assinatura. A Figura~\ref{fig:histograma-camera-motion} apresenta quatro histogramas de valores resultantes da comparação entre pares de vídeos de teste e vídeos originais para a assinatura Camera Motion. Os casos que são cópias estão marcados de verde, enquanto que os não-cópias estão marcados de azul. Quanto mais afastados os dois grupos, maior o poder de discriminação da assinatura para aquela distorção. Nota-se que para a distorção color, a assinatura é capaz de separar melhor os grupos de cópia e não cópia, enquanto que para as outras distorções a assinatura sobrepõe os dois grupos de forma que não é possível separá-los apenas utilizando um limiar de corte. O mesmo ocorre com a assinatura FrameDiff, que não é capaz de classificar assinaturas que sofreram as distorções fast1 e fast2, mas consegue classificar quase perfeitamente casos com as distorções flop e frame (Figura~\ref{fig:histograma-framediff}).
 
@@ -96,15 +100,17 @@ Para entender o motivo destes resultados para as assinaturas temporais e verific
 
 \section{Peso da escolha do limiar sobre a detecção de cópias}
 
-Para chegar a uma conclusão sobre o tipo de assinatura mais adequado para a detecção de cópias em relação a sua robustez e unicidade, é preciso analisar ambos a precisão e a revocação de forma conjunta. Através da Figura~\ref{fig:heatmap-lado-a-lado} , que compara as duas medidas, nota-se uma relação entre estas: os pontos escuros (piores resultados) estão localizados nas mesmas regiões, mas no geral, todas as assinaturas tiveram resultados de precisão melhores que os de revocação. Além disso, ao observar a figura, nota-se também que a relação entre revocação e precisão não é linear. A Figura~\ref{fig:todos-limiares} mostra a variação das medidas de precisão e revocação a medida que o limiar de corte cresce. Há claramente uma diminuição da capacidade discriminativa de cada assinatura a medida com que o limiar de corte se afasta do zero, e evidencia que cada assinatura apresenta uma proporção diferente para essa diminuição. As assinaturas Medida Ordinal, Wavelets, Scene Frame e RBP são as que mantém a precisão em níveis mais altos. 
+Para chegar a uma conclusão sobre o tipo de assinatura mais adequado para a detecção de cópias em relação a sua robustez e unicidade, é preciso analisar ambos a precisão e a revocação de forma conjunta. Ao comparar as duas medidas, nota-se uma relação entre estas: os pontos escuros (piores resultados) estão localizados nas mesmas regiões, mas no geral, todas as assinaturas tiveram resultados de precisão melhores que os de revocação. Além disso nota-se também que a relação entre revocação e precisão não é linear. A Figura~\ref{fig:heatmap-comparacoes} usa a medida Fmeasure para combinar precisão e revocação.
 
-\begin{figure}[h]
-	\centering
-	\caption{Mapas de calor de revocação e precisão para cada assinatura.}
-	\label{fig:heatmap-lado-a-lado}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_lado.png}
-        \fonte{Autoria própria.}
-\end{figure}
+A Figura~\ref{fig:todos-limiares} mostra a variação das medidas de precisão e revocação a medida que o limiar de corte cresce. Há claramente uma diminuição da capacidade discriminativa de cada assinatura a medida com que o limiar de corte se afasta do zero, e evidencia que cada assinatura apresenta uma proporção diferente para essa diminuição. As assinaturas Medida Ordinal, Wavelets, Scene Frame e RBP são as que mantém a precisão em níveis mais altos. 
+
+% \begin{figure}[h]
+% 	\centering
+% 	\caption{Mapas de calor de fmeasure para cada assinatura.}
+% 	\label{fig:heatmap-lado-a-lado}
+% 	\includegraphics[width=\textwidth]{dados/figuras/experimentos/before_fmeasure.pdf}
+%         \fonte{Autoria própria.}
+% \end{figure}
 
 \begin{figure}[h]
 	\centering
@@ -126,7 +132,15 @@ Assim como as distorções, as assinaturas podem ser classificadas quanto às ca
 
 % O primeiro passo é a definição do método de combinação destas assinaturas. Ao invés de combinar os vetores de assinaturas em si, são combinados os valores de distância retornados ao passar um par de vetores pelo DTW, a fim de criar um valor de distância que é a soma ponderada dos valores originais, como mostra a fórmula abaixo, em que D1 é a distância de uma assinatura espacial D2 é a distância da assinatura temporal.
 
-O primeiro passo é a definição do método de combinação destas assinaturas. Como visto no Capítulo~\ref{chap:metodologia}, uma assinatura de vídeo é um vetor de características que é formado pela concatenação das características de cada quadro de um vídeo. Sendo assim, podemos separar a assinatura em sub-vetores onde cada um destes representa um quadro no vídeo. Para combinar dois tipos diferentes de assinaturas que descrevem o mesmo vídeo, os sub-vetores dos quadros correspondentes são concatenados em pares e então adicionados em sequência, como mostra a Figura~X. 
+O primeiro passo é a definição do método de combinação destas assinaturas. Como visto no Capítulo~\ref{chap:metodologia}, uma assinatura de vídeo é um vetor de características que é formado pela concatenação das características de cada quadro de um vídeo. Sendo assim, podemos separar a assinatura em sub-vetores onde cada um destes representa um quadro no vídeo. Para combinar dois tipos diferentes de assinaturas que descrevem o mesmo vídeo, os sub-vetores dos quadros correspondentes são concatenados em pares e então adicionados em sequência, como mostra a Figura~\ref{fig:combinacao-exemplo}. 
+
+\begin{figure}
+	\caption{Exemplo de combinação de assinaturas.}
+	\label{fig:combinacao-exemplo}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/juncao_exemplo.png}
+    \fonte{Autoria própria.}
+\end{figure}
+
 
 % $$
 % D_{final} = \alpha * Dist_{1} + (1-\alpha) * Dist_{2}
@@ -169,12 +183,14 @@ Onde $A'$ é o vetor $A$ normalizado, e $C e D$ são os valores mínimos e máxi
 %     \fonte{Autoria própria.}
 % \end{table}
 
-Após a etapa de parametrização, foram rodados os testes utilizando os valores de $\alpha$ e de limiar definidos anteriormente. Para comparar os resultados com aqueles dos algoritmos separados, os valores da medida fmeasure para cada teste de classificação estão dispostos na Figura~\ref{fig:compacao-metodos}. No geral, a combinação de duas assinaturas não teve efeitos positivos na classificação. Com ela, todas as combinações passaram a ser sensíveis a distorções temporais e poucos casos apresentaram melhoras. Nos casos em que a mudança foi positiva, o ganho foi de menos de 5\%. 
+Para comparar os resultados com aqueles dos algoritmos separados, os valores da medida fmeasure para cada teste de classificação estão dispostos na Figura~\ref{fig:compacao-metodos}. No geral, a combinação de duas assinaturas não teve efeitos positivos na classificação. Com ela, todas as combinações passaram a ser sensíveis a distorções temporais e poucos casos apresentaram melhoras. Nos casos em que a mudança foi positiva, o ganho foi de menos de 5\%. 
 
 \begin{figure}
-	\caption{Histograma com valores de fmeasure para cada tipo de assinatura. A esquerda, resultados da combinação da assinatura Camera Motion com as demais, a direita, assinaturas aplicadas isoladamente.}
+	\caption{Histograma com valores de fmeasure para cada tipo de assinatura. Em cima, resultados da combinação da assinatura Camera Motion com as demais, embaixo, a diferença entre os resultados com e sem a combinação das assinaturas.}
 	\label{fig:compacao-metodos}
-	\includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_comparacao.png}
+	% \includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_comparacao.png}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/after_fmeasure.pdf}
+	\includegraphics[width=\textwidth]{dados/figuras/experimentos/result_fmeasure.pdf}
     \fonte{Autoria própria.}
 \end{figure}
 
