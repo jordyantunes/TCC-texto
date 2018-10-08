@@ -38,7 +38,7 @@ Na sequência, serão discutidos os resultados obtidos nos testes utilizando os 
 
 \section{Robustez}
 
-Segundo \citeonline{hua2004robust}, robustez é a capacidade de uma assinatura ser tolerante a ruído, o que quer dizer que dois vídeos com o mesmo conteúdo devem ter assinaturas idênticas ou muito similares, mesmo que eles tenham passado por algum tipo de distorção. Esta é uma das propriedades desejadas em uma assinatura, a outra sendo unicidade.
+Segundo \citeonline{hua2004robust}, robustez é a capacidade de uma assinatura ser tolerante a ruído, o que quer dizer que dois vídeos com o mesmo conteúdo devem ter assinaturas idênticas ou muito similares, mesmo que eles tenham passado por algum tipo de distorção.
 
 Ao tentar determinar a robustez de um algoritmo, leva-se em consideração apenas os casos de teste em que de fato um par de vídeos tem o mesmo conteúdo, ou seja, o vídeo de teste é uma cópia do vídeo original. A partir daí, a pergunta levantada é ``quantos destes casos de cópia a assinatura consegue classificar corretamente?'', ou em termos de recuperação de informações ``quantos elementos relevantes foram selecionados?''. Esta é exatamente a definição da medida de revocação~\cite{Ting2010}, que foi utilizada para este teste. As medidas de revocação obtidas para cada assinatura e para diferentes tipos de distorção podem ser vistas na Figura~\ref{fig:heatmap-comparacoes}.
 

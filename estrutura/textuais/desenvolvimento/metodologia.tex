@@ -69,7 +69,7 @@ A base foi criada pra propiciar a avaliação do desempenho das diferentes assin
 \section{Geração das Assinaturas}
 \label{sec:met-assinaturas}
 
-O passo final de preparação para os experimentos deste trabalho foi a criação das assinaturas utilizando os 6 algoritmos descritos no Capítulo~\ref{chap:revisao}. As assinaturas foram geradas para todos os 18.960 vídeos, originais e distorcidos, totalizando 106.176 assinaturas. Para facilitar a realização dos experimentos, todas as assinaturas foram armazenadas em um banco de dados juntamente com: os dados do vídeo usados para computar a assinatura, se o vídeo é um vídeo original ou distorcido, o tipo da distorção, uma referência ao vídeo original, além do tipo de assinatura utilizada. A Tabela~\ref{tab:assinaturas} apresenta todas as assinaturas utilizadas, \verificar{além dos tipos de características de um vídeo utilizado para obtê-las}. A primeira coluna da tabela apresenta a sigla de cada assinatura que será utilizada no Capítulo \ref{chap:resultados}. Todas as assinaturas foram normalizadas para o intervalo $[0,1]$.
+O passo final de preparação para os experimentos deste trabalho foi a criação das assinaturas utilizando os sete algoritmos descritos no Capítulo~\ref{chap:revisao}. As assinaturas foram geradas para todos os 18.960 vídeos, originais e distorcidos, totalizando 106.176 assinaturas. Para facilitar a realização dos experimentos, todas as assinaturas foram armazenadas em um banco de dados juntamente com: os dados do vídeo usados para computar a assinatura, se o vídeo é um vídeo original ou distorcido, o tipo da distorção, uma referência ao vídeo original, além do tipo de assinatura utilizada. A Tabela~\ref{tab:assinaturas} apresenta todas as assinaturas utilizadas, na qual a primeira coluna apresenta a sigla de cada assinatura que será utilizada no Capítulo \ref{chap:resultados}. Todas as assinaturas foram normalizadas para o intervalo $[0,1]$.
 
 % junto do intervalo numérico em que as assinaturas se encontram,
 
@@ -78,28 +78,20 @@ O passo final de preparação para os experimentos deste trabalho foi a criaçã
     \caption{Assinaturas utilizadas para comparação.}
     \label{tab:assinaturas}
     \begin{tabular}{|p{0.2\textwidth}|p{0.259\textwidth}|p{0.259\textwidth}|} \hline
-        \textbf{Sigla} & \textbf{Assinatura} & \textbf{Características} \\ \hline
-        gradiente & Gradiente & - \\ \hline
-        framediff & FrameDiff & - \\ \hline
-        medidaordinal & Medida Ordinal & - \\ \hline
-        wavelets & Wavelets & - \\ \hline
-        rbp & RBP & - \\ \hline
-        sceneframe & Scene Frame & - \\ \hline
+        \textbf{Sigla} & \textbf{Assinatura} \\ \hline
+        gradiente & Gradiente \\ \hline
+        framediff & FrameDiff \\ \hline
+        medidaordinal & Medida Ordinal \\ \hline
+        wavelets & Wavelets \\ \hline
+        rbp & RBP \\ \hline
+        sceneframe & Scene Frame \\ \hline
     \end{tabular}
     \fonte{Autoria própria.}
 \end{table}
 
-As assinaturas geradas nesta etapa foram arranjadas em grupos de parametrização e teste para a realização do experimento. O conjunto de vídeos foi dividido em um grupo de parametrização com \textbf{[NUMERO X DE VIDEOS]} e um grupo para testes com \textbf{[NUMERO Y DE VIDEOS]}. O grupo de parametrização tem um grupo de vídeos originais com \textbf{[NUMERO X1 DE VIDEOS]} e um grupo de vídeos distorcidos com \textbf{[NUMERO X2 DE VIDEOS]}. O grupo de teste contém um grupo de vídeos originais com \textbf{[NUMERO Y1 DE VIDEOS]} vídeos e um grupo de vídeos distorcidos com \textbf{[NUMERO Y2 DE VIDEOS]}.
+% As assinaturas geradas nesta etapa foram arranjadas em grupos de parametrização e teste para a realização do experimento. O conjunto de vídeos foi dividido em um grupo de parametrização com \textbf{[NUMERO X DE VIDEOS]} e um grupo para testes com \textbf{[NUMERO Y DE VIDEOS]}. O grupo de parametrização tem um grupo de vídeos originais com \textbf{[NUMERO X1 DE VIDEOS]} e um grupo de vídeos distorcidos com \textbf{[NUMERO X2 DE VIDEOS]}. O grupo de teste contém um grupo de vídeos originais com \textbf{[NUMERO Y1 DE VIDEOS]} vídeos e um grupo de vídeos distorcidos com \textbf{[NUMERO Y2 DE VIDEOS]}.
 
-Para a criação de um caso de teste, é escolhida uma assinatura do grupo de assinaturas originais e uma assinatura do grupo de teste, sempre geradas pelo mesmo algoritmo como pode ser visto da Figura \ref{fig:comparacao}, e estas são comparadas segundo o método descrito na Seção \ref{sec:met-comparacao}. Caso o resultado da comparação fique abaixo de um limiar empiricamente definido, o vídeo que gerou a assinatura de teste é considerado como uma cópia do vídeo que gerou a assinatura original.
-
-\begin{figure}
-    \centering
-    \caption{Diagrama das comparações dos casos de teste.}
-    \label{fig:comparacao}
-    \includegraphics[width=1.0\textwidth]{dados/figuras/Comparador-1}
-    \fonte{Autoria própria.}
-\end{figure}
+% Para a criação de um caso de teste, é escolhida uma assinatura do grupo de assinaturas originais e uma assinatura do grupo de teste, sempre geradas pelo mesmo algoritmo como pode ser visto da Figura \ref{fig:comparacao}, e estas são comparadas segundo o método descrito na Seção \ref{sec:met-comparacao}. Caso o resultado da comparação fique abaixo de um limiar empiricamente definido, o vídeo que gerou a assinatura de teste é considerado como uma cópia do vídeo que gerou a assinatura original.
 
 % Para classificar se uma assinatura do grupo de teste é uma cópia de uma assinatura do grupo de originais, é preciso definir um parâmetro de corte para cada algoritmo. Para isso, foi definido um cenário de treinamento de 8.848 vídeos por algoritmo, ou seja, metade do total de assinaturas respectivas a cada algoritmo. Isso representa um total de 53.088 vídeos que são realmente cópias, enquanto 
 
@@ -138,16 +130,24 @@ Para achar esse pareamento, o DTW compara todos os valores das duas sequências 
 
 % Fórmula do DTW
 
-Em sua forma original, o DTW tem uma complexidade de $ O(N^{2}) $, por esse motivo, foi utilizada uma variante do algoritmo chamada FastDTW, que provem alinhamentos ótimos ou quase ótimos com complexidade de $O(N)$. \verificar{citacao para esse FastDTW}
+Em sua forma original, o DTW tem uma complexidade de $ O(N^{2}) $, por esse motivo, foi utilizada uma variante do algoritmo chamada FastDTW, que provem alinhamentos ótimos ou quase ótimos com complexidade de $O(N)$ \cite{salvador2007toward}.
 
 % falar que precisa normalizar
 
 \section{Experimentos}
 \label{sec:met-Experimentos}
 
-Os experimentos realizados neste trabalho são dividos em duas etapas: a obtenção dos parâmetros de cada assinatura para a classificação de cópias (treinamento), e testes das assinaturas. Para a criação dos casos de treinamento/teste, são necessárias algumas definições. O conjunto $A_o = \{a_1, a_2, a_3, ..., a_n\}$ contém todas as $n$ assinaturas dos vídeos originais, o conjunto $A_d = \{a_1, a_2, a_3, ..., a_m\}$ contém as $m$ assinaturas dos vídeos distorcidos. Como há 1.264 vídeos originais na base de vídeos e 7 tipos de assinaturas sendo examinadas neste trabalho, o conjunto $A_o$ tem tamanho $n=8.848$. Como há 14 distorções sendo utilizadas neste trabalho, o conjunto $A_d$ tem tamanho $m=123.872$.
+Os experimentos realizados neste trabalho estão divididos em duas etapas: a obtenção dos parâmetros de cada assinatura para a classificação de cópias (treinamento), e testes das assinaturas. Para a criação dos casos de treinamento/teste, são necessárias algumas definições. O conjunto $A_o = \{a_1, a_2, a_3, ..., a_n\}$ contém todas as $n$ assinaturas dos vídeos originais, o conjunto $A_d = \{a_1, a_2, a_3, ..., a_m\}$ contém as $m$ assinaturas dos vídeos distorcidos. Como há 1.264 vídeos originais na base de vídeos e 7 tipos de assinaturas sendo examinadas neste trabalho, o conjunto $A_o$ tem tamanho $n=8.848$. Como há 14 distorções sendo utilizadas neste trabalho, o conjunto $A_d$ tem tamanho $m=123.872$.
 
-Para cada assinatura distorcida $a \in A_d$, existe uma assinatura correspondente $b \in A_o$ tal que $a$ é uma cópia distorcida de $b$. Um caso de treinamento/teste $c$ é composto de uma tupla $(a, b)$ tal que $a \in A_o$ e $b \in A_d$. Um caso de treinamento $c$ é marcado como ``cópia'' se $b$ for uma cópia distorcida de $a$, senão é marcado como ``não cópia''. Sendo assim, há um total de 22.367.744 de possíveis casos de treinamento/teste para cada tipo de assinatura, sendo apenas 17.584 marcados como ``cópia''. Visando a criação de um conjunto de casos de treinamento balanceado, foram escolhidos aleatoriamente 50\% dos 17.584 casos de ``cópia'' (8.792), e o mesmo número de casos ``não cópia'' para cada algoritmo. O mesmo critério foi utilizado para a criação dos conjuntos de teste: o resto dos 50\% dos casos ``cópia'' foram selecionado, além de 8.792 casos ``não cópia''.
+Para cada assinatura distorcida $a \in A_d$, existe uma assinatura correspondente $b \in A_o$ tal que $a$ é uma cópia distorcida de $b$. Um caso de treinamento/teste $c$ é composto de uma tupla $(a, b)$ tal que $a \in A_o$ e $b \in A_d$. Um caso de treinamento $c$ é marcado como ``cópia'' se $b$ for uma cópia distorcida de $a$, senão é marcado como "não cópia". Sendo assim, há um total de 22.367.744 de possíveis casos de treinamento/teste para cada tipo de assinatura, sendo apenas 17.584 marcados como ``cópia''. Visando a criação de um conjunto de casos de treinamento balanceado, foram escolhidos aleatoriamente 50\% dos 17.584 casos de ``cópia'' (8.792), e o mesmo número de casos ``não cópia'' para cada algoritmo, como pode ser observado na Figura \ref{fig:comparacao}. O mesmo critério foi utilizado para a criação dos conjuntos de teste: o resto dos 50\% dos casos ``cópia'' foram selecionado, além de 8.792 casos "não cópia".
+
+\begin{figure}[h]
+    \centering
+    \caption{Diagrama das comparações dos casos de teste.}
+    \label{fig:comparacao}
+    \includegraphics[width=1.0\textwidth]{dados/figuras/Comparador-1}
+    \fonte{Autoria própria.}
+\end{figure}
 
 \begin{figure}[h]
     \centering
@@ -175,4 +175,4 @@ Para realizar uma classificação de um vídeo de teste como sendo cópia de um 
 
 O conjunto de parametrização definido anteriormente é divido em 5 subconjuntos organizados de forma aleatória. Para cada subconjunto, é simulada a classificação de ``cópia'' e ``não-cópia'' com um intervalo de valores, a fim de encontrar um limiar ideal. Com o intuito de maximizar o número de verdadeiros-positivos e diminuir o número de falsos-negativos, é utilizada a medida \textit{$F$-measure}, escolhendo o limiar que maximiza a medida. Ao final da simulação para os 5 subconjuntos, o limiar final de cada assinatura é definido como a média dos limiares obtidos com a simulação para cada subconjunto.
 
-Na fase de testes, são utilizados os limiares encontrados na fase de parametrização para classificar os conjuntos de teste e avaliar cada tipo de assinatura quanto à sua robustez e unicidade quando usadas individualmente. Por fim, é realizada a combinação das assinaturas ``gradiente'', ``wavelets'', ``medida ordinal'', ``scene frame'' e ``rbp'', com a assinatura ``camera motion'' para avaliar se a combinação de assinaturas temporais e espaciais é mais eficaz na detecção de cópias.
+Na fase de testes, são utilizados os limiares encontrados na fase de parametrização para classificar os conjuntos de teste e avaliar cada tipo de assinatura quanto à sua robustez e unicidade quando usadas individualmente. Por fim, é realizada a combinação das assinaturas "gradiente", "wavelets", "medida ordinal", "scene frame" e "rbp", com a assinatura "camera motion" para avaliar se a combinação de assinaturas temporais e espaciais é mais eficaz na detecção de cópias.
