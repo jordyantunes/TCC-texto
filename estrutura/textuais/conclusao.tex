@@ -11,9 +11,12 @@ De modo geral, a assinatura Wavelets obteve os melhores resultados na classifica
 
 No teste de combinação de assinaturas, notou-se uma clara diminuição na robustez e unicidade de modo geral em comparação a aplicação de assinaturas de modo isolado. Ao invés de uma combinação das características que tornam cada tipo de assinatura robusto, a combinação somou a sensibilidade da assinatura temporal Camera Motion a todas as outras, piorando as métricas de robustez e unicidade em praticamente todos os casos.
 
-Isso não quer dizer, no entanto, que a combinação de tipos assinatura não pode ser beneficial à detecção de cópias. Este trabalho contribuiu para a literatura de forma a encontrar empiricamente características de cada tipo assinatura que as torna robustas, abrindo caminho a criaçao de novas assinaturas que utilizam as propriedades de vídeos com maior poder discriminante.
+Isso não quer dizer, no entanto, que a combinação de tipos assinatura não pode ser beneficial à detecção de cópias. Este trabalho contribuiu para a literatura de forma a encontrar empiricamente características de cada tipo assinatura que as torna robustas, abrindo caminho a criação de novas assinaturas que utilizam as propriedades de vídeos com maior poder discriminante.
+
 
 \section{Trabalhos Futuros}
 \label{sec:trabalhosFuturos}
 
-// todo
+Os resultados deste trabalho mostram como diferentes tipos assinatura são afetados por diferentes tipos de ataque, revelando os pontos mais críticos de cada um. Em uma continuação deste trabalho, poderia ser estudada a utilização de métodos de detecção de padrões para identificar tipos de distorção em vídeos e utilizar o melhor tipo de assinatura para a comparação de similaridade.
+
+Isso implicaria no uso de múltiplas assinaturas para cada vídeo, tornando ainda mais importante a velocidade de busca e o tamanho de cada assinatura: Dois itens que não foram considerados durante a realização deste trabalho. 

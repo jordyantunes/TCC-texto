@@ -4,17 +4,15 @@
 % \label{chap:revisao_da_literatura}
 %------------------------------------------------------------------------
 
-\chapter{Revisão da Literatura}
+\chapter{Revisão da Literatura e Conceitos Base}
 \label{chap:revisao}
 
 
 %\section{Trabalhos relacionados}
 %\label{chap:relacionados}
 
-  % Artigo 9 - 372: Ele fala de técnicas na história - comparar cenas (final/inicio): comparar descritores; - transformação pós-produção: utilização de pontos de interesse;
 
-
-Em 1999, o compartilhamento de vídeos na internet ainda era uma realidade distante, entretanto, \citeonline{indyk1999finding} já buscavam métodos para encontrar vídeos pirateados e duplicatas na rede. Os autores então propuseram um algoritmo para geração de assinaturas temporais baseadas nos limites das cenas de um vídeo. Embora este método seja bom para encontrar filmes e vídeos longos, ele não é apropriado para identificar vídeos curtos e cenas isoladas, com duração de até quatro minutos. Esse tipo de produção é a mais comum nas plataformas de compartilhamento de vídeos atualmente \cite{comscoreinc} .
+Em 1999, o compartilhamento de vídeos na internet ainda era uma realidade distante, entretanto, \citeonline{indyk1999finding} já buscavam métodos para encontrar vídeos pirateados e duplicatas na rede. Os autores então propuseram um algoritmo para geração de assinaturas temporais baseadas nos limites das cenas de um vídeo. Embora este método seja bom para encontrar filmes e vídeos longos, ele não é apropriado para identificar vídeos curtos e cenas isoladas, com duração de até quatro minutos. Esse tipo de produção é a mais comum nas plataformas de compartilhamento de vídeos atualmente \cite{comscoreinc}.
 
 Desde então, várias técnicas têm sido usadas para a geração de assinaturas de vídeos. \citeonline{coskun2006spatio} propuseram o conceito de funções de \textit{hash} como uma ferramenta para identificação de vídeos, criando um algoritmo que utiliza as informações espaço-temporais do vídeo baseado no diferencial da luminância entre regiões de quadros. Outras abordagens incluem o uso de descritores globais que utilizam a distribuição da intensidade de movimento e cor \cite{hampapur2001comparison}, além de medidas ordinais \cite{hua2004robust}, que se provaram robustas para variadas resoluções, mudanças de iluminação e formatos de vídeos.	   	
 
@@ -31,7 +29,15 @@ As Seções \ref{sec:video} à \ref{sec:assinatura} apresentam definições úte
 
 	Um vídeo pode ser descrito quanto ao seu conteúdo em quatro níveis de detalhe, sendo o nível mais baixo um conjunto de quadros \cite{lienhart1997video}. Um quadro (ou \textit{frame}) $I$ é uma imagem representada por uma matriz de altura $h$ e largura $w$ em que cada ponto $I(x,y)$ representa a intensidade de um pixel. Além disso, um quadro possui um determinado tempo, que representa o instante em que é exibido no vídeo. De maneira resumida, um vídeo é uma sequência de imagens. Normalmente são exibidas 24 imagens por segundo, sendo esse o conceito de quadros por segundo, ou FPS \textit{(frames per second)}. 
 
-	Logo acima na hierarquia existem as tomadas, termo que se refere a um ou mais quadros capturados em sequência, representando uma ação ininterrupta no tempo e no espaço. Tomadas contínuas podem ser agrupadas em cenas para gerar coerência na história do vídeo. Um vídeo pode ser composto por uma ou mais cenas.
+	Logo acima na hierarquia existem as tomadas, termo que se refere a um ou mais quadros capturados em sequência, representando uma ação ininterrupta no tempo e no espaço. Tomadas contínuas podem ser agrupadas em cenas para gerar coerência na história do vídeo. Um vídeo pode ser composto por uma ou mais cenas, como pode ser observado na Figura \ref{fig:video_sctructure}.
+    
+     \begin{figure}[!htb]
+      \centering
+      \caption{Composição hierárquica de um vídeo.}
+       \includegraphics[width=\textwidth]{dados/figuras/video_structure.png}
+       \fonte{Autoria própria.}
+      \label{fig:video_sctructure}
+    \end{figure}   
 
        Um conceito importante também relacionado ao vídeo é o quadro de cena (do inglês \emph{key-frame}) --- o descritor de \citeonline{mao2015sceneframe}, que faz parte do experimento proposto, utiliza este conceito. \citeonline{7848130} descrevem um quadro de cena como a imagem que define os pontos de início e fim de qualquer transição suave de imagens (o quadro que melhor representa a cena no geral). Quadros de cena são amplamente utilizados na produção de animações, em que normalmente o objeto ou sujeito da imagem se move em relação ao fundo \textit{(background)}. De acordo com \citeonline{mao2015sceneframe}, o quadro de cena deve possuir todos os elementos (pessoas, objetos, animais, etc.) exibidos na cena e o background deve ser altamente similar ao restante dos quadros. Na Figura \ref{fig:quadro_cena}, qualquer um dos cinco quadros pode ser eleito como o quadro de cena, pois todos têm os mesmos elementos (a mesma pessoa e o mesmo cachorro), além do \textit{background} ser praticamente o mesmo em todos os quadros.
 
@@ -450,16 +456,44 @@ Após a etapa de pré-processamento, para serem utilizados como entrada para est
 
 
 
-Esse algoritmo proposto por \citeonline{minetto2007reliable} detecta o movimento da câmera em um vídeo em três níveis: \textit{pan} (movimentos para esquerda ou direita), \textit{tilt} (movimentos para cima ou para baixo) e \textit{zoom} (movimentos de aproximação ou de afastamento). O algoritmo é capaz de determinar o movimento da câmera em 95\% das tomadas nos casos de testes realizados pelos autores, em um ambiente onde 98\% das tomadas haviam algum tipo de movimento de câmera.  
+O algoritmo proposto por \citeonline{minetto2007reliable} detecta o movimento da câmera em um vídeo em três níveis: \textit{pan} (movimentos para esquerda ou direita), \textit{tilt} (movimentos para cima ou para baixo) e \textit{zoom} (movimentos de aproximação ou de afastamento) --- o algoritmo também calcula o movimento de roll, mas não o utilizamos no trabalho. O algoritmo é capaz de determinar o movimento da câmera em 95\% das tomadas nos casos de testes realizados pelos autores, em um ambiente onde 98\% das tomadas haviam algum tipo de movimento de câmera. A Figura~\ref{fig:example_cameramotion} apresenta um exemplo de movimentação de câmera entre dois quadros.
+
+\begin{figure}[h]
+	\centering
+	\caption{Movimento da câmera entre dois quadros consecutivos. Os pontos as direita representam os vetores de movimento. Neste caso há uma combinação de \textit{pan} para a esquerda e \textit{tilt} para cima.}
+	\includegraphics[width=\textwidth]{dados/figuras/cameramotion-example}
+	\fonte{\cite{minetto2007reliable}}
+	\label{fig:example_cameramotion}
+\end{figure}
 
 Seu funcionamento, segundo \citeonline{minetto2007reliable} é dividido em duas etapas. A primeira é determinar uma região de fluxo óptico, ou seja, uma região no vídeo onde os movimentos de câmera serão monitorados. A segunda etapa é estimar os movimentos da câmera dentro dessa região de fluxo óptico.
 
-O fluxo óptico de uma imagem $I$ para uma imagem subsequente $J$ é uma função $f$, que, para cada ponto $u$ do domínio $D$ da imagem, associa um vetor de velocidade 
-$f(u)$, tal que $u + f(u)$ pertencem ao domínio $D$. O algoritmo assume que o fluxo está fixado em um conjunto de pontos na região de fluxo óptico e formam uma lista de vetores na qual cada vetor tem um peso correspondente, que representa a sua confiabilidade. 
+O fluxo óptico de uma imagem $I$ para uma imagem subsequente $J$ é uma função $f$, que, para cada ponto $u$ do domínio $D$ da imagem, associa um vetor de velocidade $f(u)$, tal que $u + f(u)$ pertencem ao domínio $D$. O algoritmo assume que o fluxo está fixado em um conjunto de pontos na região de fluxo óptico e formam uma lista de vetores na qual cada vetor tem um peso correspondente, que representa a sua confiabilidade. 
 
-% O vetor de movimentos calculado pelo algoritmo pode, então, ser utilizado como assinatura do vídeo.
+% Diagrama: 1) Definição de uma grade de pontos sobre a imagem, 2) Cálculo de vetores de movimento e peso para cada ponto da grade com um algoritmo de rastreamento (KLT).
+
+
+% Para cada ponto, existe um vetor de movimento e um peso que considera a textura local (para melhor rastreamento). Quanto mais fácil o rastreamento deste ponto, ou seja, quanto maior a diferença de textura, maior o peso.
+
+% Os valores canônicos de movimento são então aproximados: pan, tilt e zoom (o que é cada um já explicado no texto).
+
+% A variação dos movimentos é calculada com base em dois frames consecutivos e nos pesos atribuídos aos vetores. Os pontos entre duas imagens são relacionados atraves de uma modificação do algoritmo de Kanade-Lucas-Tomasi, que considera também os pesos calculados no primeiro passo. 
+
+% Objetos em movimento podem comprometer o cálculo do fluxo ótico, por isso é realizado um ajuste de pesos. Quando os objetos representam uma área pequena da imagem, ou sua velocidade não se diferencia da velocidade do fluxo como um todo, o cálculo não é afetado significantemente. Porém, do contrário, o fluxo pode ser comprometido por estes objetos.
+
+% Para evitar estes problemas, o reajuste de pesos faz com que pesos de vetores com uma variação pequena sejam aumentados e pesos para vetores com mudanças de movimento grandes seja diminuído.
+
+% O resultado final é um vetor: para cada frame, existem os três valores de Pan, Tilt e Zoom calculados, que irão então compor a assinatura do vídeo.
 
 A assinatura para este algoritmo será composta pelo vetor de movimentos calculados pelo algoritmo. 
+
+\begin{figure}[h]
+	\centering
+	\caption{Diagrama do algoritmo de Camera Motion.}
+	\includegraphics[width=\textwidth]{dados/figuras/diagramas/Diag-CameraMotion}
+	\fonte{Autoria própria.}
+	\label{fig:dia_cameramotion}
+\end{figure}
 
 
 
