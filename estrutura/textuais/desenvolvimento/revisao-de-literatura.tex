@@ -12,19 +12,19 @@
 %\label{chap:relacionados}
 
 
-Em 1999, o compartilhamento de vídeos na internet ainda era uma realidade distante, entretanto, \citeonline{indyk1999finding} já buscavam métodos para encontrar vídeos pirateados e duplicatas na rede. Os autores então propuseram um algoritmo para geração de assinaturas temporais baseadas nos limites das cenas de um vídeo. Embora este método seja bom para encontrar filmes e vídeos longos, ele não é apropriado para identificar vídeos curtos e cenas isoladas, com duração de até quatro minutos. Esse tipo de produção é a mais comum nas plataformas de compartilhamento de vídeos atualmente \cite{comscoreinc}.
+Em 1999, o compartilhamento de vídeos na Internet ainda era uma realidade distante, entretanto, \citeonline{indyk1999finding} já buscavam métodos para encontrar vídeos pirateados e duplicatas na rede. Os autores então propuseram um algoritmo para geração de assinaturas temporais baseadas na transição de tomadas de um vídeo. Embora este método seja bom para encontrar filmes e vídeos longos, ele não é apropriado para identificar vídeos curtos e cenas isoladas, com duração de até quatro minutos. Esse tipo de produção é a mais comum nas plataformas de compartilhamento de vídeos atualmente \cite{comscoreinc}.
 
-Desde então, várias técnicas têm sido usadas para a geração de assinaturas de vídeos. \citeonline{coskun2006spatio} propuseram o conceito de funções de \textit{hash} como uma ferramenta para identificação de vídeos, criando um algoritmo que utiliza as informações espaço-temporais do vídeo baseado no diferencial da luminância entre regiões de quadros. Outras abordagens incluem o uso de descritores globais que utilizam a distribuição da intensidade de movimento e cor \cite{hampapur2001comparison}, além de medidas ordinais \cite{hua2004robust}, que se provaram robustas para variadas resoluções, mudanças de iluminação e formatos de vídeos.	   	
+Desde então, várias técnicas têm sido usadas para a geração de assinaturas de vídeos. \citeonline{coskun2006spatio} propuseram o conceito de funções de \textit{hash} como uma ferramenta para identificação de vídeos, criando um algoritmo que utiliza as informações espaço-temporais do vídeo baseado na diferença da luminância entre regiões de quadros. Outras abordagens incluem o uso de descritores globais que utilizam direção de movimento, distribuição de cor e medida ordinal \cite{hampapur2001comparison}, além de medidas ordinais \cite{hua2004robust}, que se provaram robustas para variadas resoluções, mudanças de iluminação e formatos de vídeos.	   	
 
 Assinaturas baseadas em características locais também foram pesquisadas, como em \cite{joly2007content}, cujo algoritmo apresentado procura ser eficiente para buscas em grandes bases de dados, eficiência essa, tanto na velocidade da busca quanto na qualidade dos resultados. Há também a  pesquisa de \citeonline{law2006robust}, que usa o algoritmo de Harris para encontrar pontos de interesse no vídeo e criar uma assinatura compacta.
 
-\citeonline{de2012combinaccao} fez um estudo comparativo entre assinaturas globais e locais e mostrou como unir os dois tipos de assinaturas utilizando de algoritmos genéticos. \citeonline{de2012combinaccao} também fez experimentos mostrando que a combinação de descritores globais e locais são complementares e, se usados em conjunto, produzem resultados superiores quando comparados com o uso individual de cada tipo de descritor.
+\citeonline{de2012combinaccao} fizeram um estudo comparativo entre assinaturas globais e locais e mostraram como unir os dois tipos de assinaturas utilizando algoritmos genéticos. \citeonline{de2012combinaccao} também fizeram experimentos mostrando que a combinação de descritores globais e locais são complementares e, se usados em conjunto, produzem resultados superiores quando comparados com o uso individual de cada tipo de descritor.
 
-\citeonline{hu2011survey} discorre sobre a indexação e recuperação de conteúdo em vídeos. O trabalho apresenta métodos para analisar a estrutura de vídeos, segmentação de cenas, extração de quadros-chave, características de movimento, mineração de informações em vídeos, mensuramento de similaridade e relevância entre assinaturas digitais, pesquisa de conteúdo em vídeos, entre outros.
+\citeonline{hu2011survey} discorrem sobre a indexação e recuperação de conteúdo em vídeos. O trabalho apresenta métodos para analisar a estrutura de vídeos, segmentação de cenas, extração de quadros-chave, características de movimento, mineração de informações em vídeos, mensuramento de similaridade e relevância entre assinaturas digitais, pesquisa de conteúdo em vídeos, entre outros.
 
 As Seções \ref{sec:video} à \ref{sec:assinatura} apresentam definições úteis para melhor compreensão do trabalho, como a estrutura de um vídeo, técnicas de detecção de cópias e conteúdo,  principais tipos de ataque, e, finalmente, a definição de assinatura digital para vídeos e os algoritmos selecionados para este trabalho.
 
-\section{Vídeo}
+\section{Vídeo Digitais}
 \label{sec:video}  
 
 	Um vídeo pode ser descrito quanto ao seu conteúdo em quatro níveis de detalhe, sendo o nível mais baixo um conjunto de quadros \cite{lienhart1997video}. Um quadro (ou \textit{frame}) $I$ é uma imagem representada por uma matriz de altura $h$ e largura $w$ em que cada ponto $I(x,y)$ representa a intensidade de um pixel. Além disso, um quadro possui um determinado tempo, que representa o instante em que é exibido no vídeo. De maneira resumida, um vídeo é uma sequência de imagens. Normalmente são exibidas 24 imagens por segundo, sendo esse o conceito de quadros por segundo, ou FPS \textit{(frames per second)}. 
@@ -39,7 +39,7 @@ As Seções \ref{sec:video} à \ref{sec:assinatura} apresentam definições úte
       \label{fig:video_sctructure}
     \end{figure}   
 
-       Um conceito importante também relacionado ao vídeo é o quadro de cena (do inglês \emph{key-frame}) --- o descritor de \citeonline{mao2015sceneframe}, que faz parte do experimento proposto, utiliza este conceito. \citeonline{7848130} descrevem um quadro de cena como a imagem que define os pontos de início e fim de qualquer transição suave de imagens (o quadro que melhor representa a cena no geral). Quadros de cena são amplamente utilizados na produção de animações, em que normalmente o objeto ou sujeito da imagem se move em relação ao fundo \textit{(background)}. De acordo com \citeonline{mao2015sceneframe}, o quadro de cena deve possuir todos os elementos (pessoas, objetos, animais, etc.) exibidos na cena e o background deve ser altamente similar ao restante dos quadros. Na Figura \ref{fig:quadro_cena}, qualquer um dos cinco quadros pode ser eleito como o quadro de cena, pois todos têm os mesmos elementos (a mesma pessoa e o mesmo cachorro), além do \textit{background} ser praticamente o mesmo em todos os quadros.
+       Um conceito importante também relacionado ao vídeo é o quadro de cena (do inglês \emph{key-frame}). \citeonline{7848130} descrevem um quadro de cena como a imagem que define os pontos de início e fim de qualquer transição suave de imagens (o quadro que melhor representa a cena no geral). Quadros de cena são amplamente utilizados na produção de animações, em que normalmente o objeto ou sujeito da imagem se move em relação ao fundo \textit{(background)}. De acordo com \citeonline{mao2015sceneframe}, o quadro de cena deve possuir todos os elementos (pessoas, objetos, animais, etc.) exibidos na cena e o background deve ser altamente similar ao restante dos quadros. Na Figura \ref{fig:quadro_cena}, qualquer um dos cinco quadros pode ser eleito como o quadro de cena, pois todos têm os mesmos elementos (a mesma pessoa e o mesmo cachorro), além do \textit{background} ser praticamente o mesmo em todos os quadros.
 
  \begin{figure}[!htb]
       \centering
@@ -55,7 +55,7 @@ As Seções \ref{sec:video} à \ref{sec:assinatura} apresentam definições úte
     
 \section{Transformada de Haar}
 
-Um conceito importante para dois dos algoritmos que serão apresentados (Sub Seções  \ref{wavelets} e \ref{sec:gradientes}) é o da transformada de Haar, que consiste na separação de um sinal (ou quadro, neste caso) em quatro partes: 
+Um conceito importante para dois dos algoritmos que serão apresentados (Sub Seções  \ref{wavelets} e \ref{sec:gradientes}) é o da transformada bidimensional de Haar, que consiste na separação de um sinal (ou quadro, neste caso) em quatro partes: 
 
 \begin{enumerate}
 \item $LL$, que contém $1/4$ dos dados originais, removendo os detalhes;
@@ -123,7 +123,7 @@ Os ataques podem ainda ser classificados como geométricos, fotométricos ou tem
 4           & Alteração do formato de compressão & Fotométrico   \\ \hline
 5           & Borramento                         & Fotométrico   \\ \hline
 6           & Eliminação de faixa ou região      & Geométrico    \\ \hline
-7           & Espelhamento                       & Fotométrico   \\ \hline
+7           & Espelhamento                       & Geométrico   \\ \hline
 8           & Inversão de cores                  & Fotométrico   \\ \hline
 9           & Marca d'água                       & Fotométrico   \\ \hline
 10          & Redimensionamento                  & Geométrico    \\ \hline
@@ -148,7 +148,7 @@ Os ataques podem ainda ser classificados como geométricos, fotométricos ou tem
 
 
 
-    Existem duas classes principais de algoritmos para descrever vídeos e então gerar assinaturas, são elas: descritores locais e descritores globais. Cada classe tem características que as fazem mais robustas para combater diferentes tipos de ataques, sendo então cada uma indicada para situações diferentes.
+    Existem duas classes principais de algoritmos para descrever vídeos e então gerar assinaturas, são elas: locais e globais. Cada classe tem características que as fazem mais robustas para combater diferentes tipos de ataques, sendo então cada uma indicada para situações diferentes.
     
     Descritores locais geram assinaturas baseadas em pontos ou regiões de interesse de cada quadro do vídeo. Os pontos de interesse são determinados a partir de regiões que possuem uma acentuada variação na orientação do gradiente dos elementos presentes em um quadro, como, por exemplo, o enquadramento de uma porta ou o pico de uma montanha. As regiões de interesse são determinadas pelos \textit{pixels} ao redor de um ponto de interesse e ajudam a determinar os limites dessas regiões \cite{radhakrishnan2007content}. Esses descritores normalmente são robustos contra variações fotométricas (borrados, variação de luminância e cor, ruído e compressão JPEG) e podem ser custosos computacionalmente devido aos cálculos necessários para determinar os pontos de interesse \cite{naini2014vanishing}. Um descritor local consiste normalmente de três etapas: detecção das características, descrição das características e combinação das características \cite{chen2010zernike}.
 
@@ -315,7 +315,7 @@ A assinatura final é obtida pela concatenação desses vetores (Figura \ref{fig
 
   A abordagem proposta por \citeonline{mao2015sceneframe} é baseada na assinatura de quadros de cena (Seção \ref{sec:video}). De acordo com os autores, os quadros de cena podem ser \textit{intraframes}, ou seja, quadros que iniciam tomadas, quanto \textit{interframes}, contanto que sigam as características descritas na Seção \ref{sec:video}, ou seja, possuir todos os mesmos elementos dos quadros restantes e o mesmo \textit{background}.
 
-A assinatura individual de cada quadro é calculada conforme os passos descritos na Figura \ref{fig:dia_sceneframe}. Os quadros passam por um pré-processamento, onde o componente de luminância pertencente ao espaço HSL (\textit{hue, saturation, lightness}) da imagem é extraído, uma vez que apenas este valor é considerado pelo algoritmo. O quadro é recortado mantendo-se apenas sua região central e redimensionado para o tamanho definido de $(108\times132)$ pixels. Além disso, é aplicado o filtro passa-baixa da Gaussiana.
+A assinatura individual de cada quadro é calculada conforme os passos descritos na Figura \ref{fig:dia_sceneframe}. Os quadros passam por um pré-processamento, onde o componente de luminância pertencente ao espaço HSL (\textit{hue, saturation, lightness}) da imagem é extraído, uma vez que apenas este valor é considerado pelo algoritmo. O quadro é recortado mantendo-se apenas sua região central e redimensionado para o tamanho definido de $108\times132$ pixels. Além disso, é aplicado o filtro passa-baixa da Gaussiana.
 
 \begin{figure}[h]
   \centering
@@ -325,7 +325,7 @@ A assinatura individual de cada quadro é calculada conforme os passos descritos
   \label{fig:dia_sceneframe}
 \end{figure}
 
-Após o processamento inicial, o quadro é então dividido em $144$ pedaços menores, de tamanho $(9\times11)$ pixels, cuja intensidade média irá compor parte da assinatura deste quadro. Além dos $144$ valores, o descritor é composto também por $576$ elementos diferenciais, totalizando $720$ valores. Para obter esses elementos diferenciais, cada fragmento é dividido em oito elementos menores, conforme a Figura \ref{fig:divsceneframe}, e então é realizada a subtração de $a - b$, $c - d$, $e - f$ e $g - h$.
+Após o processamento inicial, o quadro é então dividido em $144$ pedaços menores, de tamanho $9\times11$ pixels, cuja intensidade média irá compor parte da assinatura deste quadro. Além dos $144$ valores, o descritor é composto também por $576$ elementos diferenciais, totalizando $720$ valores. Para obter esses elementos diferenciais, cada fragmento é dividido em oito elementos menores, conforme a Figura \ref{fig:divsceneframe}, e então é realizada a subtração de $a - b$, $c - d$, $e - f$ e $g - h$.
 
 \begin{figure}[h]
   \centering
@@ -335,7 +335,7 @@ Após o processamento inicial, o quadro é então dividido em $144$ pedaços men
     \label{fig:divsceneframe}
 \end{figure}
 
-O artigo também propõe uma alternativa para diminuir o espaço de memória utilizado para armazenar as assinaturas, visto que o banco de dados dos vídeos pode ser grande. Para isso, é proposta uma técnica chamada quantificação quaternária, na qual os valores são classificados de acordo com um limiar, calculado dinamicamente para cada quadro. O primeiro limiar, utilizado para as $144$ médias de intensidade, é obtido da seguinte maneira: considere que $m_i$ representa cada valor dentro do conjunto $M$ de médias de intensidade. Para todo $m_i$ em $M$, é calculado o valor absoluto $a_i = \lvert m_i - 128 \rvert$, obtendo novos valores $A$. Os valores de $A$ são, então, organizados em ordem crescente. O limiar $ThM$ utilizado será $a_i$ onde $i = \lfloor 0.25*144 \rfloor$. Finalmente, cada valor $m_i$ é então definido através da Equação \ref{eq:mediaquart}.
+O artigo também propõe uma alternativa para diminuir o espaço de memória utilizado para armazenar as assinaturas, visto que o banco de dados dos vídeos pode ser grande. Para isso, é proposta uma técnica chamada quantificação quaternária, na qual os valores são classificados de acordo com um limiar, calculado dinamicamente para cada quadro. O primeiro limiar, utilizado para as $144$ médias de intensidade, é obtido da seguinte maneira: considere que $m_i$ representa cada valor dentro do conjunto $M$ de médias de intensidade. Para todo $m_i$ em $M$, é calculado o valor absoluto $a_i = \lvert m_i - 128 \rvert$, obtendo novos valores $A$. Os valores de $A$ são, então, organizados em ordem crescente. Para separar os valores em 4 faixas, é utilizado o 36° valor do conjunto ordenado A, definindo o limiar ThM. O limiar $ThM$ utilizado será $a_i$ onde $i = \lfloor 0.25*144 \rfloor$. Finalmente, cada valor $m_i$ é então definido através da Equação \ref{eq:mediaquart}.
 
 \begin{equation}
 	\label{eq:mediaquart}
@@ -389,7 +389,7 @@ O método divide o quadro em regiões circulares, e então divide os círculos e
 \subsection{Assinatura baseada em wavelets}
 \label{wavelets}
 
-Esta abordagem foi escolhida por ter sido projetada especialmente para ser robusta a uma variedade de ataques fotométricos, como modificações em contraste, brilho, contaminação por ruído e desfoque, inserção de logos, bordas e mudança de formato do quadro. Para se tornar ainda mais robustas a esses ataques, \citeonline{Dutta2013} também realiza uma etapa de pré-processamento em que possíveis bordas dos quadros são removidas, então o ruído das imagens é removido através de um filtro gaussiano e finalmente o histograma de cada quadro é equalizado. 
+Esta abordagem foi escolhida por ter sido projetada especialmente para ser robusta a uma variedade de ataques fotométricos, como modificações em contraste, brilho, contaminação por ruído e desfoque, inserção de logos, bordas e mudança de formato do quadro. Para se tornar ainda mais robustas a esses ataques, \citeonline{Dutta2013} também realizam uma etapa de pré-processamento em que possíveis bordas dos quadros são removidas, então o ruído das imagens é removido através de um filtro gaussiano e finalmente o histograma de cada quadro é equalizado. 
 
 Após a etapa de pré-processamento, para serem utilizados como entrada para este algoritmo, os vídeos devem ser transformados para escala de cinza e ter suas intensidades normalizadas para o intervalo $[0,1]$. A assinatura proposta por \citeonline{Dutta2013} é composta de uma parte baseada na transformada de Haar e em outra parte baseada na distribuição espacial de gradientes.
 
@@ -485,7 +485,7 @@ O fluxo óptico de uma imagem $I$ para uma imagem subsequente $J$ é uma funçã
 
 % O resultado final é um vetor: para cada frame, existem os três valores de Pan, Tilt e Zoom calculados, que irão então compor a assinatura do vídeo.
 
-A assinatura para este algoritmo será composta pelo vetor de movimentos calculados pelo algoritmo. 
+A assinatura para este algoritmo será composta pelo vetor de movimentos calculados pelo algoritmo. O diagrama completo do funcionamento do algoritmo pode ser visto na Figura~\ref{fig:dia_cameramotion}.
 
 \begin{figure}[h]
 	\centering

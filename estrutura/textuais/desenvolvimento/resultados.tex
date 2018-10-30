@@ -59,7 +59,7 @@ As assinaturas temporais (Camera Motion e FrameDiff) obtiveram os piores resulta
 
 Outras distorções que tiveram pouco efeito sobre a classificação são as que adicionam textos de forma uniforme nos vídeos: text e wmark. O único caso em que estas distorções afetaram significativamente a classificação é com a utilização da assinatura Camera Motion. Como ela se baseia no rastreamento do movimento de regiões do vídeo entre os quadros, o posicionamento estático do texto realizado pela distorção o impede de acompanhar os movimentos precisamente.
 
-Entre as distorções fotométricas, a inversão de cores (color) foi a mais efetiva em enganar a detecção de cópias, apenas as assinaturas Camera Motion e Wavelets conseguiram bons resultados, com revocação acima dos 90\%. Todas as outras assinaturas obteram valores de revocação abaixo de 40\%. Os resultados favoráveis a essas duas assinaturas se devem ao fato destas não utilizarem valores de luminância para descrever um vídeo, enquanto os outros o fazem. Já a distorção blur afetou negativamente todas as assinaturas que usam bordas ou pequenas regiões de interesse para descrever um vídeo, pois enfraquece os detalhes de um quadro. A distorção jpeg teve resultados semelhantes por também causar uma perda de informação dentro de cada quadro do vídeo. 
+Entre as distorções fotométricas, a inversão de cores (color) foi a mais efetiva em enganar a detecção de cópias, apenas as assinaturas Camera Motion e Wavelets conseguiram bons resultados, com revocação acima dos 90\%. Todas as outras assinaturas obteram valores de revocação abaixo de 40\%. Os resultados favoráveis a essas duas assinaturas se devem ao fato destas não utilizarem valores de luminância para descrever um vídeo, enquanto as outras o fazem. Já a distorção blur afetou negativamente todas as assinaturas que usam bordas ou pequenas regiões de interesse para descrever um vídeo, pois enfraquece os detalhes de um quadro. A distorção jpeg teve resultados semelhantes por também causar uma perda de informação dentro de cada quadro do vídeo. 
 
 % Por fim, as assinaturas geométricas...
 % No geral, a assinatura... para fotométricas, para temporais e geométricas
@@ -69,7 +69,7 @@ A revocação sozinha não pode ser utilizada para a avaliação de uma assinatu
 % Verificar se consegue encontrar a cópia
 \section{Unicidade}
 
-Segundo \citeonline{hua2004robust}, unicidade é a capacidade discriminativa de uma assinatura de vídeo, o que significa que vídeos com conteúdos diferentes devem ter assinaturas diferentes. Esta característica é essencial para a utilidade de uma assinatura, pois uma técnica que gera muitos casos de falsos positivos perde sua utilidade como ferramenta de automação de detecção de cópias. Para avaliar esta característica, é utilizada a medida de precisão, que mede a quantidade de casos que são relevantes (verdadeiros positivos), dentro de todos os pares de vídeos que são classificados como cópias (verdadeiros positivos e falsos positivos)\cite{Ting2010}.
+Segundo \citeonline{hua2004robust}, unicidade é a capacidade discriminativa de uma assinatura de vídeo, o que significa que vídeos com conteúdos diferentes devem ter assinaturas diferentes. Esta característica é essencial para a utilidade de uma assinatura, pois uma técnica que gera muitos casos de falsos positivos perde sua utilidade como ferramenta de automação de detecção de cópias. Para avaliar esta característica, é utilizada a medida de precisão, que mede a quantidade de casos que são relevantes (verdadeiros positivos), dentre todos os pares de vídeos que são classificados como cópias (verdadeiros positivos e falsos positivos)\cite{Ting2010}.
 
 % \begin{figure}[h]
 % 	\centering
@@ -100,7 +100,7 @@ Para entender o motivo destes resultados para as assinaturas temporais e verific
 
 \section{Peso da escolha do limiar sobre a detecção de cópias}
 
-Para chegar a uma conclusão sobre o tipo de assinatura mais adequado para a detecção de cópias em relação a sua robustez e unicidade, é preciso analisar ambos a precisão e a revocação de forma conjunta. Ao comparar as duas medidas, nota-se uma relação entre estas: os pontos escuros (piores resultados) estão localizados nas mesmas regiões, mas no geral, todas as assinaturas tiveram resultados de precisão melhores que os de revocação. Além disso nota-se também que a relação entre revocação e precisão não é linear. A Figura~\ref{fig:heatmap-comparacoes} usa a medida Fmeasure para combinar precisão e revocação.
+Para chegar a uma conclusão sobre o tipo de assinatura mais adequado para a detecção de cópias em relação a sua robustez e unicidade, é preciso analisar ambas a precisão e a revocação de forma conjunta. Ao comparar as duas medidas (Figura~\ref{fig:heatmap-comparacoes}), nota-se uma relação entre estas: os pontos escuros (piores resultados) estão localizados nas mesmas regiões, mas no geral, todas as assinaturas tiveram resultados de precisão melhores que os de revocação. Além disso nota-se também que a relação entre revocação e precisão não é linear. A Figura~\ref{fig:heatmap-comparacoes} usa a medida Fmeasure para combinar precisão e revocação.
 
 A Figura~\ref{fig:todos-limiares} mostra a variação das medidas de precisão e revocação a medida que o limiar de corte cresce. Há claramente uma diminuição da capacidade discriminativa de cada assinatura a medida com que o limiar de corte se afasta do zero, e evidencia que cada assinatura apresenta uma proporção diferente para essa diminuição. As assinaturas Medida Ordinal, Wavelets, Scene Frame e RBP são as que mantém a precisão em níveis mais altos. 
 
@@ -124,7 +124,7 @@ A seguir, será discutido se a aplicação de dois tipos de assinatura de forma 
 
 \section{Combinação de Assinaturas}
 
-Assim como as distorções, as assinaturas podem ser classificadas quanto às características de um vídeo que elas utilizam em sua formação. Das assinaturas usadas neste trabalho, duas são temporais (Camera Motion e FrameDiff), enquanto todas as outras são espaciais. Nesta etapa dos experimentos, estes dois tipos de assinatura foram combinados a fim de definir se as métricas de robustez e unicidade são melhoradas em relação às assinaturas utilizadas separadamente. Embora várias combinações de assinaturas sejam possíveis, para este trabalho, a assinatura Camera Motion foi combinada com as todas as outras. 
+Assim como as distorções, as assinaturas podem ser classificadas quanto às características de um vídeo que elas utilizam em sua formação. Das assinaturas usadas neste trabalho, duas são temporais (Camera Motion e FrameDiff), enquanto todas as outras são espaciais. Nesta etapa dos experimentos, estes dois tipos de assinatura foram combinados a fim de definir se as métricas de robustez e unicidade são melhoradas em relação às assinaturas utilizadas separadamente. Embora várias combinações de assinaturas sejam possíveis, para este trabalho, a assinatura Camera Motion foi combinada com todas as outras. 
 
 % ------------------------------------------
 % V1 com combinação por valores de diferença
@@ -146,14 +146,14 @@ O primeiro passo é a definição do método de combinação destas assinaturas.
 % D_{final} = \alpha * Dist_{1} + (1-\alpha) * Dist_{2}
 % $$
 
-Como cada tipo de assinatura gera valores muito diferentes ao ser usado como entrada para o DTW (veja Tabela~\ref{tab:limiares} para exemplos), esses valores passam por uma etapa de normalização utilizando o método Min-Max, que realiza uma transformação linear para um intervalo de valores pré-definido (que é $[0 1]$), como mostra a Equação~\ref{eq:minmax}.
+Como cada tipo de assinatura gera valores muito diferentes ao ser usado como entrada para o DTW (veja Tabela~\ref{tab:limiares} para exemplos), esses valores passam por uma etapa de normalização utilizando o método Min-Max~\cite{al2006data}, que realiza uma transformação linear para um intervalo de valores pré-definido (que é $[0, 1]$), como mostra a Equação~\ref{eq:minmax}.
 
 $$
 \label{eq:minmax}
 A' = \left(\frac{A - min(A)}{max(A) - min(A)}\right) * (D - C) + C
 $$
 
-Onde $A'$ é o vetor $A$ normalizado, e $C e D$ são os valores mínimos e máximos definidos previamente. No caso desta monografia, foram utilizados $C = 0$ e $D = 1$ para normalizar os vetores no intervalo $[0, 1]$.
+Onde $A'$ é o vetor $A$ normalizado, e $C$ e $D$ são os valores mínimos e máximos definidos previamente. No caso desta monografia, foram utilizados $C = 0$ e $D = 1$ para normalizar os vetores no intervalo $[0, 1]$.
 
 
 % Além disso, é preciso escolher o fator $\alpha$ de combinação, além de definir um novo limiar de classificação para a ``nova assinatura'' criada. Assim como para a análise dos algoritmos separados no início deste capítulo, foi realizada uma simulação de classificação com um intervalo de valores de limiares, a fim de definir um limiar para a classificação maximizando a medida fmeasure. Essa simulação foi repetida para os valores de $\alpha = \{0.1, 0.25, 0.5, 0.75, 0.9\}$, como ilustra a Figura~\ref{fig:alpha-limiar}. Os resultados da etapa de parametrização estão dispostos na Tabela~\ref{tab:juncao-limiares-alpha}.
@@ -183,7 +183,7 @@ Onde $A'$ é o vetor $A$ normalizado, e $C e D$ são os valores mínimos e máxi
 %     \fonte{Autoria própria.}
 % \end{table}
 
-Para comparar os resultados com aqueles dos algoritmos separados, os valores da medida fmeasure para cada teste de classificação estão dispostos na Figura~\ref{fig:compacao-metodos}. No geral, a combinação de duas assinaturas não teve efeitos positivos na classificação. Com ela, todas as combinações passaram a ser sensíveis a distorções temporais e poucos casos apresentaram melhoras. Nos casos em que a mudança foi positiva, o ganho foi de menos de 5\%. 
+Para comparar os resultados com aqueles dos algoritmos separados, os valores da medida F-measure para cada teste de classificação estão dispostos na Figura~\ref{fig:compacao-metodos}. No geral, a combinação de duas assinaturas não teve efeitos positivos na classificação. Com ela, todas as combinações passaram a ser sensíveis a distorções temporais e poucos casos apresentaram melhoras. Nos casos em que a mudança foi positiva, o ganho foi de menos de 5\%. 
 
 \begin{figure}
 	\caption{Histograma com valores de fmeasure para cada tipo de assinatura. Em cima, resultados da combinação da assinatura Camera Motion com as demais, embaixo, a diferença entre os resultados com e sem a combinação das assinaturas.}
