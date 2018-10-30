@@ -1,3 +1,4 @@
+
 % REVISÃO DA LITERATURA--------------------------------------------------------
 
 % \chapter{Revisão da Literatura}
@@ -335,7 +336,7 @@ Após o processamento inicial, o quadro é então dividido em $144$ pedaços men
     \label{fig:divsceneframe}
 \end{figure}
 
-O artigo também propõe uma alternativa para diminuir o espaço de memória utilizado para armazenar as assinaturas, visto que o banco de dados dos vídeos pode ser grande. Para isso, é proposta uma técnica chamada quantificação quaternária, na qual os valores são classificados de acordo com um limiar, calculado dinamicamente para cada quadro. O primeiro limiar, utilizado para as $144$ médias de intensidade, é obtido da seguinte maneira: considere que $m_i$ representa cada valor dentro do conjunto $M$ de médias de intensidade. Para todo $m_i$ em $M$, é calculado o valor absoluto $a_i = \lvert m_i - 128 \rvert$, obtendo novos valores $A$. Os valores de $A$ são, então, organizados em ordem crescente. Para separar os valores em 4 faixas, é utilizado o 36° valor do conjunto ordenado A, definindo o limiar ThM. O limiar $ThM$ utilizado será $a_i$ onde $i = \lfloor 0.25*144 \rfloor$. Finalmente, cada valor $m_i$ é então definido através da Equação \ref{eq:mediaquart}.
+O artigo também propõe uma alternativa para diminuir o espaço de memória utilizado para armazenar as assinaturas, visto que o banco de dados dos vídeos pode ser grande. Para isso, é proposta uma técnica chamada quantificação quaternária, na qual os valores são classificados de acordo com um limiar, calculado dinamicamente para cada quadro. O primeiro limiar, utilizado para as $144$ médias de intensidade, é obtido da seguinte maneira: considere que $m_i$ representa cada valor dentro do conjunto $M$ de médias de intensidade. Para todo $m_i$ em $M$, é calculado o valor absoluto $a_i = \lvert m_i - 128 \rvert$, obtendo novos valores $A$. Os valores de $A$ são, então, organizados em ordem crescente. Para separar os valores em 4 faixas, é utilizado o triségimo-sexto valor do conjunto ordenado A, definindo o limiar ThM. O limiar $ThM$ utilizado será $a_i$ onde $i = \lfloor 0.25*144 \rfloor$. Finalmente, cada valor $m_i$ é então definido através da Equação \ref{eq:mediaquart}.
 
 \begin{equation}
 	\label{eq:mediaquart}
