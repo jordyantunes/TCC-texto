@@ -1,4 +1,3 @@
-
 % REVISÃO DA LITERATURA--------------------------------------------------------
 
 % \chapter{Revisão da Literatura}
@@ -457,7 +456,7 @@ Após a etapa de pré-processamento, para serem utilizados como entrada para est
 
 
 
-O algoritmo proposto por \citeonline{minetto2007reliable} detecta o movimento da câmera em um vídeo em três níveis: \textit{pan} (movimentos para esquerda ou direita), \textit{tilt} (movimentos para cima ou para baixo) e \textit{zoom} (movimentos de aproximação ou de afastamento) --- o algoritmo também calcula o movimento de roll, mas não o utilizamos no trabalho. O algoritmo é capaz de determinar o movimento da câmera em 95\% das tomadas nos casos de testes realizados pelos autores, em um ambiente onde 98\% das tomadas haviam algum tipo de movimento de câmera. A Figura~\ref{fig:example_cameramotion} apresenta um exemplo de movimentação de câmera entre dois quadros.
+O algoritmo proposto por \citeonline{minetto2007reliable} detecta o movimento da câmera em um vídeo em três níveis: \textit{pan} (movimentos para esquerda ou direita, sem mover a base da câmera), \textit{tilt} (movimentos para cima ou para baixo, sem mover a base da câmera), \textit{zoom} (movimentos de aproximação ou de afastamento) e roll (movimento de rotação com câmera voltada para o mesmo ponto). O algoritmo é capaz de determinar o movimento da câmera em 95\% das tomadas nos casos de testes realizados pelos autores, em um ambiente onde 98\% das tomadas haviam algum tipo de movimento de câmera. A Figura~\ref{fig:example_cameramotion} apresenta um exemplo de movimentação de câmera entre dois quadros.
 
 \begin{figure}[h]
 	\centering
