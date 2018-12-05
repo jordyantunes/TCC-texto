@@ -56,7 +56,7 @@ As Seções \ref{sec:video} a \ref{sec:assinatura} apresentam definições útei
 \section{Transformada de Haar}
 % BOGDAN ------------------------ A explicação nesta seção está superficial demais, não tem referência, e a legenda da figura não explica direito o que cada sub-figura representa. Como assim "1/4 dos dados originais"? Como os detalhes são removidos? É simplesmente uma versão redimensionada da imagem no nível anterior? Se sim, isto é feito com interpolação ou sub-amostragem? Como são calculadas as derivadas? Mais importante que tudo: o que exatamente a transformada de Haar faz? Para que serve? De duas uma: ou vocês precisam detalhar muito melhor esta seção, incluindo a matemática da coisa; ou vocês removem esta seção, colocando uma referência e destacando o que é e para que serve a transformada de Haar quando ela for usada.
 
-Um conceito importante para dois dos algoritmos que serão apresentados (Sub Seções  \ref{wavelets} e \ref{sec:gradientes}) é o da transformada bidimensional de Haar, que consiste na separação de um sinal (ou quadro, neste caso) em quatro partes: 
+Um conceito importante para dois dos algoritmos que serão apresentados (Sub Seções  \ref{wavelets} e \ref{sec:gradientes}) é o da transformada bidimensional de Haar. Ela faz parte da família de Transformadas de Wavelets, que são ferramentas matemáticas para decompor funções de forma hierárquica \cite{stollnitz1995wavelets}. No caso desta monografia essas funções são imagens. % que consiste na separação de um sinal (ou quadro, neste caso) em quatro partes: 
 
 \begin{enumerate}
 \item $LL$, que contém $1/4$ dos dados originais, removendo os detalhes;
