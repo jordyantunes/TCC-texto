@@ -22,12 +22,12 @@ Assinaturas baseadas em características locais também foram pesquisadas, como 
 
 \citeonline{hu2011survey} discorrem sobre a indexação e recuperação de conteúdo em vídeos. O trabalho apresenta métodos para analisar a estrutura de vídeos, segmentação de cenas, extração de quadros-chave, características de movimento, mineração de informações em vídeos, mensuramento de similaridade e relevância entre assinaturas digitais, pesquisa de conteúdo em vídeos, entre outros.
 
-As Seções \ref{sec:video} à \ref{sec:assinatura} apresentam definições úteis para melhor compreensão do trabalho, como a estrutura de um vídeo, técnicas de detecção de cópias e conteúdo,  principais tipos de ataque, e, finalmente, a definição de assinatura digital para vídeos e os algoritmos selecionados para este trabalho.
+As Seções \ref{sec:video} a \ref{sec:assinatura} apresentam definições úteis para melhor compreensão do trabalho, como a estrutura de um vídeo, técnicas de detecção de cópias e conteúdo,  principais tipos de ataque, e, finalmente, a definição de assinatura digital para vídeos e os algoritmos selecionados para este trabalho.
 
 \section{Vídeo Digitais}
 \label{sec:video}  
 
-	Um vídeo pode ser descrito quanto ao seu conteúdo em quatro níveis de detalhe, sendo o nível mais baixo um conjunto de quadros \cite{lienhart1997video}. Um quadro (ou \textit{frame}) $I$ é uma imagem representada por uma matriz de altura $h$ e largura $w$ em que cada ponto $I(x,y)$ representa a intensidade de um pixel. Além disso, um quadro possui um determinado tempo, que representa o instante em que é exibido no vídeo. De maneira resumida, um vídeo é uma sequência de imagens. Normalmente são exibidas 24 imagens por segundo, sendo esse o conceito de quadros por segundo, ou FPS \textit{(frames per second)}. 
+	Um vídeo pode ser descrito quanto ao seu conteúdo em quatro níveis de detalhe, sendo o nível mais baixo um conjunto de quadros \cite{lienhart1997video}. Um quadro (ou \textit{frame}) $I$ é uma imagem representada por uma matriz de altura $h$ e largura $w$ em que cada ponto $I(x,y)$ representa a intensidade de um pixel. Além disso, um quadro possui um determinado tempo, que representa o instante em que é exibido no vídeo. De maneira resumida, um vídeo é uma sequência de imagens. Normalmente são exibidas 30 imagens por segundo, sendo esse o conceito de quadros por segundo, ou FPS \textit{(frames per second)}. 
 
 	Logo acima na hierarquia existem as tomadas, termo que se refere a um ou mais quadros capturados em sequência, representando uma ação ininterrupta no tempo e no espaço. Tomadas contínuas podem ser agrupadas em cenas para gerar coerência na história do vídeo. Um vídeo pode ser composto por uma ou mais cenas, como pode ser observado na Figura \ref{fig:video_sctructure}.
     
@@ -39,7 +39,7 @@ As Seções \ref{sec:video} à \ref{sec:assinatura} apresentam definições úte
       \label{fig:video_sctructure}
     \end{figure}   
 
-       Um conceito importante também relacionado ao vídeo é o quadro de cena (do inglês \emph{key-frame}). \citeonline{7848130} descrevem um quadro de cena como a imagem que define os pontos de início e fim de qualquer transição suave de imagens (o quadro que melhor representa a cena no geral). Quadros de cena são amplamente utilizados na produção de animações, em que normalmente o objeto ou sujeito da imagem se move em relação ao fundo \textit{(background)}. De acordo com \citeonline{mao2015sceneframe}, o quadro de cena deve possuir todos os elementos (pessoas, objetos, animais, etc.) exibidos na cena e o background deve ser altamente similar ao restante dos quadros. Na Figura \ref{fig:quadro_cena}, qualquer um dos cinco quadros pode ser eleito como o quadro de cena, pois todos têm os mesmos elementos (a mesma pessoa e o mesmo cachorro), além do \textit{background} ser praticamente o mesmo em todos os quadros.
+       Um conceito importante também relacionado ao vídeo é o quadro chave (do inglês \emph{key-frame}), ou quadro de cena. \citeonline{7848130} descrevem um quadro de cena como a imagem que define os pontos de início e fim de qualquer transição suave de imagens (o quadro que melhor representa a cena no geral). Quadros de cena são amplamente utilizados na produção de animações, em que normalmente o objeto ou sujeito da imagem se move em relação ao fundo \textit{(background)}. De acordo com \citeonline{mao2015sceneframe}, o quadro de cena deve possuir todos os elementos (pessoas, objetos, animais, etc.) exibidos na cena e o background deve ser altamente similar ao restante dos quadros. Na Figura \ref{fig:quadro_cena}, qualquer um dos cinco quadros pode ser eleito como o quadro de cena, pois todos têm os mesmos elementos (a mesma pessoa e o mesmo cachorro), além do \textit{background} ser praticamente o mesmo em todos os quadros.
 
  \begin{figure}[!htb]
       \centering
@@ -54,17 +54,20 @@ As Seções \ref{sec:video} à \ref{sec:assinatura} apresentam definições úte
     Em um vídeo existe também a dimensão espacial e a dimensão temporal. A dimensão espacial é classificada como a distribuição e a maneira com que os elementos estão organizados em um quadro. A dimensão temporal é a relação na qual os elementos e os quadros mudam ao longo de um vídeo \cite{hampapur2001comparison}.
     
 \section{Transformada de Haar}
+% BOGDAN ------------------------ A explicação nesta seção está superficial demais, não tem referência, e a legenda da figura não explica direito o que cada sub-figura representa. Como assim "1/4 dos dados originais"? Como os detalhes são removidos? É simplesmente uma versão redimensionada da imagem no nível anterior? Se sim, isto é feito com interpolação ou sub-amostragem? Como são calculadas as derivadas? Mais importante que tudo: o que exatamente a transformada de Haar faz? Para que serve? De duas uma: ou vocês precisam detalhar muito melhor esta seção, incluindo a matemática da coisa; ou vocês removem esta seção, colocando uma referência e destacando o que é e para que serve a transformada de Haar quando ela for usada.
 
 Um conceito importante para dois dos algoritmos que serão apresentados (Sub Seções  \ref{wavelets} e \ref{sec:gradientes}) é o da transformada bidimensional de Haar, que consiste na separação de um sinal (ou quadro, neste caso) em quatro partes: 
 
 \begin{enumerate}
 \item $LL$, que contém $1/4$ dos dados originais, removendo os detalhes;
-\item $LH$, que contém a derivada na horizontal do quadro;
-\item $HL$, que contém a derivada na vertical do quadro;
-\item $HH$, que contém a derivada na diagonal do quadro.
+\item $LH$, que contém as derivadas na horizontal do quadro;
+\item $HL$, que contém as derivadas na vertical do quadro;
+\item $HH$, que contém as derivadas na diagonal do quadro.
 \end{enumerate}
 
 A transformada pode ser aplicada de forma recursiva, usando o quadro $I$ como entrada inicial do algoritmo e o $LL$ como entrada das chamadas subsequentes. Um exemplo do resultado da transformada de Haar pode ser visto na Figura \ref{fig:transf_haar}.
+
+% BOGDAN ------------------------ Além de faltar uma explicação mais clara, a transformada de Haar não produz resultados negativos? Vocês devem remapear a imagem para apresentar (mapeando 0 como 0.5 ou 127).
 
  \begin{figure}[h]
       \centering
@@ -74,25 +77,14 @@ A transformada pode ser aplicada de forma recursiva, usando o quadro $I$ como en
       \label{fig:transf_haar}
     \end{figure}  
 
-\section{Técnicas de detecção de cópias de vídeo} 
-     
-%      Existem diversas maneiras para detecção de cópias de vídeos. Foram selecionadas três delas, que são: detecção de cópias baseada em conteúdo (CBCD, do inglês \textit{Content Based Copy Detection}) \citeauthor{jiang2011pku}, recuperação de vídeo baseado em conteúdo (CBVR, \textit{Content Based Video Retrieval}) \citeauthor{law2007video} e recuperação de imagens baseada em conteúdo (CBIR, \textit{Content Based Image Retrieval}) \citeauthor{gudivada1995content}.
-     
-    A detecção de cópias baseada em conteúdo (CBCD, do inglês \textit{Content Based Copy Detection}) é uma técnica para identificar vídeos através da criação de uma assinatura digital baseada em seu conteúdo \cite{jiang2011pku}. Apesar de o método ser utilizado em diversas aplicações, a detecção de cópias torna-se um desafio, considerando que a cópia pode sofrer ataques, distorções e transformações que dificultem a identificação do vídeo por um sistema automatizado. 
-
-%De acordo com \citeauthor{law2007video}, recuperação de vídeo baseado em conteúdo propõe algoritmos para gerar assinaturas e estudar a similaridade entre elas. É uma técnica que, através da assinatura do vídeo, permite a busca de trechos e cenas, característica que é útil para encontrar réplicas parciais de vídeos. Ainda segundo \citeauthor{law2007video}, CBVR tem foco em procurar e encontrar vídeos em uma mesma categoria, ou seja, vídeos que são similares entre si, como por exemplo, jogos de futebol, vídeos sobre balões, vídeos de pessoas tocando instrumentos musicais, etc.
-
-%Para \citeauthor{gudivada1995content}, recuperação de imagens baseada em conteúdo, é um sistema que auxilia na recuperação e extração de imagens de acordo com o conteúdo da imagem. Para gerar uma assinatura o sistema CBIR se baseia em elementos visuais como cores, texturas e formas \citeauthor{vikhar2016improved}. Há diversas aplicações que se beneficiam desta tecnologia, como: previsão do tempo, serviços de informações geográficas, design de interiores, galerias de arte, etc \citeauthor{gudivada1995content}.
-         
-         
-         
-
+\section{Técnicas de detecção de cópias de vídeo}
+    A detecção de cópias baseada em conteúdo (CBCD, do inglês \textit{Content Based Copy Detection}) é uma técnica para identificar vídeos através da criação de uma assinatura digital baseada em seu conteúdo \cite{jiang2011pku}. Apesar de o método ser utilizado em diversas aplicações, a detecção de cópias torna-se um desafio, considerando que a cópia pode sofrer ataques, distorções e transformações que dificultem a identificação do vídeo por um sistema automatizado.
 
 
 \section{Tipos de ataques em vídeos}
 \label{sec:ataques}
 
-	Para evitar a detecção de duplicatas é comum a realização de ataques, ou distorções, nos vídeos. Existem várias maneiras de modificar um vídeo, como redimensionamento do tamanho, inserção ou remoção de alguns quadros, alteração de cada quadro individualmente através da adição ou remoção de elementos, tais como bordas e legendas.
+	Para evitar a detecção de duplicatas é comum a realização de ataques, ou distorções, nos vídeos. Existem várias maneiras de modificar um vídeo, como redimensionamento do tamanho, inserção ou remoção de alguns quadros, e alteração de cada quadro individualmente através da adição ou remoção de elementos, tais como bordas e legendas.
 
 	No escopo deste trabalho são estudados 14 tipos de ataques para simular as táticas mais comuns utilizadas pelos apropriadores de conteúdo que tentam dificultar o reconhecimento de duplicatas. Os ataques são: adição de texto e legendas no vídeo, adição de marca d'água, adição de quadro ou bordas, redimensionamento da altura e largura dos quadros, eliminação de uma faixa ou região dos quadros, inversão/espelhamento, rotação, borramento, inversão de cores, alteração do formato de compressão dos quadros do vídeo, aceleramento do vídeo e, finalmente, remoção de quadros. A Figura \ref{fig:ataques} ilustra o resultado da aplicação de 8 dos ataques descritos acima em uma imagem.
 
@@ -142,11 +134,6 @@ Os ataques podem ainda ser classificados como geométricos, fotométricos ou tem
 	Uma assinatura de vídeo é definida como um vetor de características que representa um vídeo e o diferencia de outros \cite{lee2008robust}. Em outras palavras, a assinatura é uma representação de um vídeo em uma estrutura de dados. 
         
 	Para um algoritmo de geração de assinatura ser considerado eficiente, é importante que três características sejam consideradas: robustez, singularidade e eficiência de busca. De acordo com \citeonline{lee2008robust}, uma assinatura é considerada robusta caso o descritor gerado para um vídeo modificado seja similar ao descritor do vídeo original. A singularidade, ou unicidade, é a capacidade do algoritmo gerar assinaturas diferentes para vídeos perceptivelmente diferentes. Por fim, eficiência de busca é a capacidade da assinatura  ser utilizada por uma aplicação para buscas em banco de dados de larga escala. Nesta monografia, são avaliadas apenas a robustez e a singularidade das assinaturas.   
-    
-% \textbf{[seção será complementada ou reescrita]}
-% Para a geração das assinaturas, no entanto, podemos definir um vídeo quanto à estrutura de dados com a qual ele é composto. Segundo \citeauthor{simoes2004detecccao}, um vídeo é representado por uma sequência de quadros dispostos através de uma amostra temporal. Logo, faz-se necessária a definição formal de quadro, apresentada a seguir
-
-
 
     Existem duas classes principais de algoritmos para descrever vídeos e então gerar assinaturas, são elas: locais e globais. Cada classe tem características que as fazem mais robustas para combater diferentes tipos de ataques, sendo então cada uma indicada para situações diferentes.
     
@@ -170,8 +157,6 @@ Os ataques podem ainda ser classificados como geométricos, fotométricos ou tem
 	O algoritmo proposto por \citeonline{hua2004robust} baseia-se na intensidade dos \textit{pixels} de cada quadro para compor a assinatura. Primeiramente, a taxa de amostragem, ou seja, a taxa de quadros por segundo (FPS) do vídeo de entrada é padronizada, para que a assinatura gerada fique mais compacta e seja tolerante a diferentes formatos de compressão. Além disso, o vídeo é convertido para escala de cinza.
 
 	Após esse pré-processamento, cada quadro é particionado em $M \times N$ blocos, como pode ser observado na Figura~\ref{fig:medidaord}, e a intensidade média para cada um dos blocos é computada. O descritor é então formado pela concatenação dos vetores em cada bloco. O método é resumido na Figura~\ref{fig:dia_ordinal}.
-    
-    %Esses valores são então organizados em ordem crescente em um vetor representando a assinatura do vídeo.
 
 	\begin{figure}[!htb]
         \centering
