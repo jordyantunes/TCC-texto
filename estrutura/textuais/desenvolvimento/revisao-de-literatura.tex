@@ -258,7 +258,7 @@ A assinatura final é obtida pela concatenação desses vetores (Figura \ref{fig
 	dY = \sum_{x,y \in  I,J} |I(x,y) - J(x,y)|
 \end{equation} 
 
-   Após a obtenção das características primárias, um filtro passa-baixa Gaussiano é utilizado para suavizar a assinatura, como pode ser observado na Figura \ref{fig:framediff-passa-baixa}. A assinatura é a concatenação dos somatórios das diferenças entre quadros e a luminância total de cada quadro. O tamanho final de uma assinatura baseada em diferença entre quadros é $N \times M \times k$ onde $k$ é o número de quadros de um vídeo. Para esta implementação, foi utilizado $M = 5$ e $N = 5$.
+   Após a obtenção das características primárias, um filtro passa-baixa Gaussiano é utilizado para suavizar a assinatura, como pode ser observado na Figura \ref{fig:framediff-passa-baixa}. A assinatura é a concatenação dos somatórios das diferenças entre quadros e a luminância total de cada quadro. O tamanho final de uma assinatura baseada em diferença entre quadros é $2 \times k$ onde $k$ é o número de quadros de um vídeo.
    %Além disso, duas outras características, quietude e créditos, são derivadas das características principais e visam medir o quão imóvel uma sequência de quadros é. Para isso, são definidas as medidas "Quietude" (Equação \ref{eq:framediff-stillness}) e "Créditos" (Equação \ref{eq:framediff-credits}).
 
 %   \begin{equation}
@@ -347,7 +347,7 @@ O artigo também propõe uma alternativa para diminuir o espaço de memória uti
 
 A mesma lógica é aplicada para os $576$ valores diferenciais, porém, para estes não é necessário realizar as subtrações por $128$.
 
-Com os valores quaternizados, a assinatura será adicionada ao vetor final de resultado com duas condições: o quadro não pode ser um quadro de transição, chamado de \textit{black frame} pelos autores, e deve ser considerado quadro de cena. Portanto, a assinatura final é composta de valores no intervalo de $\left[0,3\right]$.
+Com os valores quaternizados, a assinatura será adicionada ao vetor final de resultado com duas condições: o quadro não pode ser um quadro de transição, chamado de \textit{black frame} pelos autores, e deve ser considerado quadro de cena. Portanto, a assinatura final é composta de valores no intervalo de $\left[0,3\right]$. O tamanho final de uma assinatura baseada em quadro de cena é $720 \times f$ onde $f$ é o número de quadros de cena de um vídeo.
 
 % --------------------------------------------------------------------------------------------------
 %
@@ -360,7 +360,7 @@ O descritor apresentado por \citeonline{kim2014rotation} propõe criar uma assin
 
 % BOGDAN ------------ Como são estes padrões??? (SOBRE Dessas sub-regiões, o algoritmo gera dois padrões binários com...)
 
-O método divide o quadro em regiões circulares, e então divide os círculos em sub-regiões, ou seja, sub-círculos, como pode ser observado na Figura \ref{fig:aneis_rbp}. Dessas sub-regiões, o algoritmo gera dois padrões binários com a justificativa de preservar as informações da dimensão espacial do quadro e dessa forma manter a robustez da assinatura em relação aos ataques de rotação e espelhamento. O  primeiro padrão binário  \textit{(RBP, Region Binary Pattern)} representa uma única região circular, enquanto o segundo padrão binário representa a relação entre a primeira região e as regiões adjacentes. Após, esses dois padrões são agrupados e concatenados em um vetor, que é a assinatura resultante do algoritmo. A Figura \ref{fig:dia_rbp} ilustra o fluxo geral do algoritmo.
+O método divide o quadro em $N$ regiões circulares, e então divide os círculos em $M$ sub-regiões, ou seja, sub-círculos ou fatias, como pode ser observado na Figura \ref{fig:aneis_rbp}. Dessas sub-regiões, o algoritmo gera dois padrões binários com a justificativa de preservar as informações da dimensão espacial do quadro e dessa forma manter a robustez da assinatura em relação aos ataques de rotação e espelhamento. O  primeiro padrão binário  \textit{(RBP, Region Binary Pattern)} representa uma única região circular, enquanto o segundo padrão binário representa a relação entre a primeira região e as regiões adjacentes. Após, esses dois padrões são agrupados e concatenados em um vetor, que é a assinatura resultante do algoritmo. A Figura \ref{fig:dia_rbp} ilustra o fluxo geral do algoritmo. O tamanho final de uma assinatura baseada em padrões binários por região é $2 \times N \times M \times k$ onde $k$ é o número de quadros de um vídeo. Para esta implementação, foi utilizado $M = 3$ e $N = 6$.
 
  \begin{figure}[h]
       \centering
