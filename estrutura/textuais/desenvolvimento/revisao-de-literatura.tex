@@ -53,31 +53,31 @@ As Seções \ref{sec:video} a \ref{sec:assinatura} apresentam definições útei
     
     Em um vídeo existe também a dimensão espacial e a dimensão temporal. A dimensão espacial é classificada como a distribuição e a maneira com que os elementos estão organizados em um quadro. A dimensão temporal é a relação na qual os elementos e os quadros mudam ao longo de um vídeo \cite{hampapur2001comparison}.
     
-\section{Transformada de Haar}
+% \section{Transformada de Haar}
 % BOGDAN ------------------------ A explicação nesta seção está superficial demais, não tem referência, e a legenda da figura não explica direito o que cada sub-figura representa. Como assim "1/4 dos dados originais"? Como os detalhes são removidos? É simplesmente uma versão redimensionada da imagem no nível anterior? Se sim, isto é feito com interpolação ou sub-amostragem? Como são calculadas as derivadas? Mais importante que tudo: o que exatamente a transformada de Haar faz? Para que serve? De duas uma: ou vocês precisam detalhar muito melhor esta seção, incluindo a matemática da coisa; ou vocês removem esta seção, colocando uma referência e destacando o que é e para que serve a transformada de Haar quando ela for usada.
 
-Um conceito importante para dois dos algoritmos que serão apresentados (Sub Seções  \ref{wavelets} e \ref{sec:gradientes}) é o da transformada bidimensional de Haar. Ela faz parte da família de Transformadas de Wavelets, que são ferramentas matemáticas para decompor funções de forma hierárquica \cite{stollnitz1995wavelets}. No caso desta monografia essas funções são imagens. % que consiste na separação de um sinal (ou quadro, neste caso) em quatro partes: 
+% Um conceito importante para dois dos algoritmos que serão apresentados (Sub Seções  \ref{wavelets} e \ref{sec:gradientes}) é o da transformada bidimensional de Haar. Ela faz parte da família de Transformadas de Wavelets, que são ferramentas matemáticas para decompor funções de forma hierárquica \cite{stollnitz1995wavelets}. No caso desta monografia essas funções são imagens. % que consiste na separação de um sinal (ou quadro, neste caso) em quatro partes: 
 
-Ao passar uma imagem pela Transformada de Haar 2D, 4 elementos são retornados: LL, LH, HL e HH. LL é a imagem original aplicada a um filtro passa-baixa e reduzida em metade do seu tamanho por um processo de interpolação. LH, HL,   
+% Ao passar uma imagem pela Transformada de Haar 2D, 4 elementos são retornados: LL, LH, HL e HH. LL é a imagem original aplicada a um filtro passa-baixa e reduzida em metade do seu tamanho por um processo de interpolação. LH, HL,   
 
-\begin{enumerate}
-\item $LL$, que contém $1/4$ dos dados originais, removendo os detalhes;
-\item $LH$, que contém as derivadas na horizontal do quadro;
-\item $HL$, que contém as derivadas na vertical do quadro;
-\item $HH$, que contém as derivadas na diagonal do quadro.
-\end{enumerate}
+% \begin{enumerate}
+% \item $LL$, que contém $1/4$ dos dados originais, removendo os detalhes;
+% \item $LH$, que contém as derivadas na horizontal do quadro;
+% \item $HL$, que contém as derivadas na vertical do quadro;
+% \item $HH$, que contém as derivadas na diagonal do quadro.
+% \end{enumerate}
 
-A transformada pode ser aplicada de forma recursiva, usando o quadro $I$ como entrada inicial do algoritmo e o $LL$ como entrada das chamadas subsequentes. Um exemplo do resultado da transformada de Haar pode ser visto na Figura \ref{fig:transf_haar}.
+% A transformada pode ser aplicada de forma recursiva, usando o quadro $I$ como entrada inicial do algoritmo e o $LL$ como entrada das chamadas subsequentes. Um exemplo do resultado da transformada de Haar pode ser visto na Figura \ref{fig:transf_haar}.
 
 % BOGDAN ------------------------ Além de faltar uma explicação mais clara, a transformada de Haar não produz resultados negativos? Vocês devem remapear a imagem para apresentar (mapeando 0 como 0.5 ou 127).
 
- \begin{figure}[h]
-      \centering
-      \caption{Sequência de recursões da transformada em uma imagem.}
-      \includegraphics[width=0.96\textwidth]{dados/figuras/haar.png}      
-      \fonte{Autoria própria.}
-      \label{fig:transf_haar}
-    \end{figure}  
+%  \begin{figure}[h]
+%       \centering
+%       \caption{Sequência de recursões da transformada em uma imagem.}
+%       \includegraphics[width=0.96\textwidth]{dados/figuras/haar.png}      
+%       \fonte{Autoria própria.}
+%       \label{fig:transf_haar}
+%     \end{figure}  
 
 \section{Técnicas de detecção de cópias de vídeo}
     A detecção de cópias baseada em conteúdo (CBCD, do inglês \textit{Content Based Copy Detection}) é uma técnica para identificar vídeos através da criação de uma assinatura digital baseada em seu conteúdo \cite{jiang2011pku}. Apesar de o método ser utilizado em diversas aplicações, a detecção de cópias torna-se um desafio, considerando que a cópia pode sofrer ataques, distorções e transformações que dificultem a identificação do vídeo por um sistema automatizado.
@@ -389,7 +389,19 @@ O método divide o quadro em regiões circulares, e então divide os círculos e
 
 Esta abordagem foi escolhida por ter sido projetada especialmente para ser robusta a uma variedade de ataques fotométricos, como modificações em contraste, brilho, contaminação por ruído e desfoque, inserção de logos, bordas e mudança de formato do quadro. Para a abordagem se tornar ainda mais robusta a esses ataques, \citeonline{Dutta2013} também realizam uma etapa de pré-processamento em que possíveis bordas dos quadros são removidas, então o ruído das imagens é removido através de um filtro gaussiano e finalmente o histograma de cada quadro é equalizado. 
 
-Após a etapa de pré-processamento, para serem utilizados como entrada para este algoritmo, os vídeos devem ser transformados para escala de cinza e ter suas intensidades normalizadas para o intervalo $[0,1]$. A assinatura proposta por \citeonline{Dutta2013} é composta de uma parte baseada na transformada de Haar e em outra parte baseada na distribuição espacial de gradientes.
+Após a etapa de pré-processamento, para serem utilizados como entrada para este algoritmo, os vídeos devem ser transformados para escala de cinza e ter suas intensidades normalizadas para o intervalo $[0,1]$. A assinatura proposta por \citeonline{Dutta2013} é composta de uma parte baseada na transformada de Haar bidimensional e em outra parte baseada na distribuição espacial de gradientes. A transformada de Haar faz parte da família de Transformadas de Wavelets, que são ferramentas matemáticas para decompor funções de forma hierárquica \cite{stollnitz1995wavelets}. No caso desta monografia essas funções são imagens. 
+
+% Um conceito importante para dois dos algoritmos que serão apresentados (Sub Seções  \ref{wavelets} e \ref{sec:gradientes}) é o da transformada bidimensional de Haar. Ela faz parte da família de Transformadas de Wavelets, que são ferramentas matemáticas para decompor funções de forma hierárquica \cite{stollnitz1995wavelets}. No caso desta monografia essas funções são imagens. % que consiste na separação de um sinal (ou quadro, neste caso) em quatro partes: 
+
+% Ao passar uma imagem pela Transformada de Haar 2D, 4 elementos são retornados: LL, LH, HL e HH. LL é a imagem original aplicada a um filtro passa-baixa e reduzida em metade do seu tamanho por um processo de interpolação. LH, HL,   
+
+% \begin{enumerate}
+% \item $LL$, que contém $1/4$ dos dados originais, removendo os detalhes;
+% \item $LH$, que contém as derivadas na horizontal do quadro;
+% \item $HL$, que contém as derivadas na vertical do quadro;
+% \item $HH$, que contém as derivadas na diagonal do quadro.
+% \end{enumerate}
+
 
  Para gerar a assinatura são aplicadas $n$ iterações da transformada de Haar sobre a imagem de entrada $I$, para computar as bandas $HH, LH, HL$ e $LL$.  Então são computadas as energias das bandas $LH$, $HL$, $HH$, conforme a Equação \ref{eq:bandasH}.
  
