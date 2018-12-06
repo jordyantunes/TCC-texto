@@ -360,13 +360,13 @@ O descritor apresentado por \citeonline{kim2014rotation} propõe criar uma assin
 
 % BOGDAN ------------ Como são estes padrões??? (SOBRE Dessas sub-regiões, o algoritmo gera dois padrões binários com...)
 
-O método divide o quadro em $N$ regiões circulares (aneis) (Figura~\ref{fig:fatias_rbp}), e então divide os círculos em $P$ sub-regiões, ou seja, sub-círculos ou fatias, como pode ser observado na Figura~\ref{fig:aneis_rbp}. O algoritmo então calcula a soma da luminância de cada sub-região ($l_{n,p}$) e a média da luminância de todas as regiões combinadas ($R_\mu$). Dessas sub-regiões, o algoritmo gera dois padrões binários com a justificativa de preservar as informações da dimensão espacial do quadro e dessa forma manter a robustez da assinatura em relação aos ataques de rotação e espelhamento. O  primeiro padrão binário  \textit{(RBP, Region Binary Pattern)} representa uma única região circular é calculado com a Fórmula~\ref{eq:rbp_aneis}, enquanto o segundo padrão binário representa a relação entre a primeira região e as regiões adjacentes. Após, esses dois padrões são agrupados e concatenados em um vetor, que é a assinatura resultante do algoritmo. A Figura \ref{fig:dia_rbp} ilustra o fluxo geral do algoritmo. O tamanho final de uma assinatura baseada em padrões binários por região é $2 \times N \times M \times k$ onde $k$ é o número de quadros de um vídeo. Para esta implementação, foi utilizado $N = 3$ e $P = 6$.
+O método divide o quadro em $N$ regiões circulares (aneis) (Figura~\ref{fig:fatias_rbp}), e então divide os círculos em $P$ sub-regiões, ou seja, sub-círculos ou fatias, como pode ser observado na Figura~\ref{fig:aneis_rbp}. O algoritmo então calcula a soma da luminância de cada sub-região ($l_{n,p}$) e a média da luminância de todas as regiões combinadas ($R_\mu$). Dessas sub-regiões, o algoritmo gera dois padrões binários com a justificativa de preservar as informações da dimensão espacial do quadro e dessa forma manter a robustez da assinatura em relação aos ataques de rotação e espelhamento. O  primeiro padrão binário  \textit{(RBP, Region Binary Pattern)} representa uma única região circular é calculado com a Fórmula~\ref{eq:rbp_aneis}, enquanto o segundo padrão binário representa a relação entre a primeira região e as regiões adjacentes, dado pela Fórmula~\ref{eq:rbp_fatias}. Após, esses dois padrões são agrupados e concatenados em um vetor, que é a assinatura resultante do algoritmo. A Figura \ref{fig:dia_rbp} ilustra o fluxo geral do algoritmo. O tamanho final de uma assinatura baseada em padrões binários por região é $2 \times N \times M \times k$ onde $k$ é o número de quadros de um vídeo. Para esta implementação, foi utilizado $N = 3$ e $P = 6$.
 
 \begin{equation}
 	b_{n,p} = \left\{
     \begin{array}{lr}
-      1, & l_{n,p} \geqslant R_\mu\\
-      0, & 
+      1 & se \quad l_{n,p} \geqslant R_\mu\\
+      0 & se \quad l_{n,p} < R_\mu
     \end{array}
   \right.
   \label{eq:rbp_aneis}
@@ -375,8 +375,8 @@ O método divide o quadro em $N$ regiões circulares (aneis) (Figura~\ref{fig:fa
 \begin{equation}
 	b_{n+N,p} = \left\{
     \begin{array}{lr}
-      1 & se l_{n,p} \geqslant l_{n+1,p}\\
-      0, & 
+      1 & se \quad l_{n,p} \geqslant l_{n+1,p}\\
+      0 & se \quad l_{n,p} < l_{n+1,p} 
     \end{array}
   \right.
   \label{eq:rbp_fatias}
