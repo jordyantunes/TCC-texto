@@ -360,7 +360,7 @@ O descritor apresentado por \citeonline{kim2014rotation} propõe criar uma assin
 
 % BOGDAN ------------ Como são estes padrões??? (SOBRE Dessas sub-regiões, o algoritmo gera dois padrões binários com...)
 
-O método divide o quadro em $N$ regiões circulares, e então divide os círculos em $M$ sub-regiões, ou seja, sub-círculos ou fatias, como pode ser observado na Figura \ref{fig:aneis_rbp}. Dessas sub-regiões, o algoritmo gera dois padrões binários com a justificativa de preservar as informações da dimensão espacial do quadro e dessa forma manter a robustez da assinatura em relação aos ataques de rotação e espelhamento. O  primeiro padrão binário  \textit{(RBP, Region Binary Pattern)} representa uma única região circular, enquanto o segundo padrão binário representa a relação entre a primeira região e as regiões adjacentes. Após, esses dois padrões são agrupados e concatenados em um vetor, que é a assinatura resultante do algoritmo. A Figura \ref{fig:dia_rbp} ilustra o fluxo geral do algoritmo. O tamanho final de uma assinatura baseada em padrões binários por região é $2 \times N \times M \times k$ onde $k$ é o número de quadros de um vídeo. Para esta implementação, foi utilizado $M = 3$ e $N = 6$.
+O método divide o quadro em $N$ regiões circulares (aneis) (Figura~\ref{fig:fatias_rbp}), e então divide os círculos em $M$ sub-regiões, ou seja, sub-círculos ou fatias, como pode ser observado na Figura~\ref{fig:aneis_rbp}. Dessas sub-regiões, o algoritmo gera dois padrões binários com a justificativa de preservar as informações da dimensão espacial do quadro e dessa forma manter a robustez da assinatura em relação aos ataques de rotação e espelhamento. O  primeiro padrão binário  \textit{(RBP, Region Binary Pattern)} representa uma única região circular, enquanto o segundo padrão binário representa a relação entre a primeira região e as regiões adjacentes. Após, esses dois padrões são agrupados e concatenados em um vetor, que é a assinatura resultante do algoritmo. A Figura \ref{fig:dia_rbp} ilustra o fluxo geral do algoritmo. O tamanho final de uma assinatura baseada em padrões binários por região é $2 \times N \times M \times k$ onde $k$ é o número de quadros de um vídeo. Para esta implementação, foi utilizado $M = 3$ e $N = 6$.
 
  \begin{figure}[h]
       \centering
@@ -368,6 +368,13 @@ O método divide o quadro em $N$ regiões circulares, e então divide os círcul
       \includegraphics[width=0.96\textwidth]{dados/figuras/brp_aneis}
       \fonte{Autoria própria.}
        	\label{fig:aneis_rbp}
+    \end{figure} 
+\begin{figure}[h]
+      \centering
+      \caption{Divisão de um quadro em regiões fatias.}
+      \includegraphics[width=0.96\textwidth]{dados/figuras/brp_fatias}
+      \fonte{Autoria própria.}
+       	\label{fig:fatias_rbp}
     \end{figure} 
 
  \begin{figure}[h]
@@ -390,7 +397,7 @@ O método divide o quadro em $N$ regiões circulares, e então divide os círcul
 
 Esta abordagem foi escolhida por ter sido projetada especialmente para ser robusta a uma variedade de ataques fotométricos, como modificações em contraste, brilho, contaminação por ruído e desfoque, inserção de logos, bordas e mudança de formato do quadro. Para a abordagem se tornar ainda mais robusta a esses ataques, \citeonline{Dutta2013} também realizam uma etapa de pré-processamento em que possíveis bordas dos quadros são removidas, então o ruído das imagens é removido através de um filtro gaussiano e finalmente o histograma de cada quadro é equalizado. 
 
-Após a etapa de pré-processamento, para serem utilizados como entrada para este algoritmo, os vídeos devem ser transformados para escala de cinza e ter suas intensidades normalizadas para o intervalo $[0,1]$. A assinatura proposta por \citeonline{Dutta2013} é composta de uma parte baseada na transformada de Haar bidimensional e em outra parte baseada na distribuição espacial de gradientes. A transformada de Haar faz parte da família de Transformadas de Wavelets, que são ferramentas matemáticas para decompor funções de forma hierárquica \cite{stollnitz1995wavelets}. No caso desta monografia essas funções são imagens. 
+Após a etapa de pré-processamento, para serem utilizados como entrada para este algoritmo, os vídeos devem ser transformados para escala de cinza e ter suas intensidades normalizadas para o intervalo $[0,1]$. A assinatura proposta por \citeonline{Dutta2013} é baseada na transformada de Haar bidimensional, ela faz parte da família de Transformadas de Wavelets, que são ferramentas matemáticas para decompor funções de forma hierárquica \cite{stollnitz1995wavelets}. No caso desta monografia essas funções são imagens. 
 
 % Um conceito importante para dois dos algoritmos que serão apresentados (Sub Seções  \ref{wavelets} e \ref{sec:gradientes}) é o da transformada bidimensional de Haar. Ela faz parte da família de Transformadas de Wavelets, que são ferramentas matemáticas para decompor funções de forma hierárquica \cite{stollnitz1995wavelets}. No caso desta monografia essas funções são imagens. % que consiste na separação de um sinal (ou quadro, neste caso) em quatro partes: 
 
@@ -419,7 +426,7 @@ Após a etapa de pré-processamento, para serem utilizados como entrada para est
 %     \item Computar energia de $LH$, $HL$, $HH$ \footnote{$  \frac{1}{MN}\sum_{x=1}^M \sum_{y=1}^N |\mathbb{I}(x,y)|$};
 %   \end{enumerate}
 
- Em seguida, computa-se somente a energia do último valor de $LL$ da subimagem $I$. Finalmente, os valores de energia obtidos nos passos anteriores são concatenados em um vetor, resultando na assinatura do vídeo.
+ Em seguida, computa-se somente a energia do último valor de $LL$ da subimagem $I$. Finalmente, os valores de energia obtidos nos passos anteriores são concatenados em um vetor, resultando na assinatura do vídeo. O tamanho final de uma assinatura baseada em wavelet é $(3 \times n) + 1)$ onde $k$ é o número de quadros de um vídeo e $n$ o número de iterações da transformada de Haar.
 
 % \begin{figure}[h]
 %   \centering
