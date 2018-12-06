@@ -163,7 +163,7 @@ Os ataques podem ainda ser classificados como geométricos, fotométricos ou tem
 \subsection{Assinatura baseada na medida ordinal}
 \label{sec:med_ordinal}
 
-	O algoritmo proposto por \citeonline{hua2004robust} baseia-se na intensidade dos \textit{pixels} de cada quadro para compor a assinatura. Primeiramente, a taxa de amostragem, ou seja, a taxa de quadros por segundo (FPS) do vídeo de entrada é padronizada, para que a assinatura gerada fique mais compacta e seja tolerante a diferentes formatos de compressão. Além disso, o vídeo é convertido para escala de cinza.
+	O algoritmo global proposto por \citeonline{hua2004robust} baseia-se na intensidade dos \textit{pixels} de cada quadro para compor a assinatura. Primeiramente, a taxa de amostragem, ou seja, a taxa de quadros por segundo (FPS) do vídeo de entrada é padronizada, para que a assinatura gerada fique mais compacta e seja tolerante a diferentes formatos de compressão. Além disso, o vídeo é convertido para escala de cinza.
 
 	Após esse pré-processamento, cada quadro é particionado em $M \times N$ blocos, como pode ser observado na Figura~\ref{fig:medidaord}, e a intensidade média para cada um dos blocos é computada. O descritor é então formado pela concatenação dos vetores em cada bloco. O método é resumido na Figura~\ref{fig:dia_ordinal}. O tamanho final de uma assinatura baseada em medida ordinal é $N \times M \times k$ onde $k$ é o número de quadros de um vídeo. Para esta implementação, foi utilizado $M = 5$ e $N = 5$.
 
@@ -193,7 +193,7 @@ Os ataques podem ainda ser classificados como geométricos, fotométricos ou tem
 \subsection{Assinatura baseada em gradientes}
 \label{sec:gradientes}
 
-	O algoritmo proposto por \citeonline{lee2008robust} utiliza a distribuição dos gradientes para geração de assinaturas. O primeiro passo é definir uma taxa de quadros por segundo (FPS) fixa, além da conversão para escala de cinza. Também é realizado o redimensionamento dos quadros, tornando o método robusto independente da mudança de resolução do vídeo. Em seguida, os gradientes $\mathbb{G}x$ e $\mathbb{G}y$ dos pixels de cada quadro são calculados como mostra a Equação \ref{eq:gmatrix}.
+	O algoritmo global proposto por \citeonline{lee2008robust} utiliza a distribuição dos gradientes para geração de assinaturas. O primeiro passo é definir uma taxa de quadros por segundo (FPS) fixa, além da conversão para escala de cinza. Também é realizado o redimensionamento dos quadros, tornando o método robusto independente da mudança de resolução do vídeo. Em seguida, os gradientes $\mathbb{G}x$ e $\mathbb{G}y$ dos pixels de cada quadro são calculados como mostra a Equação \ref{eq:gmatrix}.
 
 \begin{equation}
   \label{eq:gmatrix}
@@ -310,7 +310,7 @@ A assinatura final é obtida pela concatenação desses vetores (Figura \ref{fig
 
 \subsection{Assinatura baseada em quadros de cena}
 
-  A abordagem proposta por \citeonline{mao2015sceneframe} é baseada na assinatura de quadros de cena (Seção \ref{sec:video}). De acordo com os autores, os quadros de cena podem ser \textit{intraframes}, ou seja, quadros que iniciam tomadas, quanto \textit{interframes}, contanto que sigam as características descritas na Seção \ref{sec:video}, ou seja, possuir todos os mesmos elementos dos quadros restantes e o mesmo \textit{background}.
+  A abordagem proposta por \citeonline{mao2015sceneframe} é baseada na assinatura de quadros de cena (Seção \ref{sec:video}). De acordo com os autores, os quadros de cena podem ser \textit{intraframes}, ou seja, quadros que iniciam tomadas, quanto \textit{interframes}, contanto que sigam as características descritas na Seção \ref{sec:video}, ou seja, possuir todos os mesmos elementos dos quadros restantes e o mesmo \textit{background}. Esse é um algoritmo que gera uma assinatura do tipo global.
 
 A assinatura individual de cada quadro é calculada conforme os passos descritos na Figura \ref{fig:dia_sceneframe}. Os quadros passam por um pré-processamento, onde o componente de luminância pertencente ao espaço HSL (\textit{hue, saturation, lightness}) da imagem é extraído, uma vez que apenas este valor é considerado pelo algoritmo. O quadro é recortado mantendo-se apenas sua região central e redimensionado para o tamanho definido de $108\times132$ pixels. Além disso, é aplicado o filtro passa-baixa Gaussiano.
 
@@ -356,7 +356,7 @@ Com os valores quaternizados, a assinatura será adicionada ao vetor final de re
 % --------------------------------------------------------------------------------------------------
 
 
-O descritor apresentado por \citeonline{kim2014rotation} propõe criar uma assinatura que seja robusta para ataques de rotação e espelhamento. Trata-se de um descritor local que utiliza a dimensão espacial dos quadros do vídeo para a extração da assinatura. 
+O descritor local apresentado por \citeonline{kim2014rotation} propõe criar uma assinatura que seja robusta para ataques de rotação e espelhamento. Trata-se de um descritor local que utiliza a dimensão espacial dos quadros do vídeo para a extração da assinatura. 
 
 % BOGDAN ------------ Como são estes padrões??? (SOBRE Dessas sub-regiões, o algoritmo gera dois padrões binários com...)
 
@@ -416,7 +416,7 @@ O método divide o quadro em $N$ regiões circulares (aneis) (Figura~\ref{fig:fa
 \subsection{Assinatura baseada em wavelets}
 \label{wavelets}
 
-Esta abordagem foi escolhida por ter sido projetada especialmente para ser robusta a uma variedade de ataques fotométricos, como modificações em contraste, brilho, contaminação por ruído e desfoque, inserção de logos, bordas e mudança de formato do quadro. Para a abordagem se tornar ainda mais robusta a esses ataques, \citeonline{Dutta2013} também realizam uma etapa de pré-processamento em que possíveis bordas dos quadros são removidas, então o ruído das imagens é removido através de um filtro gaussiano e finalmente o histograma de cada quadro é equalizado. 
+Esta abordagem foi escolhida por ter sido projetada especialmente para ser robusta a uma variedade de ataques fotométricos, como modificações em contraste, brilho, contaminação por ruído e desfoque, inserção de logos, bordas e mudança de formato do quadro, ou seja, utiliza características globais e locais para a composição da assinatura. Para a abordagem se tornar ainda mais robusta a esses ataques, \citeonline{Dutta2013} também realizam uma etapa de pré-processamento em que possíveis bordas dos quadros são removidas, então o ruído das imagens é removido através de um filtro gaussiano e finalmente o histograma de cada quadro é equalizado. 
 
 Após a etapa de pré-processamento, para serem utilizados como entrada para este algoritmo, os vídeos devem ser transformados para escala de cinza e ter suas intensidades normalizadas para o intervalo $[0,1]$. A assinatura proposta por \citeonline{Dutta2013} é baseada na transformada de Haar bidimensional, ela faz parte da família de Transformadas de Wavelets, que são ferramentas matemáticas para decompor funções de forma hierárquica \cite{stollnitz1995wavelets}. No caso desta monografia essas funções são imagens. 
 
@@ -498,13 +498,13 @@ Após a etapa de pré-processamento, para serem utilizados como entrada para est
 
 
 
-O algoritmo proposto por \citeonline{minetto2007reliable} detecta o movimento da câmera em um vídeo em três níveis: \textit{pan} (movimentos para esquerda ou direita, sem mover a base da câmera), \textit{tilt} (movimentos para cima ou para baixo, sem mover a base da câmera), \textit{zoom} (movimentos de aproximação ou de afastamento) e roll (movimento de rotação com câmera voltada para o mesmo ponto). O algoritmo é capaz de determinar o movimento da câmera em 95\% das tomadas nos casos de testes realizados pelos autores, em um ambiente onde 98\% das tomadas haviam algum tipo de movimento de câmera. A Figura~\ref{fig:example_cameramotion} apresenta um exemplo de movimentação de câmera entre dois quadros.
+O algoritmo proposto por \citeonline{minetto2007reliable} detecta o movimento da câmera em um vídeo em quatro níveis: \textit{pan} (movimentos para esquerda ou direita, sem mover a base da câmera), \textit{tilt} (movimentos para cima ou para baixo, sem mover a base da câmera), \textit{zoom} (movimentos de aproximação ou de afastamento) e \textit{roll} (movimento de rotação com câmera voltada para o mesmo ponto). É um algoritmo de assinatura local que é capaz de determinar o movimento da câmera em 95\% das tomadas nos casos de testes realizados pelos autores, em um ambiente onde 98\% das tomadas haviam algum tipo de movimento de câmera. A Figura~\ref{fig:example_cameramotion} apresenta um exemplo de movimentação de câmera entre dois quadros.
 
 \begin{figure}[h]
 	\centering
 	\caption{Movimento da câmera entre dois quadros consecutivos. Os pontos as direita representam os vetores de movimento. Neste caso há uma combinação de \textit{pan} para a esquerda e \textit{tilt} para cima.}
 	\includegraphics[width=\textwidth]{dados/figuras/cameramotion-example}
-	\fonte{\cite{minetto2007reliable}}
+	\fonte{\cite{minetto2007reliable}.}
 	\label{fig:example_cameramotion}
 \end{figure}
 
