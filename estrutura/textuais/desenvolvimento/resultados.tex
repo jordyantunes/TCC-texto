@@ -37,6 +37,7 @@ Os subconjuntos de parametrização foram nomeados de T.1 a T.5 e o melhor limia
 Na sequência, serão discutidos os resultados obtidos nos testes utilizando os limiares definidos na etapa anterior para cada tipo de assinatura. As assinaturas serão analisadas quanto a sua robustez e unicidade por tipo de distorção aplicada (fotométrica, geométrica ou temporal). Por fim, será avaliado se a junção de um algoritmo temporal (camera motion) e um algoritmo espacial é mais eficaz em detectar cópias de vídeo que a utilização de um tipo de assinatura de forma isolada. 
 
 \section{Robustez}
+\label{sec:robustez}
 
 Segundo \citeonline{hua2004robust}, robustez é a capacidade de uma assinatura ser tolerante a ruído, o que quer dizer que dois vídeos com o mesmo conteúdo devem ter assinaturas idênticas ou muito similares, mesmo que eles tenham passado por algum tipo de distorção.
 
@@ -45,7 +46,7 @@ Ao tentar determinar a robustez de um algoritmo, leva-se em consideração apena
 
 \begin{figure}[h]
 	\centering
-	\caption{Mapa de calor de revocação, precisão e fmeasure de cada tipo de assinatura com cada tipo de distorção.}
+	\caption{Mapa de calor de revocação, precisão e fmeasure de cada tipo de assinatura com cada tipo de distorção. Revocação é definida na Seção~\ref{sec:robustez}, precisão é definida na Seção~\ref{sec:unicidade} e \textit{F-measure} é definido na Seção~\ref{sec:limiar}.}
 	% \label{fig:heatmap-revocacao}
 	\label{fig:heatmap-comparacoes}
 	% \includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_recall.png}	
@@ -70,6 +71,7 @@ A revocação sozinha não pode ser utilizada para a avaliação de uma assinatu
 
 % Verificar se consegue encontrar a cópia
 \section{Unicidade}
+\label{sec:unicidade}
 
 Segundo \citeonline{hua2004robust}, unicidade é a capacidade discriminativa de uma assinatura de vídeo, o que significa que vídeos com conteúdos diferentes devem ter assinaturas diferentes. Esta característica é essencial para a utilidade de uma assinatura, pois uma técnica que gera muitos casos de falsos positivos perde sua utilidade como ferramenta de automação de detecção de cópias. Para avaliar esta característica, é utilizada a medida de precisão, que mede a quantidade de casos que são relevantes (verdadeiros positivos), dentre todos os pares de vídeos que são classificados como cópias (verdadeiros positivos e falsos positivos)\cite{Ting2010}.
 
@@ -101,8 +103,10 @@ Para entender o motivo destes resultados para as assinaturas temporais e verific
 \end{figure}
 
 \section{Peso da escolha do limiar sobre a detecção de cópias}
+\label{sec:limiar}
 
-Para chegar a uma conclusão sobre o tipo de assinatura mais adequado para a detecção de cópias em relação a sua robustez e unicidade, é preciso analisar ambas a precisão e a revocação de forma conjunta. Ao comparar as duas medidas (Figura~\ref{fig:heatmap-comparacoes}), nota-se uma relação entre estas: os pontos escuros (piores resultados) estão localizados nas mesmas regiões, mas no geral, todas as assinaturas tiveram resultados de precisão melhores que os de revocação. Além disso nota-se também que a relação entre revocação e precisão não é linear. A Figura~\ref{fig:heatmap-comparacoes} usa a medida \textit{F-measure} para combinar precisão e revocação.
+Para chegar a uma conclusão sobre o tipo de assinatura mais adequado para a detecção de cópias em relação a sua robustez e unicidade, é preciso analisar ambas a precisão e a revocação de forma conjunta. Ao comparar as duas medidas (Figura~\ref{fig:heatmap-comparacoes}), nota-se uma relação entre estas: os pontos escuros (piores resultados) estão localizados nas mesmas regiões, mas no geral, todas as assinaturas tiveram resultados de precisão melhores que os de revocação. Além disso nota-se também que a relação entre revocação e precisão não é linear. A Figura~\ref{fig:heatmap-comparacoes} usa a medida \textit{F-measure} para combinar precisão e revocação, ela é definida por $Fmeasure = 2 \times \frac{p \times r}{p + r}$, onde $p$ é o valor de precisão e $r$ é o valor de revocação.
+
 
 A Figura~\ref{fig:todos-limiares} mostra a variação das medidas de precisão e revocação à medida que o limiar de corte cresce. Há claramente uma diminuição da capacidade discriminativa de cada assinatura à medida com que o limiar de corte se afasta do zero, além disso, cada assinatura apresenta uma proporção diferente para essa diminuição. As assinaturas Medida Ordinal, Wavelets, Scene Frame e RBP são as que mantêm a precisão em níveis mais altos. 
 
@@ -153,10 +157,11 @@ O primeiro passo é a definição do método de combinação destas assinaturas.
 
 Como cada tipo de assinatura gera valores muito diferentes ao ser usado como entrada para o DTW (veja Tabela~\ref{tab:limiares} para exemplos), esses valores passam por uma etapa de normalização utilizando o método Min-Max~\cite{al2006data}, que realiza uma transformação linear para um intervalo de valores pré-definido (que é $[0, 1]$), como mostra a Equação~\ref{eq:minmax}.
 
-$$
-\label{eq:minmax}
-A' = \left(\frac{A - min(A)}{max(A) - min(A)}\right) * (D - C) + C
-$$
+\begin{equation}
+	\label{eq:minmax}
+	A' = \left(\frac{A - min(A)}{max(A) - min(A)}\right) * (D - C) + C	
+\end{equation}
+
 
 Onde $A'$ é o vetor $A$ normalizado, e $C$ e $D$ são os valores mínimos e máximos definidos previamente. No caso desta monografia, foram utilizados $C = 0$ e $D = 1$ para normalizar os vetores no intervalo $[0, 1]$.
 
@@ -188,9 +193,9 @@ Onde $A'$ é o vetor $A$ normalizado, e $C$ e $D$ são os valores mínimos e má
 %     \fonte{Autoria própria.}
 % \end{table}
 
-Para comparar os resultados com aqueles dos algoritmos separados, os valores da medida F-measure para cada teste de classificação estão dispostos na Figura~\ref{fig:compacao-metodos}. No geral, a combinação de duas assinaturas não teve efeitos positivos na classificação. Com ela, todas as combinações passaram a ser sensíveis a distorções temporais e poucos casos apresentaram melhoras. Nos casos em que a mudança foi positiva, o ganho foi de menos de 5\%. 
+Para comparar os resultados com aqueles dos algoritmos separados, os valores da medida \textit{F-measure} para cada teste de classificação estão dispostos na Figura~\ref{fig:compacao-metodos}. No geral, a combinação de duas assinaturas não teve efeitos positivos na classificação. Com ela, todas as combinações passaram a ser sensíveis a distorções temporais e poucos casos apresentaram melhoras. Nos casos em que a mudança foi positiva, o ganho foi de menos de 5\%. 
 
-\begin{figure}
+\begin{figure}[H]
 	\caption{Histograma com valores de fmeasure para cada tipo de assinatura. Em cima, resultados da combinação da assinatura Camera Motion com as demais, embaixo, a diferença entre os resultados com e sem a combinação das assinaturas.}
 	\label{fig:compacao-metodos}
 	% \includegraphics[width=\textwidth]{dados/figuras/experimentos/heatmap_final_comparacao.png}

@@ -36,10 +36,11 @@
 \pretextual
 \imprimircapa                                               	           % Comando para imprimir Capa
 \imprimirfolhaderosto{}                                     		   % Comando para imprimir Folha de rosto
+\includepdf[pages=-]{termo_aprovacao.pdf}
 %INSERE ELEMENTOS PRÉ-TEXTUAIS
 %\include{estrutura/pre-textuais/dedicatoria}          			   % Dedicatória
 \include{estrutura/pre-textuais/agradecimentos}        			   % Agradecimentos
-\imprimirfolhadeaprovacao
+% \imprimirfolhadeaprovacao
 %\include{estrutura/pre-textuais/epigrafe}              			   % Epígrafe
 \include{estrutura/pre-textuais/resumo}             			   % Resumo em Português
 %\include{estrutura/pre-textuais/abstract}             		           % Resumo em Inglês
@@ -52,6 +53,8 @@
 \include{estrutura/pre-textuais/sumario}               			   % Sumário
 
 \textual
+\setcounter{page}{11}
+
 % INSERE ELEMENTOS TEXTUAIS
 \include{estrutura/textuais/introducao2}                		           % Introdução
 \include{estrutura/textuais/desenvolvimento/revisao-de-literatura}         % Revisão de Literatura
